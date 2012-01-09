@@ -1,0 +1,13 @@
+wat te maken:
+- Website:
+	- aantal statische pagina's met info bedrijf of organisatie (week 1)
+	- dynamischedeel (rest van de tijd :P)
+	- ...
+
+- raport (week 4):
+	- uitleg van het ontwerp aan management
+	- technishe uitleg aan ICT-afdeling
+		+ in de form van: een onderhoudshandleiding
+
+- presentatie (week 3 en nog maals na commentaar in week 4):
+	- ontwerpbeslissingen 
