@@ -1,0 +1,36 @@
+body{
+	background-color: #dddddd;
+	/*background-image: url(http://3.bp.blogspot.com/-gUCjSKMWpds/TZw_VvuZYoI/AAAAAAAAAic/CiQ2zOZ9IA0/s1600/anime_girl_14917_1600x1200theanimeg.jpg); */
+	background-repeat: no-repeat;
+	background-position: 0em 4em;
+}
+
+h1{
+	font-size: 3em;
+	background-color: #0000ff;
+	color: #ffffff;
+	text-shadow: 0.1em 0.1em 4px #000000
+}
+
+h3{
+	width: 16em;
+	position: relative;
+	left: 7em;
+	font-size: 2em;
+	text-align: center;
+}
+
+p{
+	width: 30em;
+	word-wrap: normal;
+}
+
+p.txtField {
+	width: 15em;
+	position: relative;
+	left: 23em;
+	text-align: center;
+	background-image: url(white.jpg);
+	background-repeat: repeat;
+	background-position: center
+}
