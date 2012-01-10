@@ -18,16 +18,45 @@ function loadHodexSchool($loc) {
 function loadHodexProgram($loc) {
     $doc = loadXml($loc);
     
+    $result = array();
+    
     if (getCountry($doc) == "nl")
     {
         $pd = getElementByTagName($doc, "programDescriptions");
         $names = $pd->getElementsByTagName("programName");
-        
-        foreach($names as $program) {
-            if($program->attributes->getNamedItem("lang")->nodeValue == "nl")
-               echo $program->nodeValue;
-        }
+
+        $result["name"] = getElementInLang($names, "nl")->nodeValue;
+        $result["courses"] = loadHodexCourses(getElementByTagName($doc, "programCurriculum"));
     }
+    
+    return $result;
+}
+
+function loadHodexCourses($xml) {
+    $courses = $xml->getElementsByTagName("course");
+    $result = array();
+    
+    for ($i = 0; $i < $courses->length; $i++)
+    {
+        $course = $courses->item($i);
+        $courseObj = array();
+        
+        $courseObj["name"] = getElementInLang($course->getElementsByTagName("courseName"), "nl")->nodeValue;
+        $courseObj["year"] = getElementByTagName($course, "yearOfCurriculum")->nodeValue;
+        $courseObj["description"] = getElementInLang($course->getElementsByTagName("courseDescription"), "nl")->nodeValue;
+        
+        $result[$i] = $courseObj;
+    }
+    
+    return $result;
+}
+
+function getElementInLang($elements, $lang) {
+    foreach($elements as $element) {
+        if($element->attributes->getNamedItem("lang")->nodeValue == $lang)
+            return $element;
+    }
+    return $elements->item(0);
 }
 
 function getCountry($xmlDoc) {
@@ -58,9 +87,29 @@ function loadXml($loc) {
     return $doc;
 }
 
+function displayCourses($courses, $year) {
+    echo "<h2>Vakken jaar ".$year."</h2>\n";
+    echo "<dl>\n";
+    foreach($courses as $course) {
+        if ($course["year"] == $year)
+        {
+            echo "<dt>".$course["name"]."</dt>\n";
+            echo "<dd>".$course["description"]."</dd>\n";
+        }
+    }
+    echo "</dl>";
+}
+
 if (count($_GET) == 1) {
     $loc = $_GET["u"];
-    loadHodexProgram($loc);
+    $program = loadHodexProgram($loc);
+    
+    echo "<h1>".$program["name"]."</h1>\n";
+    
+    displayCourses($program["courses"], 1);
+    displayCourses($program["courses"], 2);
+    displayCourses($program["courses"], 3);
+    
 } else {
     $loc = "http://www.hodex.nl/hodexDirectory.xml";
     echo "<ul>\n";
