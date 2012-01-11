@@ -1,9 +1,15 @@
+* { padding: 0; margin: 0; }
+
 body{
-	max-width: 1024px;
-	background-color: #ffffff;
+	max-width: 1424px;
+	min-width: 720px;
+	background-color: #FFFFFF;
 	
+	/*
 	border-left: 7em solid #aaaaaa;
 	border-right: 7em solid #aaaaaa;
+	*/
+	margin: 0 auto 0 auto;
 	/*background-repeat: no-repeat;*/
 }
 
@@ -11,7 +17,7 @@ h1{
 	/*
 	padding: 2em 0em;
 	*/
-	height: 321;
+	height: 321px;
 	padding-right: 0.3em;
 	font-size: 3em;
 	background-image: url(upper_part_site1.png);
@@ -95,4 +101,9 @@ p.post2{
 	position: relative;
 	margin:0em 0em;
 	margin-right: 2em;
+}
+
+div.rand{
+	margin: 0em 5em;
+	background-color: #ffffff;
 }
