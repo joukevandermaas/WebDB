@@ -60,6 +60,31 @@ h4{
 	margin-bottom: 0em;
 }
 
+lu{
+	
+	list-style-type: none;
+} 
+
+li {
+	word-wrap: normal;
+	padding: 0.3em 1em;
+}
+lu li.inspringL{
+	background-color: #363636;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 2em;
+}
+
+lu li.inspringR{
+	background-color: #6cb5ff;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	margin-right: 2em;
+}
+
 p{
 	word-wrap: normal;
 	/*padding-left: 1em;
