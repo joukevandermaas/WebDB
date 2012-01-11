@@ -5,6 +5,8 @@
 
 body#staticinfo {
     background: #fff;
+    color: #fff;
+    font-family: Arial, non-serif;
 }
 
 /* header */
@@ -32,14 +34,17 @@ body#staticinfo {
 /* content */
 #content {
     margin: 200px auto;
-    width: 960px;
+    max-width: 1024px;
 }
 #content p, #content dl {
+    padding: .5em;
     background: #454545;
 }
 #content h1, #content h2, #content h3 {
     background: #fff;
     text-transform: uppercase;
+    color: #454545;
+    margin-top: 1em;
 }
 ul.breadcrumbs {
     list-style: none;
