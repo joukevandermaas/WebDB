@@ -75,7 +75,7 @@ li {
 	padding: 0.3em 1em;
 }
 ul li.inspringL{
-	background-color: #363636;
+	background-color: #454545;
 	color: #ffffff;
 	position: relative;
 	margin:0em 0em;
@@ -99,7 +99,7 @@ p{
 
 p.intro{
 	padding-right: 25em;
-	background-color: #454545;
+	background-color: #545454;
 	color: #ffffff;
 	margin-top: 0em;
 }
@@ -142,4 +142,18 @@ div.logo{
 	height: 280px;
 	background-image: url(upper_part_site1.png);
 	background-repeat: no-repeat;
+}
+
+div.intro_grd{
+	padding: 0.3em 1em;
+	background: #545454;
+	
+	/* voor firefox en dergelijke */
+	background: -moz-linear-gradient(top, #545454 , #151515);
+	
+	/* voor chrome en dergelijke */
+	background: -webkit-gradient(linear, left top, left bottom, from(#545454) , to(#151515));
+	
+	padding-right: 25em;
+	color: #ffffff;
 }
