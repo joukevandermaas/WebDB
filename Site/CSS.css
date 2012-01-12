@@ -1,9 +1,12 @@
 * { padding: 0; margin: 0; }
-
+/*
+* { border: 1px solid red;}
+*/
 body{
 	max-width: 1024px;
 	min-width: 920px;
 	background-color: #FFFFFF;
+	font-family:"Arial", "Helvetica", "sans-serif";
 	
 	/*
 	border-left: 7em solid #aaaaaa;
@@ -100,12 +103,11 @@ ul li.inspringR h5{
 }
 
 p{
-	word-wrap: normal;
 	padding: 0.3em 1em;
 }
 
 p.intro{
-	padding-right: 25em;
+	/*padding-right: 25em;*/
 	background-color: #545454;
 	color: #ffffff;
 	margin-top: 0em;
@@ -141,13 +143,16 @@ p.post2{
 }
 
 img.opleidingPlaatje{
-	height: 320px;
-	float:right;
+	width: 240px;
+	height: auto;
 	margin: 1em;
-	margin-right: 2em;
 	background-color: #6cb5ff;
 	padding: 1em;
-	border: 1em solid #bbbbbb;
+	border: 1em solid rgba(187, 187, 187, 0.5);
+	
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding;
+	background-clip: padding-box;
 	/*opacity: 0.8;*/
 }
 
@@ -162,17 +167,23 @@ div.logo{
 	background-repeat: no-repeat;
 }
 
+div.opleidingPlaatje{
+	float: right;
+}
+
 div.intro_grd{
 	padding: 0.3em 1em;
-	background: #545454;
+	background-color: #545454;
 	
 	/* voor firefox en dergelijke */
 	background: -moz-linear-gradient(top, #545454 , #151515);
 	
+	/* voor opera */
+	background: -o-linear-gradient(top, #545454 , #151515);
+	
 	/* voor chrome en dergelijke */
 	background: -webkit-gradient(linear, left top, left bottom, from(#545454) , to(#151515));
 	
-	padding-right: 25em;
 	color: #ffffff;
 }
 
@@ -182,6 +193,9 @@ div.title_grd{
 	
 	/* voor firefox en dergelijke */
 	background: -moz-linear-gradient(top, #333333 , #050505);
+	
+	/* voor opera en dergelijke */
+	background: -o-linear-gradient(top, #333333 , #050505);
 	
 	/* voor chrome en dergelijke */
 	background: -webkit-gradient(linear, left top, left bottom, from(#545454) , to(#151515));
