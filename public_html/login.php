@@ -1,6 +1,6 @@
 <?php
 
-$serverUrl = "http://websec.science.uva.nl/~jvdm/login.php";
+$serverUrl = "http://websec.science.uva.nl/~brinkman/login.php";
 $loginService = "https://bt-lap.ic.uva.nl/cas/login";
 $ticketValidateService = "https://bt-lap.ic.uva.nl/cas/serviceValidate?ticket=";
 
