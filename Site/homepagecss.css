@@ -1,0 +1,54 @@
+
+title{
+
+	}
+body {
+ 
+	width: 970px;
+	height: 747px;
+    background-color: #000000;
+	background-image:url('img/homebackground.png');
+	background-repeat: no-repeat;
+	background-position:center;
+	margin: 0 auto;	
+}
+
+ h1{
+    font-family:"Arial", "Helvetica", "sans-serif";
+	width: 237px;
+	height: 187px;
+	margin: 0em 0em;
+	background-repeat: no-repeat;
+	font-size: 0.8em;
+	text-align: center;
+	color: #ffffff;
+	
+}
+
+h1.master{
+	background-image: url(img/pic1.png);
+	h1.master a
+	{
+	color: #ffffff;
+	}
+}
+h1.bachelor{
+background-image: url(img/pic2.png);
+}
+h1.login{
+background-image:url(img/pic3.png);
+}
+
+div.button{
+	padding-top: 12.5em;
+}
+ul{
+	list-style-type: none;
+}
+
+li {
+	padding: 0em 2em;
+	padding-top: 615px;
+	float: left;
+}
+

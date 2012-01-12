@@ -1,6 +1,5 @@
 <?php
-
-$serverUrl = "http://websec.science.uva.nl/~brinkman/login.php";
+$serverUrl = "http://websec.science.uva.nl/~jvdm/login.php";
 $loginService = "https://bt-lap.ic.uva.nl/cas/login";
 $ticketValidateService = "https://bt-lap.ic.uva.nl/cas/serviceValidate?ticket=";
 
@@ -8,7 +7,8 @@ function getLoginTicket() {
     global $loginService;
     global $serverUrl;
 
-    http_redirect($loginService, array("service" => $serverUrl);
+    header("Location: ".$loginService."?service=".$serverUrl);
+    //http_redirect($loginService, array("service" => $serverUrl), false, 0);
 }
 function getUserName($ticket) {
     global $ticketValidateService;
@@ -18,9 +18,9 @@ function getUserName($ticket) {
     return parseCasXml($xmlRequestUrl);
 }
 function parseCasXml($loc) {
-    DOMDocument xml = new DOMDocument();
-    xml->load($xmlRequestUrl);
-    $succes = xml->getElementsByTagName("authenticationSuccess");
+    $xml = new DOMDocument();
+    $xml->load($xmlRequestUrl);
+    $succes = $xml->getElementsByTagName("authenticationSuccess");
     $user = null;
     if ($succes != null) {
         $user = $succes->getElementsByTagName("user")->nodeValue;
@@ -28,8 +28,8 @@ function parseCasXml($loc) {
     return $user;
 }
 
-if (array_key_exists("ticket", $_GET); {
-    echo "<h1>".getUserName($_GET["ticket"])"</h1>";
+if (array_key_exists("ticket", $_GET)) {
+    echo "<h1>".getUserName($_GET["ticket"])."</h1>";
 } else {
     getLoginTicket();
 }
