@@ -7,8 +7,9 @@ function getLoginTicket() {
     global $loginService;
     global $serverUrl;
 
-    header("Location: ".$loginService."?service=".$serverUrl);
-    //http_redirect($loginService, array("service" => $serverUrl), false, 0);
+    echo '<script type="text/javascript">';
+    echo 'window.location="'.$loginService.'?service='.$serverUrl.'"';
+    echo '</script>';
 }
 function getUserName($ticket) {
     global $ticketValidateService;
@@ -28,6 +29,17 @@ function parseCasXml($loc) {
     return $user;
 }
 
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html>
+<head>
+<title>Login</title>
+</head>
+<body>
+<?php
 if (array_key_exists("ticket", $_GET)) {
     echo "<h1>".getUserName($_GET["ticket"])."</h1>";
 } else {
@@ -35,3 +47,5 @@ if (array_key_exists("ticket", $_GET)) {
 }
 
 ?>
+</body>
+</html>

@@ -1,3 +1,50 @@
+<!--
+
+Voor het verkrijgen van informatie over een studie, gebruik de volgende functie:
+
+array loadHodexProgram($loc)
+
+$loc: de locatie van het hodex-bestand met de informatie.
+
+Dit geeft een array terug met de volgende layout (uitleg staat tussen < en >):
+
+array(
+    "name" => <naam van de opleiding>,
+    "summary" => <korte beschrijving>,
+    "description" => <aanvulling op summary>,
+    "admissionRequirements" =>
+        array(
+            "profile" => <het benodigde profiel>,
+            "additionalSubjects" => array(<benodigde extra vakken>)
+        ),
+    "applicationRequirements" => 
+        array(
+            <type> => <description>,
+            ...
+        )
+    "degree" => <titel bij afsluiten>,
+    "financing" => <financieëring (goverment of private)>,
+    "numerusFixus" => <numerus fixus (0 indien geen nf)>,
+    "credits" => <aantal studiepunten>,
+    "duration" => <duur van de studie in maanden>,
+    "level" => <academic bachelor/academic master>,
+    "contentLinks" =>
+        array(
+            0 => 
+                array(
+                    "lang" => <taal van de link>,
+                    "summary" => <korte beschrijving>,
+                    "description" => <uitbreiding op summary>,
+                    "type" => <type content>,
+                    "url" => <adres van de link>
+                ),
+            ...
+        ),
+    "url" => <link naar vak op website onderwijsinstelling>,   
+)
+
+-->
+
 <?php
 $prefLang = "nl";
 
@@ -22,17 +69,22 @@ function loadHodexProgram($loc) {
     
     if (isInCountry($doc, "nl"))
     {
-        $result = array();
         $pd = getElementByTagName($doc, "programDescriptions");
         $names = $pd->getElementsByTagName("programName");
-
-        $result["name"] = getElementInLang($names)->nodeValue;
         
-        $curriculum = getElementByTagName($doc, "programCurriculum");
-        $result["courses"] = loadHodexCourses($curriculum);
+        $result = array(
+            "name" => getElementValue($pd, "programName", true),
+            "summary" => getElementValue($doc, "programSummary", true),
+            "description" => getElementValue($doc, "programDescription", true),
+            "degree" => getElementValue($doc, "programLevel", false),
+            "financing" => getElementValue($doc, "financing", false),
+            "numerusFixus" => getElementValue($doc, "numerusFixus", false),
+            "credits" => getElementValue($doc, "programCredits", false),
+        )
+            
         
-        $result["summary"] = getElementInLang($doc->getElementsByTagName("programSummary"))->nodeValue;
-        $result["description"] = getElementInLang($doc->getElementsByTagName("programDescription"))->nodeValue;
+        //$curriculum = getElementByTagName($doc, "programCurriculum");
+        //$result["courses"] = loadHodexCourses($curriculum);
     }
     
     return $result;
@@ -78,6 +130,15 @@ function loadHodexCourse($course) {
     $courseObj["type"] = $type;
     
     return $courseObj;
+}
+
+function getElementValue($element, $tagName, $multiLanguage)
+{
+    $values = $element->getElementsByTagName($tagName);
+    if ($multiLanguage)
+        return getElementInLang($values)->nodeValue;
+    else
+        return $values->item(0)->nodeValue;
 }
 
 function getElementInLang($elements) {
