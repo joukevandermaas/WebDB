@@ -1,5 +1,5 @@
 <?php
-$programCount = 0;
+$prefLang = "nl";
 
 function loadHodexIndex($loc) {
     $schools = loadSubHodexIndex($loc, "hodexEntity", "hodexDirectoryURL");
@@ -18,18 +18,21 @@ function loadHodexSchool($loc) {
 function loadHodexProgram($loc) {
     $doc = loadXml($loc);
     
-    $result = array();
+    $result = null;
     
-    if (getCountry($doc) == "nl")
+    if (isInCountry($doc, "nl"))
     {
+        $result = array();
         $pd = getElementByTagName($doc, "programDescriptions");
         $names = $pd->getElementsByTagName("programName");
 
-        $result["url"] = $loc;
-        $result["name"] = getElementInLang($names, "nl")->nodeValue;
+        $result["name"] = getElementInLang($names)->nodeValue;
         
         $curriculum = getElementByTagName($doc, "programCurriculum");
-        $result["courses"] = loadRegularHodexCourses($curriculum);
+        $result["courses"] = loadHodexCourses($curriculum);
+        
+        $result["summary"] = getElementInLang($doc->getElementsByTagName("programSummary"))->nodeValue;
+        $result["description"] = getElementInLang($doc->getElementsByTagName("programDescription"))->nodeValue;
     }
     
     return $result;
@@ -51,39 +54,53 @@ function loadHodexCourses($xml) {
 
 function loadHodexCourse($course) {
     $courseObj = array();
-        
-    $courseObj["name"] = getElementInLang($course->getElementsByTagName("courseName"), "nl")->nodeValue;
     
+    $nameElems = $course->getElementsByTagName("courseName");
     $yearElem = getElementByTagName($course, "yearOfCurriculum");
-    $descElem = $course->getElementsByTagName("courseDescription");
-    $typeElem = getCourseType($course);
+    $descElems = $course->getElementsByTagName("courseDescription");
+    $type = getCourseType($course);
+    
+    if ($nameElems->length > 0)
+        $courseObj["name"] = getElementInLang($nameElems)->nodeValue;
+    else
+        $courseObj["name"] = "";
     
     if ($yearElem != null)
         $courseObj["year"] = $yearElem->nodeValue;
     else
         $courseObj["year"] = 1;
     
-    if ($descElem->length > 0)
-        $courseObj["description"] = getElementInLang($descElem, "nl")->nodeValue;
+    if ($descElems->length > 0)
+        $courseObj["description"] = getElementInLang($descElems)->nodeValue;
     else
-        $courseObj["description"] = "Geen beschrijving beschikbaar.";
+        $courseObj["description"] = "";
     
-    $courseObj["type"] = $typeElem->nodeValue;
+    $courseObj["type"] = $type;
     
     return $courseObj;
 }
 
-function getElementInLang($elements, $lang) {
+function getElementInLang($elements) {
+    global $prefLang;
     foreach($elements as $element) {
-        if($element->attributes->getNamedItem("lang")->nodeValue == $lang)
+        if(getLang($element) == $prefLang)
             return $element;
     }
     return $elements->item(0);
 }
+function getLang($element) {
+    return $element->attributes->getNamedItem("lang")->nodeValue;
+}
 
-function getCountry($xmlDoc) {
+function isInCountry($xmlDoc, $lang) {
     $pc = getElementByTagName($xmlDoc, "programClassification");
-    return getElementByTagName($pc, "orgUnitCountry")->nodeValue;
+    
+    foreach($pc->getElementsByTagName("orgUnitCountry") as $country)
+    {
+        if ($country->nodeValue == $lang)
+            return true;
+    }
+    return false;
 }
 
 function getCourseType($course) {
@@ -112,41 +129,70 @@ function loadSubHodexIndex($loc, $container, $url) {
     return $urls;
 }
 function loadXml($loc) {
-    $doc = new DOMDocument();
+    $doc = new DOMDocument(1.0, "UTF-8");
     $doc->load($loc);
     return $doc;
 }
 
 function displayCourses($courses, $year) {
     echo "<h2>Vakken jaar ".$year."</h2>\n";
-    echo "<table><tr><th>Vak</th><th>Type</th><th>beschrijving</th>\n";
+    echo "<table><tr><th>Vak</th><th>beschrijving</th>\n";
         
     foreach($courses as $course) {
         if ($course["year"] == $year)
         {
-            echo "<dt>".$course["name"]."</dt>\n";
-            echo "<dd>".$course["description"]."</dd>\n";
+            echo "<tr class='".$course["type"]."'>\n";
+            echo "<td>".$course["name"]."</td>\n";
+            echo "<td>".$course["description"]."</td>\n";
+            echo "</tr>\n";
         }
     }
-    echo "</dl>";
+    echo "</table>";
 }
 
-if (count($_GET) == 1) {
-    $loc = $_GET["u"];
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+     
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+</head>
+<body>
+<?php
+
+function renderProgram($loc) {
     $program = loadHodexProgram($loc);
     
+    if ($program == null)
+        return false;
+    
     echo "<h1>".$program["name"]."</h1>\n";
-    echo "<a href='".$program["url"]."'>Oorsprong</a>\n";
+    echo "<a href='".$loc."'>Oorspronkelijke Hodex xml</a>\n";
+    
+    echo "<p>".$program["summary"]."</p>\n";
+    echo "<p>".$program["description"]."</p>\n";
     
     displayCourses($program["courses"], 1);
     displayCourses($program["courses"], 2);
     displayCourses($program["courses"], 3);
     
-} else {
+    return true;
+}
+function renderList() {
     $loc = "http://www.hodex.nl/hodexDirectory.xml";
     echo "<ul>\n";
     loadHodexIndex($loc);
     echo "</ul>";
 }
 
-?>
+if (count($_GET) == 1) {
+    $loc = $_GET["u"];
+    if (!renderProgram($loc))
+        renderList();
+} else {
+    renderList();
+}
+
+?></body></html>
