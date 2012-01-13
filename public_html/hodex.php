@@ -1,50 +1,3 @@
-<!--
-
-Voor het verkrijgen van informatie over een studie, gebruik de volgende functie:
-
-array loadHodexProgram($loc)
-
-$loc: de locatie van het hodex-bestand met de informatie.
-
-Dit geeft een array terug met de volgende layout (uitleg staat tussen < en >):
-
-array(
-    "name" => <naam van de opleiding>,
-    "summary" => <korte beschrijving>,
-    "description" => <aanvulling op summary>,
-    "admissionRequirements" =>
-        array(
-            "profile" => <het benodigde profiel>,
-            "additionalSubjects" => array(<benodigde extra vakken>)
-        ),
-    "applicationRequirements" => 
-        array(
-            <type> => <description>,
-            ...
-        )
-    "degree" => <titel bij afsluiten>,
-    "financing" => <financieëring (goverment of private)>,
-    "numerusFixus" => <numerus fixus (0 indien geen nf)>,
-    "credits" => <aantal studiepunten>,
-    "duration" => <duur van de studie in maanden>,
-    "level" => <academic bachelor/academic master>,
-    "contentLinks" =>
-        array(
-            0 => 
-                array(
-                    "lang" => <taal van de link>,
-                    "summary" => <korte beschrijving>,
-                    "description" => <uitbreiding op summary>,
-                    "type" => <type content>,
-                    "url" => <adres van de link>
-                ),
-            ...
-        ),
-    "url" => <link naar vak op website onderwijsinstelling>,   
-)
-
--->
-
 <?php
 $prefLang = "nl";
 
@@ -67,80 +20,39 @@ function loadHodexProgram($loc) {
     
     $result = null;
     
-    if (isInCountry($doc, "nl"))
-    {
-        $pd = getElementByTagName($doc, "programDescriptions");
-        $names = $pd->getElementsByTagName("programName");
-        
-        $result = array(
-            "name" => getElementValue($pd, "programName", true),
-            "summary" => getElementValue($doc, "programSummary", true),
-            "description" => getElementValue($doc, "programDescription", true),
-            "degree" => getElementValue($doc, "programLevel", false),
-            "financing" => getElementValue($doc, "financing", false),
-            "numerusFixus" => getElementValue($doc, "numerusFixus", false),
-            "credits" => getElementValue($doc, "programCredits", false),
-        )
-            
-        
-        //$curriculum = getElementByTagName($doc, "programCurriculum");
-        //$result["courses"] = loadHodexCourses($curriculum);
-    }
+    $pd = getElementByTagName($doc, "programDescriptions");
+    $pc = getElementByTagName($doc, "programClassification");
+    $cu = getElementByTagName($doc, "programCurriculum");
     
-    return $result;
-}
+    $result = array(
+        "croho" => getElementValue($pc, "crohoCode", false),
+        "name" => getElementValue($pd, "programName", true),
+        "summary" => getElementValue($pd, "programSummary", true),
+        "description" => getElementValue($pd, "programDescription", true),
+        "organization" => getElementValue($pc, "orgUnitName", false),
+        "country" => getElementValue($pc, "orgUnitCountry", false),
+        "admissionRequirements" => getAdmissionRequirements($pc),
+        "degree" => getElementValue($pc, "programLevel", false),
+        "financing" => getElementValue($pc, "financing", false),
+        "numerusFixus" => getElementValue($pc, "numerusFixus", false),
+        "credits" => getElementValue($pc, "programCredits", false),
+        "duration" => getDurationInMonths($pc),
+        "level" => getElementValue($pc,  "programLevel", false),
+        "contentLinks" => getContentLinks($pd),
+        "url" => getElementValue($pc, "webLink", true),
+        "courses" => getCourses($cu)
+    );
 
-function loadHodexCourses($xml) {
-    $courses = $xml->getElementsByTagName("course");
-    $result = array();
-    
-    for ($i = 0; $i < $courses->length; $i++)
-    {
-        $course = $courses->item($i);
-        $courseObj = loadHodexCourse($course);       
-        $result[$i] = $courseObj;
-    }
-    
     return $result;
-}
-
-function loadHodexCourse($course) {
-    $courseObj = array();
-    
-    $nameElems = $course->getElementsByTagName("courseName");
-    $yearElem = getElementByTagName($course, "yearOfCurriculum");
-    $descElems = $course->getElementsByTagName("courseDescription");
-    $type = getCourseType($course);
-    
-    if ($nameElems->length > 0)
-        $courseObj["name"] = getElementInLang($nameElems)->nodeValue;
-    else
-        $courseObj["name"] = "";
-    
-    if ($yearElem != null)
-        $courseObj["year"] = $yearElem->nodeValue;
-    else
-        $courseObj["year"] = 1;
-    
-    if ($descElems->length > 0)
-        $courseObj["description"] = getElementInLang($descElems)->nodeValue;
-    else
-        $courseObj["description"] = "";
-    
-    $courseObj["type"] = $type;
-    
-    return $courseObj;
 }
 
 function getElementValue($element, $tagName, $multiLanguage)
 {
     $values = $element->getElementsByTagName($tagName);
-    if ($multiLanguage)
-        return getElementInLang($values)->nodeValue;
-    else
-        return $values->item(0)->nodeValue;
+    $element = $multiLanguage ? getElementInLang($values) : $values->item(0);
+    
+    return $element == null ? "" : $element->nodeValue;
 }
-
 function getElementInLang($elements) {
     global $prefLang;
     foreach($elements as $element) {
@@ -150,30 +62,88 @@ function getElementInLang($elements) {
     return $elements->item(0);
 }
 function getLang($element) {
-    return $element->attributes->getNamedItem("lang")->nodeValue;
+    return getAttributeValue($element, "lang");
 }
-
-function isInCountry($xmlDoc, $lang) {
-    $pc = getElementByTagName($xmlDoc, "programClassification");
-    
-    foreach($pc->getElementsByTagName("orgUnitCountry") as $country)
-    {
-        if ($country->nodeValue == $lang)
-            return true;
-    }
-    return false;
-}
-
-function getCourseType($course) {
-    $type = getElementByTagName($course, "courseType");
-    if ($type != null)
-        return $type->nodeValue;
-    else
-        return "regular";
+function getAttributeValue($element, $attribute) {
+    $att = $element->attributes->getNamedItem($attribute);
+    return $att == null ? "" : $att->nodeValue;
 }
 
 function getElementByTagName($xmlDoc, $name) {
     return $xmlDoc->getElementsByTagName($name)->item(0);
+}
+
+function getAdmissionRequirements($xml) {
+    $programs = $xml->getElementsByTagName("admissableProgram");
+    $requirements = array();
+
+    foreach ($programs as $program) {
+        $aSubjectElements = $program->getElementsByTagName("additionalSubject");
+        $aSubjectNames = array();
+        $i = 0;
+        foreach ($aSubjectElements as $aSubject) {
+            $aSubjectNames[$i++] = $aSubject->nodeValue;
+        }
+        $requirements[getElementValue($program, "profile", false)] = $aSubjectNames;
+    }
+    
+    return $requirements;
+}
+function getDurationInMonths($xml) {
+    $durationEl = getElementByTagName($xml, "programDuration");
+    $durationUnit = getAttributeValue($durationEl, "unit");
+    
+    switch($durationUnit) {
+        case "day":
+            return 1;
+        case "week":
+            return 1;
+        case "year":
+            return $durationEl->nodeValue * 12;
+        case "month":
+        default:
+            return $durationEl->nodeValue;
+    }
+}
+function getContentLinks($xml) {
+    $linkElements = $xml->getElementsByTagName("contentLink");
+    
+    $links = array();
+    $i = 0;
+    foreach ($linkElements as $elem) {
+        $links[$i++] = getContentLink($elem);
+    }
+    return $links;
+}
+function getContentLink($xml) {
+    return array(
+        "subject" => getElementValue($xml, "subject", false),
+        "summary" => getElementValue($xml, "contentSummary", true),
+        "description" => getElementValue($xml, "contentDescription", true),
+        "type" => getElementValue($xml, "contentType", false),
+        "url" => getElementValue($xml, "webLink", false)
+    );
+}
+function getCourses($xml) {
+    $courseElems = $xml->getElementsByTagName("course");
+    
+    $courses = array();
+    $i = 0;
+    foreach($courseElems as $elem) {
+        $courses[$i++] = getCourse($elem);
+    }
+    return $courses;
+}
+function getCourse($xml) {
+    return array(
+        "name" => getElementValue($xml, "courseName", true),
+        "description" => getElementValue($xml, "courseDescription", true),
+        "type" => getElementValue($xml, "courseType", false),
+        "credits" => getElementValue($xml, "credits", false),
+        "examKind" => getElementValue($xml, "examKind", false),
+        "curriculum" => getElementValue($xml, "partOfCurriculum", false),
+        "year" => getElementValue($xml, "yearOfCurriculum", false)
+    );
 }
 
 function loadSubHodexIndex($loc, $container, $url) {
@@ -194,23 +164,6 @@ function loadXml($loc) {
     $doc->load($loc);
     return $doc;
 }
-
-function displayCourses($courses, $year) {
-    echo "<h2>Vakken jaar ".$year."</h2>\n";
-    echo "<table><tr><th>Vak</th><th>beschrijving</th>\n";
-        
-    foreach($courses as $course) {
-        if ($course["year"] == $year)
-        {
-            echo "<tr class='".$course["type"]."'>\n";
-            echo "<td>".$course["name"]."</td>\n";
-            echo "<td>".$course["description"]."</td>\n";
-            echo "</tr>\n";
-        }
-    }
-    echo "</table>";
-}
-
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -229,15 +182,9 @@ function renderProgram($loc) {
     if ($program == null)
         return false;
     
-    echo "<h1>".$program["name"]."</h1>\n";
-    echo "<a href='".$loc."'>Oorspronkelijke Hodex xml</a>\n";
-    
-    echo "<p>".$program["summary"]."</p>\n";
-    echo "<p>".$program["description"]."</p>\n";
-    
-    displayCourses($program["courses"], 1);
-    displayCourses($program["courses"], 2);
-    displayCourses($program["courses"], 3);
+    echo "<a href='".$loc."'>Oorspronkelijke Hodex xml</a>\n<pre>";
+    print_r($program);
+    echo "</pre>";
     
     return true;
 }
