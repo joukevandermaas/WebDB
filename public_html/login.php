@@ -1,26 +1,37 @@
 <?php
 $serverUrl = "http://websec.science.uva.nl/~jvdm/login.php";
-$loginService = "https://bt-lap.ic.uva.nl/cas/login";
-$ticketValidateService = "https://bt-lap.ic.uva.nl/cas/serviceValidate?ticket=";
+$casService = "https://bt-lap.ic.uva.nl/cas/";
 
+
+function logout() {
+    global $casService;
+    
+    redirect($casService."logout?service=".$serverUrl);
+}
 function getLoginTicket() {
-    global $loginService;
+    global $casService;
     global $serverUrl;
 
-    echo '<script type="text/javascript">';
-    echo 'window.location="'.$loginService.'?service='.$serverUrl.'"';
-    echo '</script>';
+    redirect($casService."login?service=".$serverUrl);
 }
 function getUserName($ticket) {
-    global $ticketValidateService;
+    global $casService;
     global $serverUrl;
-    $xmlRequestUrl = $ticketValidateService.$ticket.$serverUrl;
-
+    $xmlRequestUrl = $casService.'serviceValidate?ticket='.$ticket.'&service='.$serverUrl;
+    echo $xmlRequestUrl;
     return parseCasXml($xmlRequestUrl);
 }
+
+function redirect($url) {
+    echo '<script type="text/javascript">';
+    echo 'window.location="'.$url.'"';
+    echo '</script>';
+}
 function parseCasXml($loc) {
+    // $xmlFile = get_file_contents($loc);
     $xml = new DOMDocument();
-    $xml->load($xmlRequestUrl);
+    $xml->load($loc);
+
     $succes = $xml->getElementsByTagName("authenticationSuccess");
     $user = null;
     if ($succes != null) {
@@ -40,6 +51,9 @@ function parseCasXml($loc) {
 </head>
 <body>
 <?php
+if (array_key_exists("logout", $_GET)) {
+    logout();
+}
 if (array_key_exists("ticket", $_GET)) {
     echo "<h1>".getUserName($_GET["ticket"])."</h1>";
 } else {
