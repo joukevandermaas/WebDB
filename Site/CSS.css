@@ -50,46 +50,66 @@ h4{
 	margin-bottom: 0em;
 }
 
-h5{
-	font-size: 1em;
-	position: relative;
-	margin:0em 0em;
-	margin-left: 1em;
-}
-
 ul{
-	
 	list-style-type: none;
 } 
 
 li {
 	word-wrap: normal;
-	padding: 0.3em 1em;
+	padding: 0.3em 1em 1em 1em;
 }
-ul li.inspringL{
+
+ul li{
 	background-color: #454545;
 	color: #ffffff;
 	position: relative;
-	margin:0em 0em;
-	margin-left: 2em;
+	margin-left:2em;
 }
 
-ul li.inspringL h5{
+ul li h5{
+	font-size: 1em;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 1em;
 	color:#6cb5ff;
 }
 
 ul li.inspringR{
-	background-color: #6cb5ff;
 	background-image: url(achtergrondReactie2.jpg);
 	background-repeat: repeat;
-	color: #ffffff;
 	position: relative;
-	margin:0em 0em;
+	margin-left: 0em;
 	margin-right: 2em;
 }
 
 ul li.inspringR h5{
 	color: #454545
+}
+ul.thumbs{
+	float: right;
+	padding: 0em 0em;
+	margin: 0em 0em;
+}
+ul.thumbs li{
+	background-color: transparent;
+	margin: 0em 0em;
+	padding: 0em 0em;
+	height: 29px;
+	float: left;
+}
+
+ul.reacties{
+	padding: 0em 0em 0em 0em;
+	margin: 0em 0em 0em 0em;
+	float: right;
+}
+
+ul.reacties li{
+	padding: 0em 0em 0em 0em;
+	margin: 0em 1em 0em 1em;
+	color: #ffddee;
+	background-color: transparent;
+	float: left;
 }
 
 p{
@@ -126,7 +146,7 @@ p.txtField {
 	background-color: #ffffff;
 }
 
-p.post1{
+p.inspringenL{
 	background-color: #363636;
 	color: #ffffff;
 	position: relative;
@@ -134,12 +154,23 @@ p.post1{
 	margin-left: 2em;
 }
 
-p.post2{
+p.inspringenR{
 	background-color: #6cb5ff;
+	background-image: url(achtergrondReactie2.jpg);
+	background-repeat: repeat;
 	color: #ffffff;
 	position: relative;
 	margin:0em 0em;
 	margin-right: 2em;
+}
+
+p.postBlauw{
+	background-color: #6cb5ff;
+	background-image: url(achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
 }
 
 img.opleidingPlaatje{
