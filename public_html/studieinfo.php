@@ -33,10 +33,10 @@ function renderProgram($loc) {
     print_s("p", $program["summary"].$program["description"]);
     echo "<ul>\n";
     print_s("li", $program["degree"], "<strong>Titel:</strong> ");
-    print_s("li", $program["financing"], "<strong>Financi&euml;ring:</strong>");
-    print_s("li", $program["numerusFixus"], "<strong>Numerus fixus:</strong>");
-    print_s("li", $program["credits"], "<strong>Studiepunten:</strong>");
-    print_s("li", $program["duration"], "<strong>Duur:</strong>", " maanden");
+    print_s("li", $program["financing"], "<strong>Financi&euml;ring:</strong> ");
+    print_s("li", $program["numerusFixus"], "<strong>Numerus fixus:</strong> ");
+    print_s("li", $program["credits"], "<strong>Studiepunten:</strong> ");
+    print_s("li", $program["duration"], "<strong>Duur:</strong> ", " maanden");
     echo "</ul>\n";
     
     renderCourses($program["courses"]);
@@ -47,26 +47,20 @@ function renderProgram($loc) {
 function renderCourses($courses) {
     $topYear = getTopYear($courses);
     for($i = 1; $i <= $topYear; $i++) {
-        echo "<h2>Vakken jaar $i</h2>";
-        echo "<table><tr><th>Vak</th><th>Beschrijving</th></tr>\n";
-        foreach($courses as $course) {
-            if ($course["year"] == $i)
-                echo "<tr><td>".$course["name"]."</td><td>".$course["description"]."</td></tr>";
-        }
-        echo "</table>";
+        if (hasCourseInYear($courses, $i))
+            renderYearTable($i, $courses);
     }
-    
-   
-   
+    if (hasCourseInYear($courses, 0))
+        renderYearTable(0, $courses);
 }
 function renderYearTable($year, $courses) {
-    echo "<h2>Vakken jaar $i</h2>";
-        echo "<table><tr><th>Vak</th><th>Beschrijving</th></tr>\n";
-        foreach($courses as $course) {
-            if ($course["year"] == $year)
-                echo "<tr><td>".$course["name"]."</td><td>".$course["description"]."</td></tr>";
-        }
-        echo "</table>";
+    echo "<h2>Vakken jaar $year</h2>";
+    echo "<table><tr><th>Vak</th><th>Beschrijving</th></tr>\n";
+    foreach($courses as $course) {
+        if ($course["year"] == $year)
+            echo "<tr><td>".$course["name"]."</td><td>".$course["description"]."</td></tr>";
+    }
+    echo "</table>";
 }
 function getTopYear($courses) {
     $top = 0;
@@ -77,12 +71,35 @@ function getTopYear($courses) {
     }
     return $top;
 }
+function hasCourseInYear($courses, $year) {
+    foreach($courses as $course) {
+        if ($course["year"] == $year)
+            return true;
+    }
+    return false;
+}
+
+function renderContentLinks($links) {
+    
+}
 
 function renderList() {
     $loc = "http://www.hodex.nl/hodexDirectory.xml";
-    echo "<pre>\n";
-    print_r(loadHodexIndex($loc));
-    echo "</pre>";
+    $index = loadHodexIndex($loc);
+    
+    foreach($index as $org) {
+        echo "<h1>".$org["orgId"]."</h1>";
+        renderSchool($org["url"]);
+    }
+}
+function renderSchool($url) {
+    $index = loadHodexSchool($url);
+    echo "<table><tr><th>Id</th><th>Link</th></tr>";
+    foreach($index as $program) {
+        echo "<tr><td>".$program["programId"]."</td>";
+        echo "<td><a href='studieinfo.php?u=".$program["url"]."'>".$program["url"]."</a></td></tr>";
+    }
+    echo "</table>";
 }
 
 if (count($_GET) == 1) {
