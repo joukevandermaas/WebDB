@@ -1,19 +1,102 @@
 <?php
+
+/*
+Voor het krijgen van een lijst van onderwijsinstellingen, gebruik de volgende functie:
+array loadHodexIndex($loc)
+ - $loc: de locatie van de centrale hodex index (http://www.hodex.nl/hodexDirectory.xml)
+ 
+Dit geeft een array terug met de volgende layout:
+array(
+    0 => array(
+        "url" => <de url van de hodex-index van de onderwijsinstelling>,
+        "orgUnitId" => <een id voor de onderwijsinstelling>
+        ),
+    ...
+)
+
+
+****************
+Voor het verkrijgen van een lijst van studies, gebruik de volgende functie:
+array loadHodexSchool($loc)
+ - $loc: de locatie van de hodex-index van de school (te verkrijgen via loadHodexIndex)
+ 
+Dit geeft een array terug met de volgende layout:
+array(
+    0 => array(
+        "url" => <de url van de hodex-index van de studie>,
+        "orgUnitId" => <een id voor de onderwijsinstelling>,
+        "programId" => <een id voor de studie>
+        ),
+    ...
+)
+
+
+****************
+Voor het verkrijgen van informatie over een studie, gebruik de volgende functie:
+array loadHodexProgram($loc)
+ - $loc: de locatie van het hodex-bestand met de informatie.
+
+Dit geeft een array terug met de volgende layout (uitleg staat tussen < en >):
+
+array(
+    "croho" => <croho-code opleiding (zelfde voor verschillende instellingen)>
+    "name" => <naam van de opleiding>,
+    "summary" => <korte beschrijving>,
+    "description" => <aanvulling op summary>,
+    "organization" => <naam onderwijsinstelling>,
+    "country" => <land onderwijsinstelling>,
+    "admissionRequirements" =>
+        array(
+            <profiel> => array() <benodigde extra vakken (of lege array)>
+        ),
+    "degree" => <titel bij afsluiten>,
+    "financing" => <financieëring (goverment of private)>,
+    "numerusFixus" => <numerus fixus (0 indien geen nf)>,
+    "credits" => <aantal studiepunten>,
+    "duration" => <duur van de studie in maanden>,
+    "level" => <niveau van de opleiding>,
+    "contentLinks" => <extra informatie (filmpjes, verhalen, links, etc)
+        array(
+            0 => 
+                array(
+                    "subject" => <onderwerp>
+                    "summary" => <korte beschrijving>,
+                    "description" => <uitbreiding op summary>,
+                    "type" => <type content>,
+                    "url" => <adres van de link (of leeg)>
+                ),
+            ...
+        ),
+    "url" => <link naar vak op website onderwijsinstelling>,
+    "courses" => 
+        array(
+            0 =>
+                array(
+                    "name" => <naam van het vak>,
+                    "description" => <beschrijving van het vak>,
+                    "type" => <type vak>,
+                    "credits" => <aantal studiepunten>,
+                    "examKind" => <type afsluiting>,
+                    "curriculum" => <is het vak deel van het curriculum>,
+                    "year" => <het studiejaar waarin dit vak wordt gegeven>
+                ),
+            ...
+        )
+)
+
+
+*/
+
+
+
+
 $prefLang = "nl";
 
 function loadHodexIndex($loc) {
-    $schools = loadSubHodexIndex($loc, "hodexEntity", "hodexDirectoryURL");
-    
-    foreach($schools as $school) {
-        loadHodexSchool($school);
-    }
+    return loadSubHodexIndex($loc, "hodexEntity", array("url" => "hodexDirectoryURL", "orgId" => "orgUnitId"));
 }
 function loadHodexSchool($loc) {
-    $programs = loadSubHodexIndex($loc, "hodexResource", "hodexResourceURL");
-
-    //foreach($programs as $program) {
-        echo "<li><a href='hodex.php?u=" . $programs[0] . "'>" . $programs[0] . "</a></li>\n";
-    //}
+    return loadSubHodexIndex($loc, "hodexResource", array("url" => "hodexResourceURL", "orgId" => "orgUnitId", "programId" => "programId"));
 }
 function loadHodexProgram($loc) {
     $doc = loadXml($loc);
@@ -146,18 +229,20 @@ function getCourse($xml) {
     );
 }
 
-function loadSubHodexIndex($loc, $container, $url) {
+function loadSubHodexIndex($loc, $container, $info) {
     $doc = loadXml($loc);
     
     $items = $doc->getElementsByTagName($container);
-    $urls = array();
+    $objects = array();
+    $i = 0;
     
-    for($i = 0; $i < $items->length; $i++) {
-        $item = $items->item($i);
-        $urlElement = getElementByTagName($item, $url);
-        $urls[$i] = $urlElement->nodeValue;
+    foreach ($items as $item) {
+        $object = array();
+        foreach ($info as $key => $value)
+            $object[$key] = getElementValue($item, $value, false);
+        $objects[$i++] = $object;
     }
-    return $urls;
+    return $objects;
 }
 function loadXml($loc) {
     $doc = new DOMDocument(1.0, "UTF-8");
@@ -166,41 +251,15 @@ function loadXml($loc) {
 }
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-     
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-</head>
-<body>
-<?php
 
-function renderProgram($loc) {
-    $program = loadHodexProgram($loc);
-    
-    if ($program == null)
-        return false;
-    
-    echo "<a href='".$loc."'>Oorspronkelijke Hodex xml</a>\n<pre>";
-    print_r($program);
-    echo "</pre>";
-    
-    return true;
-}
-function renderList() {
-    $loc = "http://www.hodex.nl/hodexDirectory.xml";
-    echo "<ul>\n";
-    loadHodexIndex($loc);
-    echo "</ul>";
-}
 
-if (count($_GET) == 1) {
-    $loc = $_GET["u"];
-    if (!renderProgram($loc))
-        renderList();
-} else {
-    renderList();
-}
 
-?></body></html>
+
+
+
+
+
+
+
+
+
