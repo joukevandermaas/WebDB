@@ -7,7 +7,7 @@ body {
 	width: 970px;
 	height: 747px;
     background-color: #000000;
-	background-image:url('homebackground.png');
+	background-image:url('img/homebackground.png');
 	background-repeat: no-repeat;
 	background-position:center;
 	margin: 0 auto;	
@@ -26,17 +26,17 @@ body {
 }
 
 h1.master{
-	background-image: url(pic1.png);
+	background-image: url(img/pic1.png);
 	h1.master a
 	{
 	color: #ffffff;
 	}
 }
 h1.bachelor{
-background-image: url(pic2.png);
+background-image: url(img/pic2.png);
 }
 h1.login{
-background-image:url(pic3.png);
+background-image:url(img/pic3.png);
 }
 
 div.button{
