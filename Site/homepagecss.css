@@ -7,7 +7,7 @@ body {
 	width: 970px;
 	height: 747px;
     background-color: #000000;
-	background-image:url('homebackground1.png');
+	background-image:url('img/homebackground1.png');
 	background-repeat: no-repeat;
 	background-position:center;
 	margin: 0 auto;	
@@ -32,7 +32,7 @@ a:hover span{
 	float:left;
 	width: 235px;
 	height: 187px;
-	Background-image: url(thehover.png);
+	Background-image: url(img/thehover.png);
 }
 
 

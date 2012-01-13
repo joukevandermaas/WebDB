@@ -13,7 +13,7 @@ body{
 h1{
 	height: 280px;
 	font-size: 3em;
-	background-image: url(upper_part_site1_small.png);
+	background-image: url(img/upper_part_site1_small.png);
 	background-repeat: repeat-x;
 	color: #ffffff;
 	padding-right: 0.3em;
@@ -80,7 +80,7 @@ ul li.inspringL h5{
 
 ul li.inspringR{
 	background-color: #6cb5ff;
-	background-image: url(achtergrondReactie2.jpg);
+	background-image: url(img/achtergrondReactie2.jpg);
 	background-repeat: repeat;
 	color: #ffffff;
 	position: relative;
@@ -162,7 +162,7 @@ div.rand{
 
 div.logo{
 	height: 280px;
-	background-image: url(upper_part_site1.png);
+	background-image: url(img/upper_part_site1.png);
 	background-repeat: no-repeat;
 }
 
