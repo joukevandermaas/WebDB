@@ -75,7 +75,6 @@ ul li h5{
 }
 
 ul li.inspringR{
-	background-image: url(achtergrondReactie2.jpg);
 	background-color: #6cb5ff;
 	background-image: url(img/achtergrondReactie2.jpg);
 	background-repeat: repeat;
@@ -158,7 +157,7 @@ p.inspringenL{
 
 p.inspringenR{
 	background-color: #6cb5ff;
-	background-image: url(achtergrondReactie2.jpg);
+	background-image: url(img/achtergrondReactie2.jpg);
 	background-repeat: repeat;
 	color: #ffffff;
 	position: relative;
@@ -168,7 +167,7 @@ p.inspringenR{
 
 p.postBlauw{
 	background-color: #6cb5ff;
-	background-image: url(achtergrondReactie2.jpg);
+	background-image: url(img/achtergrondReactie2.jpg);
 	background-repeat: repeat;
 	color: #ffffff;
 	position: relative;
