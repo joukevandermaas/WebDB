@@ -75,12 +75,9 @@ ul li h5{
 }
 
 ul li.inspringR{
-<<<<<<< HEAD
 	background-image: url(achtergrondReactie2.jpg);
-=======
 	background-color: #6cb5ff;
 	background-image: url(img/achtergrondReactie2.jpg);
->>>>>>> 0ef0a7dbb9ab2ddd208e5b41e58ddf6a507419ab
 	background-repeat: repeat;
 	position: relative;
 	margin-left: 0em;
