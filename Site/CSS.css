@@ -2,6 +2,37 @@
 /*
 * { border: 1px solid red;}
 */
+
+#topnav{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+background:url(img/navigatie.png);
+}
+
+li.inspringZ{
+float: left;
+background:url(img/navigatie.png);
+}
+
+a:link,a:visited{
+display: inline;
+font-family: Verdana;
+color:#000000;              /*kleur Letters */
+text-align: center;
+padding:19px;
+text-decoration:none;
+text-transform:uppercase;
+}
+
+a:hover, a:active{
+background: url(img/selected_button.png);
+background-repeat: repeat
+}
+
+
+
 body{
 	max-width: 960px;
 	min-width: 920px;
@@ -11,7 +42,7 @@ body{
 }
 
 h1{
-	height: 280px;
+	height: 220px;
 	font-size: 3em;
 	background-image: url(img/upper_part_site1_small.png);
 	background-repeat: repeat-x;
@@ -193,7 +224,7 @@ div.rand{
 }
 
 div.logo{
-	height: 280px;
+	height: 220px;
 	background-image: url(img/upper_part_site1.png);
 	background-repeat: no-repeat;
 }
