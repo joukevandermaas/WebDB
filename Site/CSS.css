@@ -9,6 +9,10 @@ margin:0;
 padding:0;
 overflow:hidden;
 background:url(img/navigatie.png);
+text-transform:uppercase;
+}
+#topnav li {
+    padding: 0.3em 1em 1em 1em;
 }
 
 li.inspringZ{
@@ -16,22 +20,38 @@ float: left;
 background:url(img/navigatie.png);
 }
 
-a:link,a:visited{
-display: inline;
-font-family: Verdana;
+#topnav a:link, a:visited{
+font-family: Verdana, sans-serif;
 color:#000000;              /*kleur Letters */
 text-align: center;
 padding:19px;
 text-decoration:none;
-text-transform:uppercase;
 }
 
-a:hover, a:active{
+#topnav a:hover, a:active{
 background: url(img/selected_button.png);
 background-repeat: repeat
 }
 
-
+ul.breadcrumbs {
+    list-style: none;
+    margin-top: .3em;
+}
+.breadcrumbs li {
+    padding: 0 0 0 16px;
+    float: left;
+    background: transparent url(img/arrow.png) left center no-repeat;
+}
+.breadcrumbs a {
+    display: block;
+    text-decoration: none;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.breadcrumbs li.current a:hover {
+    text-decoration: none;
+}
 
 body{
 	max-width: 960px;
@@ -81,23 +101,19 @@ h4{
 	margin-bottom: 0em;
 }
 
-ul{
+ul.posts, ul#topnav, ul.posts ul{
 	list-style-type: none;
 } 
 
-li {
-	word-wrap: normal;
+ul.posts li{
 	padding: 0.3em 1em 1em 1em;
-}
-
-ul li{
 	background-color: #454545;
 	color: #ffffff;
 	position: relative;
 	margin-left:2em;
 }
 
-ul li h5{
+ul.posts li h5{
 	font-size: 1em;
 	position: relative;
 	margin:0em 0em;
@@ -105,7 +121,7 @@ ul li h5{
 	color:#6cb5ff;
 }
 
-ul li.inspringR{
+ul.posts li.inspringR{
 	background-color: #6cb5ff;
 	background-image: url(img/achtergrondReactie2.jpg);
 	background-repeat: repeat;
@@ -114,7 +130,7 @@ ul li.inspringR{
 	margin-right: 2em;
 }
 
-ul li.inspringR h5{
+ul.posts li.inspringR h5{
 	color: #454545
 }
 ul.thumbs{
@@ -247,6 +263,9 @@ div.intro_grd{
 	background: -webkit-gradient(linear, left top, left bottom, from(#545454) , to(#151515));
 	
 	color: #ffffff;
+}
+.intro_grd p {
+    background: none;
 }
 
 div.title_grd{

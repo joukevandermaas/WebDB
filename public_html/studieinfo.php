@@ -47,14 +47,18 @@ function renderProgram($loc) {
 function renderCourses($courses) {
     $topYear = getTopYear($courses);
     for($i = 1; $i <= $topYear; $i++) {
-        if (hasCourseInYear($courses, $i))
+        if (hasCourseInYear($courses, $i)) {   
+            echo "<h2>Vakken jaar $i</h2>";
             renderYearTable($i, $courses);
+        }
     }
-    if (hasCourseInYear($courses, 0))
+    
+    if (hasCourseInYear($courses, 0)) {
+        echo "<h2>Overige vakken</h2>";
         renderYearTable(0, $courses);
+    }
 }
 function renderYearTable($year, $courses) {
-    echo "<h2>Vakken jaar $year</h2>";
     echo "<table><tr><th>Vak</th><th>Beschrijving</th></tr>\n";
     foreach($courses as $course) {
         if ($course["year"] == $year)
