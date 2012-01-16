@@ -16,7 +16,7 @@ float: left;
 background:url(img/navigatie.png);
 }
 
-a:link,a:visited{
+a.menu:link,a.menu:visited{
 display: inline;
 font-family: Verdana;
 color:#000000;              /*kleur Letters */
@@ -26,7 +26,8 @@ text-decoration:none;
 text-transform:uppercase;
 }
 
-a:hover, a:active{
+a.menu:hover, a.menu:active{
+color: #ffffff;
 background: url(img/selected_button.png);
 background-repeat: repeat
 }

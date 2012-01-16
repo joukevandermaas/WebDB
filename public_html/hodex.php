@@ -9,7 +9,7 @@ Dit geeft een array terug met de volgende layout:
 array(
     0 => array(
         "url" => <de url van de hodex-index van de onderwijsinstelling>,
-        "orgUnitId" => <een id voor de onderwijsinstelling>
+        "orgId" => <een id voor de onderwijsinstelling>
         ),
     ...
 )
@@ -24,7 +24,7 @@ Dit geeft een array terug met de volgende layout:
 array(
     0 => array(
         "url" => <de url van de hodex-index van de studie>,
-        "orgUnitId" => <een id voor de onderwijsinstelling>,
+        "orgId" => <een id voor de onderwijsinstelling>,
         "programId" => <een id voor de studie>
         ),
     ...
