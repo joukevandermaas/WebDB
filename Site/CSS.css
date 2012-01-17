@@ -20,7 +20,6 @@ float: left;
 background:url(img/navigatie.png);
 }
 
-
 a.menu:link,a.menu:visited{
 display: inline;
 font-family: Verdana;
@@ -133,20 +132,12 @@ ul.posts li.inspringR{
 	margin-right: 2em;
 }
 
+ul.posts li.inspringR a{
+	color: #454545;
+}
+
 ul.posts li.inspringR h5{
 	color: #454545
-}
-ul.thumbs{
-	float: right;
-	padding: 0em 0em;
-	margin: 0em 0em;
-}
-ul.thumbs li{
-	background-color: transparent;
-	margin: 0em 0em;
-	padding: 0em 0em;
-	height: 29px;
-	float: left;
 }
 
 ul.reacties{
@@ -160,6 +151,19 @@ ul.reacties li{
 	margin: 0em 1em 0em 1em;
 	color: #ffddee;
 	background-color: transparent;
+	float: left;
+}
+
+ul.thumbs{
+	float: right;
+	padding: 0em 0em;
+	margin: 0em 0em;
+}
+ul.thumbs li{
+	background-color: transparent;
+	margin: 0em 0em;
+	padding: 0em 0em;
+	height: 29px;
 	float: left;
 }
 
@@ -215,6 +219,16 @@ p.inspringenR{
 	margin-right: 2em;
 }
 
+p.grijs{
+	background-color: #80bdfc;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+}
+p.grijs a{
+	color: #ffffff;
+}
+
 p.postBlauw{
 	background-color: #6cb5ff;
 	background-image: url(img/achtergrondReactie2.jpg);
@@ -222,6 +236,9 @@ p.postBlauw{
 	color: #ffffff;
 	position: relative;
 	margin:0em 0em;
+}
+p.postBlauw a{
+	color: #ffffff;
 }
 
 img.opleidingPlaatje{
@@ -238,7 +255,7 @@ img.opleidingPlaatje{
 }
 
 div.rand{
-	margin: 0em 5em;
+	margin: 0em 3em;
 	background-color: #ffffff;
 }
 

@@ -26,11 +26,14 @@ if($organisatie == null){
 }
 
 //echo count($instellingen);
-echo "<h3>Maak een keuze:</h3>";
-echo "<table border='1'><tr><td>";
+echo "<h3>Maak een keuze:</h3><ul class='posts'>";
 for($i =0; $i<count($instellingen); $i++){
-	if($i == intval((count($instellingen)+1)/2)){
-		echo "</td><td>";
+	if($i%2 == 0){
+	//echo "<p class='postBlauw'>";
+	echo "<li>";
+	} else {
+	//echo "<p class='grijs'>";
+	echo "<li class='inspringR'>";
 	}
 	if($organisatie == null){
 	
@@ -39,8 +42,9 @@ for($i =0; $i<count($instellingen); $i++){
 		$Studie = loadHodexProgram($instellingen[$i][url]);
 		echo "<a href='Studiepagina.php?test=".$instellingen[$i][url]."'>".$Studie[name]."</a> <br />";
 	}
+	echo "</li>";
 }
-echo "</td></tr></table>";
+echo "</ul>";
 ?>
 
 </div></p>
