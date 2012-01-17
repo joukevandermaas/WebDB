@@ -43,7 +43,6 @@ array(
     "name" => <naam van de opleiding>,
     "summary" => <korte beschrijving>,
     "description" => <aanvulling op summary>,
-    "organization" => <naam onderwijsinstelling>,
     "country" => <land onderwijsinstelling>,
     "admissionRequirements" =>
         array(
@@ -112,7 +111,6 @@ function loadHodexProgram($loc) {
         "name" => getElementValue($pd, "programName", true),
         "summary" => getElementValue($pd, "programSummary", true),
         "description" => getElementValue($pd, "programDescription", true),
-        "organization" => getElementValue($pc, "orgUnitName", false),
         "country" => getElementValue($pc, "orgUnitCountry", false),
         "admissionRequirements" => getAdmissionRequirements($pc),
         "degree" => getElementValue($pc, "programLevel", false),

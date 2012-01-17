@@ -1,0 +1,37 @@
+studies
+    id
+    orgs_id
+    hprogramid
+    croho
+    name
+    summary
+    level
+
+posts
+    id
+    studies_id
+    users_id
+    content
+    timestamp
+    score
+    comment_count
+
+comments
+    id
+    posts_id
+    users_id
+    content
+    timestamp
+
+users
+    id
+    loginname
+    loginservice
+    firstname
+    lastname
+    registertimestamp
+
+orgs
+    id
+    name
+    horgid

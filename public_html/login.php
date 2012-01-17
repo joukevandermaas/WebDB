@@ -4,33 +4,34 @@ $casService = "https://bt-lap.ic.uva.nl/cas/";
 
 
 function logout() {
-    global $casService;
-    
-    redirect($casService."logout?service=".$serverUrl);
+global $casService;
+
+redirect($casService."logout?service=".$serverUrl);
 }
 function getLoginTicket() {
-    global $casService;
-    global $serverUrl;
+global $casService;
+global $serverUrl;
 
-    redirect($casService."login?service=".$serverUrl);
+redirect($casService."login?service=".$serverUrl);
 }
 function getUserName($ticket) {
-    global $casService;
-    global $serverUrl;
-    $xmlRequestUrl = $casService.'serviceValidate?ticket='.$ticket.'&service='.$serverUrl;
-    echo $xmlRequestUrl;
-    return parseCasXml($xmlRequestUrl);
+global $casService;
+global $serverUrl;
+$xmlRequestUrl = $casService.'serviceValidate?ticket='.$ticket.'&service='.$serverUrl;
+echo "<p>Ticket: $ticket</p>";
+echo "<a href='$xmlRequestUrl'>Xml response</a>";
+return parseCasXml($xmlRequestUrl);
 }
 
 function redirect($url) {
-    echo '<script type="text/javascript">';
-    echo 'window.location="'.$url.'"';
-    echo '</script>';
+echo '<script type="text/javascript">';
+echo 'window.location="'.$url.'"';
+echo '</script>';
 }
 function parseCasXml($loc) {
-    // $xmlFile = get_file_contents($loc);
-    $xml = new DOMDocument();
-    $xml->load($loc);
+// $xmlFile = get_file_contents($loc);
+$xml = new DOMDocument();
+$xml->load($loc);
 
     $succes = $xml->getElementsByTagName("authenticationSuccess");
     $user = null;
