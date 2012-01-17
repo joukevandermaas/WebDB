@@ -1,37 +1,38 @@
-studies
-    id
-    orgs_id
-    hprogramid
-    croho
-    name
-    summary
-    level
+programs
+    id                : SMALLINT
+    orgs_id           : TINYINT
+    hprogramid        : VARCHAR(20)
+    croho             : SMALLINT
+    name              : VARCHAR(100)
+    summary           : TEXT
+    level             : ENUM('0', '1', '2', '3')
+    hodexurl          : TEXT
 
 posts
-    id
-    studies_id
-    users_id
-    content
-    timestamp
-    score
-    comment_count
+    id                : INT
+    programs_id       : SMALLINT
+    users_id          : INT
+    content           : LONGTEXT
+    timestamp         : TIMESTAMP
+    score             : SMALLINT
+    comment_count     : SMALLINT
 
 comments
-    id
-    posts_id
-    users_id
-    content
-    timestamp
+    id                : INT
+    posts_id          : INT
+    users_id          : INT
+    content           : VARCHAR(140)
+    timestamp         : TIMESTAMP
 
 users
-    id
-    loginname
-    loginservice
-    firstname
-    lastname
-    registertimestamp
+    id                : INT
+    loginname         : VARCHAR(20)
+    loginservice      : ?
+    firstname         : VARCHAR(20)
+    lastname          : VARCHAR(30)
+    registertimestamp : TIMESTAMP
 
 orgs
-    id
-    name
-    horgid
+    id                : TINYINT
+    name              : VARCHAR(100)
+    horgid            : VARCHAR(20)
