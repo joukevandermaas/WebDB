@@ -10,29 +10,33 @@ padding:0;
 overflow:hidden;
 background:url(img/navigatie.png);
 text-transform:uppercase;
+font-family: Verdana, arial, sans-serif;
 }
 #topnav li {
-    padding: 0.3em 1em 1em 1em;
+	height: 43px;
+	line-height: 43px;
+    padding: 0 3px 0 0;
+	float: left;
+	background: transparent url(img/seperator.png) top right no-repeat;
+}
+#topnav li.last {
+	padding: 0;
+	background: none;
 }
 
-li.inspringZ{
-float: left;
-background:url(img/navigatie.png);
-}
-
-a.menu:link,a.menu:visited{
-display: inline;
-font-family: Verdana;
-color:#000000;              /*kleur Letters */
+#topnav a:link, #topnav a:visited{
+display: block;
+padding: 0 3em;
+height: 100%;
+color:#555;              /*kleur Letters */
 text-align: center;
-padding:19px;
 text-decoration:none;
 }
 
-a.menu:hover, a.menu:active{
+#topnav a:hover, #topnav a:active{
 color: #ffffff;
 background: url(img/selected_button.png);
-background-repeat: repeat
+background-repeat: repeat-x;
 }
 
 ul.breadcrumbs {

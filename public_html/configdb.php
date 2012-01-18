@@ -1,25 +1,5 @@
 <?php
-
-$server = "localhost";
-$database = "webdb";
-$user = "user";
-$password = "password";
-
-function getConnection() {
-    global $server;
-    global $user;
-    global $password;
-    global $database;
-    
-    $connection = mysql_connect($server, $user, $password);
-    if(!$connection) {
-        die("Can't connect to database $server");
-    }
-    
-    mysql_select_db($database, $connection);
-    
-    return $connection;
-}
+require("database.php");
 
 function createTable($name, $columns) {
     $query = "CREATE TABLE IF NOT EXISTS $name ( \n";
@@ -54,7 +34,7 @@ $tables = array(
         "id"            => "INT",
         "programs_id"   => "SMALLINT",
         "users_id"      => "INT",
-        "content"       => "LONGTEXT",
+        "content"       => "TEXT",
         "timestamp"     => "TIMESTAMP",
         "score"         => "SMALLINT",
         "comment_count" => "SMALLINT"
