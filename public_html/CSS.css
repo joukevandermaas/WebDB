@@ -26,7 +26,7 @@ font-family: Verdana, arial, sans-serif;
 
 #topnav a:link, #topnav a:visited{
 display: block;
-padding: 0 4em;
+padding: 0 3em;
 height: 100%;
 color:#555;              /*kleur Letters */
 text-align: center;
@@ -60,7 +60,8 @@ ul.breadcrumbs {
 }
 
 body{
-	width: 970px;
+	max-width: 960px;
+	min-width: 920px;
 	background-color: #FFFFFF;
 	font-family:"Arial", "Helvetica", "sans-serif";
 	margin: 0 auto 0 auto;
@@ -104,17 +105,6 @@ h4{
 	font-size: 1.2em;
 	color: #656565;
 	margin-bottom: 0em;
-}
-
-h4.profiel{
-	padding-top: 1em;
-}
-
-h5{
-	font-size: 1em;
-	position: relative;
-	margin:0em 0em;
-	margin-left: 1em;
 }
 
 ul.posts, ul#topnav, ul.posts ul{
@@ -180,74 +170,6 @@ ul.thumbs li{
 	height: 29px;
 	float: left;
 }
-
-ul li.inspringL{
-	background-color: #454545;
-	color: #ffffff;
-	position: relative;
-	margin:0em 0em;
-	padding: 0.3em 1em;
-	margin-left: 2em;
-}
-
-ul li.inspringL h5{
-	color:#6cb5ff;
-}
-
-ul li.inspringR{
-	background-color: #6cb5ff;
-	background-image: url(img/achtergrondReactie2.jpg);
-	background-repeat: repeat;
-	color: #ffffff;
-	position: relative;
-	padding: 0.3em 1em;
-	margin:0em 0em;
-	margin-right: 2em;
-}
-
-ul li.inspringR h5{
-	color: #454545
-}
-
-ul.gegevens{
-	width: 115px;
-	padding: 0.4em 0em 0.4em 0em;
-	margin: 0em 0em 0em 0em;
-}
-ul.gegevens li{
-	padding: 0.4em 0em 0.4em 0em;
-	margin: 0em 0em 0em 0em;
-	font-size: 0.9em
-}
-
-ul.uitkomstgegevens{
-	width: 200px;
-	float: right;
-	padding: 0.4em 0em 0.4em 0em;
-	margin: 0em 0em 0em 0em;
-}
-ul.uitkomstgegevens li{
-	background-image: url(img/grijs.png);
-	padding: 0.4em 0.8em 0.4em 0.8em;
-	margin: 0em 0em 0em 0em;
-	font-size: 0.9em;
-}
-
-ul.linkerbox {
-	float: left;
-    padding: 0em;
-	height: auto;
-    width: 340px;
-    border: 1px solid gray;
-	
-	color: #ffffff;
-}
-ul.linkerbox li.class{
-	margin: 1em 0em 1em 0em;
-	background-color: #6cb5ff;
-	background-image: url(img/achtergrondReactie2.jpg);
-}
-
 
 p{
 	padding: 0.3em 1em;
@@ -338,16 +260,8 @@ img.opleidingPlaatje{
 	background-clip: padding-box;
 }
 
-div.my_right_box{
-    float: right;
-    padding: 10px;
-	height: auto;
-    width: 534px;
-    border: 1px solid gray;
-}
-
 div.rand{
-	margin: 0em 2em;
+	margin: 0em 3em;
 	background-color: #ffffff;
 }
 

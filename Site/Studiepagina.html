@@ -20,20 +20,18 @@
 include 'hodex.php';
 $url = htmlspecialchars($_GET["test"]);
 
-<<<<<<< HEAD
 $studie = loadHodexProgram($url);
 
 "<!-- titel van de pagina, studie naam uit xml bestand -->
-<div class='title_grd'><h2>Studie:" .instellingen[name]. "Kunstmatige Intelligentie </h2></div>"
+<div class='title_grd'><h2>Studie:" .$studie[name]. "</h2></div>"
 ?>
-=======
+
 <ul class="breadcrumbs">
     <li><a href="index.html">Home</a></li>
     <li><a href="programlist.php?t='bachelor'">Bacheloropleidingen</a></li>
     <li class="current"><a href="Studiepagina.html">Kunstmatige intelligentie</a></li>
 </ul>
 
->>>>>>> 54ec8102a07e46d26308b9a0b1f10200765457ad
 <div class="opleidingPlaatje"><img src="http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg" class="opleidingPlaatje"></div>
 <h4>Introductie</h4>
 <!-- dit is de xml informatie over de studie -->
