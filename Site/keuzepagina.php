@@ -11,23 +11,29 @@
 
 <?php
 include 'hodex.php';
-$url = htmlspecialchars($_GET["test"]);
-$organisatie = htmlspecialchars($_GET["organisatie"]);
+$organisatie = null;
+$url = null;
 
-if($organisatie == null){
-	echo "<div class='title_grd'><h2>Universiteiten</h2></div>";
-	if($url == null){
-	$url = 'http://www.hodex.nl/hodexDirectory.xml';
-	}
-	$instellingen = loadHodexIndex($url);
-} else if($organisatie != null){
+if(isset($_GET["organisatie"])){
+	
+	$url = htmlspecialchars($_GET["test"]);
+	$organisatie = htmlspecialchars($_GET["organisatie"]);
 	echo "<div class='title_grd'><h2> Studies van: ".$organisatie."</h2></div>";
 	$instellingen = loadHodexSchool($url);
+} else {
+	echo "<div class='title_grd'><h2>Universiteiten</h2></div>";
+	if(isset($_GET["test"])){
+		$url = htmlspecialchars($_GET["test"]);
+	} else {
+		$url = 'http://www.hodex.nl/hodexDirectory.xml';
+	}
+	$instellingen = loadHodexIndex($url);
 }
 
 //echo count($instellingen);
 echo "<h3>Maak een keuze:</h3><ul class='posts'>";
-for($i =0; $i<count($instellingen); $i++){
+$count = count($instellingen);
+for($i =0; $i<$count; $i++){
 	if($i%2 == 0){
 	//echo "<p class='postBlauw'>";
 	echo "<li>";
@@ -35,13 +41,13 @@ for($i =0; $i<count($instellingen); $i++){
 	//echo "<p class='grijs'>";
 	echo "<li class='inspringR'>";
 	}
-	if($organisatie == null){
-	
-		echo "<a href='?test=".$instellingen[$i][url]."&organisatie=".$instellingen[$i][orgId]."'>".$instellingen[$i][orgId]."</a> <br />";
-	} else{
-		$Studie = loadHodexProgram($instellingen[$i][url]);
-		echo "<a href='Studiepagina.php?test=".$instellingen[$i][url]."'>".$Studie[name]."</a> <br />";
+	if($organisatie != null){
+		$Studie = loadHodexProgram($instellingen[$i]['url']);
+		echo "<a href='Studiepagina.php?test=".$instellingen[$i]['url']."'>".$Studie['name']."</a> <br />";
+	} else {
+		echo "<a href='?test=".$instellingen[$i]['url']."&organisatie=".$instellingen[$i]['orgId']."'>".$instellingen[$i]['orgId']."</a> <br />";
 	}
+		
 	echo "</li>";
 }
 echo "</ul>";

@@ -25,7 +25,7 @@ $url = htmlspecialchars($_GET["test"]);
 $studie = loadHodexProgram($url);
 
 "<!-- titel van de pagina, studie naam uit xml bestand -->";
-echo "<h2>".$studie[name]."</h2>";
+echo "<h2>".$studie['name']."</h2>";
 echo "</div>";
 
 echo "<div class='opleidingPlaatje'><img src='http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg' class='opleidingPlaatje'></div>";
@@ -35,9 +35,9 @@ echo "<h4>Introductie</h4>";
 // dit is de xml informatie over de studie
 
 echo "<p class='intro'><div class='intro_grd'>"
-.$studie[summary].
+.$studie['summary'].
 "<br />"
-.$studie[description].
+.$studie['description'].
 //<!-- straks een link naar de 'Statische studieinformatie' pagina -->
 "<br />
 <a href='http://www.studeren.uva.nl/ki' target='_blank' title='klik hier!'> meer studie informatie </a>
