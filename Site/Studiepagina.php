@@ -20,6 +20,7 @@
 <?php
 echo "<div class='title_grd'>";
 include 'hodex.php';
+include 'posts.php';
 $url = htmlspecialchars($_GET["test"]);
 
 $studie = loadHodexProgram($url);
@@ -27,6 +28,11 @@ $studie = loadHodexProgram($url);
 "<!-- titel van de pagina, studie naam uit xml bestand -->";
 echo "<h2>".$studie['name']."</h2>";
 echo "</div>";
+echo "<ul class='breadcrumbs'>
+    <li><a href='index.html'>Home</a></li>
+    <li><a href='keuzepagina.php'bachelor''>Keuzepagina</a></li>
+    <li class='current'><a href='Studiepagina.php'>".$studie['name']."</a></li>
+	</ul>";
 
 echo "<div class='opleidingPlaatje'><img src='http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg' class='opleidingPlaatje'></div>";
 
@@ -42,47 +48,34 @@ echo "<p class='intro'><div class='intro_grd'>"
 "<br />
 <a href='http://www.studeren.uva.nl/ki' target='_blank' title='klik hier!'> meer studie informatie </a>
 </div></p>";
+
+
+echo "<h4>Posts</h4>";
+// de 5 best beoordeelde of meest recente gedeelde dingen
+echo "<ul class='posts'>";
+
+setNumberOfPosts(5);
+$posts = postsProgram(20);
+$aantal = mysql_numrows($posts);
+
+for($i = 0; $i < $aantal; $i++){
+$arr = getPost($posts, $i);
+
+if($i%2 == 0){
+echo "<li><ul class='thumbs'><li><img src='img/thumbsup.png'></li> <li><img src='img/thumbsdown.png'></li></ul><h5>".$arr['title']."</h5>
+".$arr['content']."
+<ul class='reacties'><li>commends: ".$arr['comment_count']." </li> <li>user: ".$arr['user_id']." </li> <li>time: ".$arr['time']."</li></ul>
+</li>
+";} else {
+echo"<li class='inspringR'><ul class='thumbs'><li><img src='img/thumbsup.png'></li> <li><img src='img/thumbsdown.png'></li></ul><h5>".$arr['title']."</h5>
+".$arr['content']."
+<ul class='reacties'><li>commends: ".$arr['comment_count']." </li> <li>user: ".$arr['user_id']." </li> <li>time: ".$arr['time']."</li></ul>
+</li>";}
+}
+
+echo "</ul>";
 ?>
 
-<h4>Posts</h4>
-<!-- de 5 best beoordeelde of meest recente gedeelde dingen -->
-<ul class="posts">
-<li><ul class="thumbs"><li><img src="img/thumbsup.png"></li> <li><img src="img/thumbsdown.png"></li></ul><h5>content1</h5>
-Computersystemen die fraude met creditcards ontdekken, een telefonische routeplanner voor de trein die gesproken taal begrijpt.
-Dit zijn slechts twee voorbeelden van toegepaste kunstmatige intelligentie.
-Computers ondersteunen mensen steeds vaker bij het nemen van beslissingen of het zelfstandig uitvoeren van taken waarvoor intelligentie nodig is.
-Als je Kunstmatige intelligentie studeert, leer je hoe je machines zo intelligent mogelijk maakt.
-<ul class="reacties"><li>commends</li> <li>Name</li> <li>Date</li></ul>
-</li>
-<li class="inspringR"><ul class="thumbs"><li><img src="img/thumbsup.png"></li> <li><img src="img/thumbsdown.png"></li></ul><h5>content2</h5>
-Computersystemen die fraude met creditcards ontdekken, een telefonische routeplanner voor de trein die gesproken taal begrijpt.
-Dit zijn slechts twee voorbeelden van toegepaste kunstmatige intelligentie.
-Computers ondersteunen mensen steeds vaker bij het nemen van beslissingen of het zelfstandig uitvoeren van taken waarvoor intelligentie nodig is.
-Als je Kunstmatige intelligentie studeert, leer je hoe je machines zo intelligent mogelijk maakt.
-<ul class="reacties"><li>commends</li> <li>Name</li> <li>Date</li></ul>
-</li>
-<li><ul class="thumbs"><li><img src="img/thumbsup.png"></li> <li><img src="img/thumbsdown.png"></li></ul><h5>content3</h5>
-Computersystemen die fraude met creditcards ontdekken, een telefonische routeplanner voor de trein die gesproken taal begrijpt.
-Dit zijn slechts twee voorbeelden van toegepaste kunstmatige intelligentie.
-Computers ondersteunen mensen steeds vaker bij het nemen van beslissingen of het zelfstandig uitvoeren van taken waarvoor intelligentie nodig is.
-Als je Kunstmatige intelligentie studeert, leer je hoe je machines zo intelligent mogelijk maakt.
-<ul class="reacties"><li>commends</li> <li>Name</li> <li>Date</li></ul>
-</li>
-<li class="inspringR"><ul class="thumbs"><li><img src="img/thumbsup.png"></li> <li><img src="img/thumbsdown.png"></li></ul><h5>content4</h5>
-Computersystemen die fraude met creditcards ontdekken, een telefonische routeplanner voor de trein die gesproken taal begrijpt.
-Dit zijn slechts twee voorbeelden van toegepaste kunstmatige intelligentie.
-Computers ondersteunen mensen steeds vaker bij het nemen van beslissingen of het zelfstandig uitvoeren van taken waarvoor intelligentie nodig is.
-Als je Kunstmatige intelligentie studeert, leer je hoe je machines zo intelligent mogelijk maakt.
-<ul class="reacties"><li>commends</li> <li>Name</li> <li>Date</li></ul>
-</li>
-<li><ul class="thumbs"><li><img src="img/thumbsup.png"></li> <li><img src="img/thumbsdown.png"></li></ul><h5>content5</h5>
-Computersystemen die fraude met creditcards ontdekken, een telefonische routeplanner voor de trein die gesproken taal begrijpt.
-Dit zijn slechts twee voorbeelden van toegepaste kunstmatige intelligentie.
-Computers ondersteunen mensen steeds vaker bij het nemen van beslissingen of het zelfstandig uitvoeren van taken waarvoor intelligentie nodig is.
-Als je Kunstmatige intelligentie studeert, leer je hoe je machines zo intelligent mogelijk maakt.
-<ul class="reacties"><li>commends</li> <li>Name</li> <li>Date</li></ul>
-</li>
-</ul>
 
 <h3>Deel iets!</h3>
 <p class="txtField">
