@@ -1,0 +1,115 @@
+*{
+	margin:0;
+	padding:0;
+}
+
+body{
+	font-size:14px;
+	color:#666;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color:#FFFFFF;
+}
+
+
+#addCommentContainer{
+	
+	/* Syling the comments and the comment form container */
+	
+	padding:10px;
+	width:400px;
+	position:relative;
+	background-color:#A9E2F3;
+	border:1px solid white;
+	color:#000000;
+	margin-bottom:25px;
+	
+	
+}
+
+.comment .date{
+	font-size:10px;
+	padding:6px 0;
+	position:absolute;
+	right:15px;
+	top:10px;
+	color:#bbb;
+}
+
+.comment p,
+#addCommentContainer p{
+	font-size:18px;
+	line-height:1.5;
+	
+}
+
+#addCommentContainer input[type=text],
+#addCommentContainer textarea{
+
+	/* Styling the inputs */
+
+	display:block;
+	border:1px solid #ccc;
+	margin:5px 0 5px;
+	padding:3px;
+	font-size:14px;
+	color:#555;
+	font-family:Arial, Helvetica, sans-serif;
+	background-color: #FFFFFF;
+}
+
+#addCommentContainer textarea{
+	width:400px;
+}
+
+label{
+	font-size:10px;
+}
+
+label span.error{
+	color:red;
+	position:relative;
+	right:-10px;
+}
+
+#submit{
+	
+	/* The submit button */
+	
+	background-color:#1C1C1C;
+	border:1px solid #FFFFFF;
+	color:#FFFFFF;
+	cursor:pointer;
+	font-family:'Myriad Pro',Arial,Helvetica,sans-serif;
+	font-size:14px;
+	font-weight:bold;
+	padding:6px;
+	margin-top:10px;
+
+	
+}
+
+#submit:hover{
+	background-color:#0080FF;
+	border-color:#52b1e2;
+}
+
+/* The styles below are only necessary for the styling of the demo page: */
+
+#main{
+	position:relative;
+	margin:0 auto;
+	width:427px;
+}
+
+
+
+
+}
+
+a:hover{
+	text-decoration:underline;
+}
+
+a img{
+	border:none;
+}
