@@ -4,6 +4,25 @@
 <head>
 <link rel="stylesheet" type="text/css" href="CSS.css">
 <title>Studie pagina</title>
+
+<script type="text/javascript" src="prototype.js"></script>
+<script>
+
+function sendRequest() {
+new Ajax.Request("testAjax.php", 
+	{ 
+		method: 'post', 
+		postBody: 'title='+ $F('title') +'&text='+ $F('text'),
+		onComplete: showResponse 
+	});
+}
+
+function showResponse(req){
+	$('show').innerHTML= req.responseText;
+}
+</script>
+
+
 </head>
 
 <body><div class="rand">
@@ -74,14 +93,17 @@ echo"<li class='inspringR'><ul class='thumbs'><li><img src='img/thumbsup.png'></
 }
 
 echo "</ul>";
+
+echo "<div id='show'>
+	<form id='test' onsubmit='return false;'>
+		<h3>Deel wat leuks door hier te typen</h3>
+		Title: <input type='text' name='title' id='title' ><br />
+		<input type='text' name='text' id='text'  size='130'><br />
+		<input type='submit' value='submit' onClick='sendRequest()'>
+	</form>
+</div>";
+
 ?>
-
-
-<h3>Deel iets!</h3>
-<p class="txtField">
-Txtfield voor een reactie.<br />
-nog meer txtfield.
-</p>
 
 <!-- link naar de 'archief' pagina met meer gedeelde content -->
 <p><a href="archief.html">klik voor meer</a></p>
