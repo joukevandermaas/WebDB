@@ -86,7 +86,6 @@ foreach($index as $org) {
         $programs[$i++] = $progInfo;
     }
     fillProgs($programs);
-    echo $org["orgId"];
 }
 echo "All done!";
 ?>

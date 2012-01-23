@@ -1,9 +1,9 @@
 <?php
 
 $server = "localhost";
-$database = "webdb";
-$user = "user";
-$password = "password";
+$database = "webdb1237";
+$user = "webdb1237";
+$password = "me7habac";
 
 function getConnection() {
     global $server;

@@ -9,6 +9,13 @@
 <body><div class="rand">
 <h1><div class="logo">Straks de header</div></h1>
 
+<ul id="topnav">
+<li class="inspringZ"><a class="menu" href="#home">Home</a></li>
+<li class="inspringZ"><a class="menu" href="#Bacheloropleidingen">Bachelor</a></li>
+<li class="inspringZ"><a class="menu" href="#Masteropleidingen">Master</a></li>
+<li class="inspringZ"><a class="menu" href="#Opleiding">Instellingen</a></li>
+</ul>
+
 <?php
 include 'hodex.php';
 $organisatie = null;
@@ -29,6 +36,11 @@ if(isset($_GET["organisatie"])){
 	}
 	$instellingen = loadHodexIndex($url);
 }
+echo "<ul class='breadcrumbs'>
+    <li><a href='index.html'>Home</a></li>
+    <li class='current'><a href='keuzepagina.php'>Kies een studie</a></li>
+	</ul>";
+
 
 //echo count($instellingen);
 echo "<h3>Maak een keuze:</h3><ul class='posts'>";
