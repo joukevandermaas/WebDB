@@ -1,5 +1,5 @@
 <?php
-require("../database.php");
+require("../connectdb.php");
 
 function createTable($name, $columns, $keys = array()) {
     $query = "CREATE TABLE IF NOT EXISTS $name ( \n";
@@ -94,12 +94,11 @@ $tables = array(
     )
 );
 
-$con = getConnection();
 mysql_query("DROP TABLE comments, posts, programs, users, orgs");
 foreach($tables as $name => $columns) {
     $query = createTable($name, $columns[0], $columns[1]);
     echo "$query\n\n";
-    mysql_query($query, $con);
+    mysql_query($query, $dbcon);
 }
 
 header("Location: confighodex.php");
