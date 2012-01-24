@@ -63,6 +63,7 @@ $tables = array(
             "id"            => "INT NOT NULL AUTO_INCREMENT",
             "program_id"    => "SMALLINT NOT NULL",
             "user_id"       => "INT NOT NULL",
+            "title"         => "VARCHAR(64)",
             "content"       => "TEXT",
             "timestamp"     => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
             "score"         => "SMALLINT"
