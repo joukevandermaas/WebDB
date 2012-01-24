@@ -1,14 +1,13 @@
 <?php 
-require("database.php");
+require("connectdb.php");
 $websiteName = "Naam van de website";
-$connection = getConnection();
 
 function getProgramName($id) {
-    global $connection;
+    global $dbcon;
     $saveid = mysql_real_escape_string($id);
     $query = "SELECT name FROM programs WHERE id = $saveid LIMIT 1";
         
-    $result = mysql_query($query, $connection);
+    $result = mysql_query($query, $dbcon);
     $name = mysql_fetch_row($result);
     if ($name)
         return $name[0];
@@ -35,7 +34,7 @@ function getPageTitle() {
 </head>
 
 <body><div class="rand">
-<h1><div class="logo">Straks de header</div></h1>
+<h1><div class="logo"><?php echo $websiteName; ?></div></h1>
 
 <ul id="topnav">
 <li><a href="index.php">Home</a></li>

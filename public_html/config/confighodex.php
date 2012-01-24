@@ -1,24 +1,49 @@
 <?php
 set_time_limit(0);
 ignore_user_abort();
-require("../database.php");
+require("../connectdb.php");
 include("../hodex.php");
 
-$con = getConnection();
-
 function fillOrgs($index) {
-    global $con;
-    mysql_query("DELETE FROM orgs", $con);
+    global $dbcon;
+    
+    $names = array(
+        "ut" => "Universiteit Twente",
+        "uu" => "Universiteit Utrecht",
+        "um" => "Maastricht University",
+        "hg" => "Hanzehogeschool",
+        "uvt" => "Tilburg University",
+        "tue" => "TU Eindhoven",
+        "lei" => "Universiteit Leiden",
+        "rug" => "Rijksuniversiteit Groningen",
+        "run" => "Radboud Universiteit Nijmegen",
+        "uva" => "Universiteit van Amsterdam",
+        "eur" => "Erasmus Universiteit Rotterdam",
+        "wur" => "Wageningen University",
+        "tud" => "TU Delft",
+        "vhl" => "Van Hall-Larenstein",
+        "vu" => "Vrije Universiteit Amsterdam",
+        "fontys" => "Fontys Hogescholen",
+        "hro" => "Hogeschool Rotterdam",
+        "hhs" => "De Haagse Hogeschool", 
+        "hva" => "Hogeschool van Amsterdam", 
+        "nhtv" => "NHTV Breda", 
+        "icra" => "ICRA", 
+        "hu" => "Hogeschool Utrecht", 
+        "artez" => "ArtEZ hogeschool voor de kunsten"
+    );
+    
+    mysql_query("DELETE FROM orgs", $dbcon);
 
     $query = "INSERT INTO orgs (id, name, horgid)\nVALUES\n";
     foreach($index as $link) {
-        $query .= "(NULL, '', '".$link["orgId"]."'),\n";
+        $query .= "(NULL, '".$names[$link["orgId"]]."', '".$link["orgId"]."'),\n";
     }
     $query = rtrim($query, ",\n");
-    mysql_query($query, $con);
+    mysql_query($query, $dbcon);
 }
 function fillProgs($programs) {
-    global $con;
+    global $dbcon;
     $query = "INSERT INTO programs ".
         "(id, org_id, hprogramid, croho, name, summary, level, hodexurl)".
         "\nVALUES\n";
@@ -28,14 +53,15 @@ function fillProgs($programs) {
             "', '".$prog["level"]."', '".$prog["hodexurl"]."'),\n";
     }
     $query = rtrim($query, ",\n");
-    //echo $query . "\n\n";
-    mysql_query($query, $con);
+    $result = mysql_query($query, $dbcon);
+    if (!$result)
+        die("invalid query: ".mysql_error()."\n$query");
 }
 
 function getIdMap() {
-    global $con;
+    global $dbcon;
     $query = "SELECT horgid, id FROM orgs";
-    $result = mysql_query($query, $con);
+    $result = mysql_query($query, $dbcon);
 
     $ids = array();
     while($row = mysql_fetch_assoc($result))
@@ -48,14 +74,19 @@ function getIdMap() {
 function getLevel($levelString) {
     switch($levelString) {
         case "bachelor":
-            return 0;
+            return '1';
         case "master":
-            return 1;
+            return '2';
         case "academic bachelor":
-            return 2;
+            return '3';
         case "academic master":
-            return 3;
+            return '4';
     }
+}
+function getCroho($crohoString) {
+    if (empty($crohoString))
+        return "NULL";
+    return $crohoString;
 }
 
 
@@ -72,14 +103,13 @@ foreach($index as $org) {
     $programs = array();
     $i = 0;
     foreach($orgIndex as $program) {
-        $program = $orgIndex[0];
         $progIndex = loadHodexProgram($program["url"]);
         $progInfo = array(
             "org_id" => $ids[$org["orgId"]],
             "hprogramid" => $program["programId"],
-            "croho" => $progIndex["croho"],
-            "name" => $progIndex["name"],
-            "summary" => $progIndex["summary"],
+            "croho" => getCroho($progIndex["croho"]),
+            "name" => htmlspecialchars($progIndex["name"], ENT_QUOTES),
+            "summary" => htmlspecialchars($progIndex["summary"], ENT_QUOTES),
             "level" => getLevel($progIndex["level"]),
             "hodexurl" => $program["url"]
         );
@@ -87,5 +117,5 @@ foreach($index as $org) {
     }
     fillProgs($programs);
 }
-echo "All done!";
+header("Location: configdb.php?done");
 ?>
