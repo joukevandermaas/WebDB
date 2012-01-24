@@ -1,5 +1,5 @@
 <?php
-require("../database.php");
+require("../connectdb.php");
 
 function createTable($name, $columns, $keys = array()) {
     $query = "CREATE TABLE IF NOT EXISTS $name ( \n";
@@ -46,16 +46,17 @@ $tables = array(
             "id"            => "SMALLINT NOT NULL AUTO_INCREMENT",
             "org_id"        => "TINYINT NOT NULL",
             "hprogramid"    => "VARCHAR(32)",
-            "croho"         => "SMALLINT",
+            "croho"         => "MEDIUMINT UNSIGNED NULL",
             "name"          => "VARCHAR(128)",
             "summary"       => "TEXT",
-            "level"         => "ENUM('0', '1', '2', '3')",
+            "level"         => "ENUM('1', '2', '3', '4')",
             "hodexurl"      => "TEXT"
         ),
         array(
             "PRIMARY KEY(id)",
             "INDEX (org_id)",
-            "FOREIGN KEY (org_id) REFERENCES orgs(id)"
+            "FOREIGN KEY (org_id) REFERENCES orgs(id)",
+            "UNIQUE (org_id, hprogramid)"
         )
     ),
     "posts" => array(
@@ -94,13 +95,17 @@ $tables = array(
     )
 );
 
-$con = getConnection();
-mysql_query("DROP TABLE comments, posts, programs, users, orgs");
-foreach($tables as $name => $columns) {
-    $query = createTable($name, $columns[0], $columns[1]);
-    echo "$query\n\n";
-    mysql_query($query, $con);
-}
+if (!isset($_GET["done"])) {
+    mysql_query("DROP TABLE comments, posts, programs, users, orgs", $dbcon);
+    foreach($tables as $name => $columns) {
+        $query = createTable($name, $columns[0], $columns[1]);
+        echo "$query\n\n";
+        mysql_query($query, $dbcon);
+    }
 
-header("Location: confighodex.php");
+    header("Location: confighodex.php");
+} else
+{
+    echo "All done!";
+}
 ?>
