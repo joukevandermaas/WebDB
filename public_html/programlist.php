@@ -7,10 +7,15 @@ function getGetParam($name, $default) {
         return mysql_real_escape_string($_GET[$name]);
     return $default;
 }
+function getShortString($string, $maxLength) {
+    if (strlen($string) > $maxLength) {
+        return substr($string, 0, $maxLength - 3)."...";
+    }
+    return $string;
+}
 
 $level = getGetParam("level", 3);
-$page = getGetParam("page", 0);
-$programsPerPage = 25;
+$org = getGetParam("org", -1);
 
 $levelName = "";
 switch($level) {
@@ -28,41 +33,34 @@ switch($level) {
         break;
 }
 
-$limitStart = $programsPerPage * $page;
-$query = "SELECT programs.id, programs.name, orgs.name, programs.croho, programs.hprogramid".
-        " FROM programs JOIN (orgs) ON (programs.org_id=orgs.id)".
-        " WHERE level=".$level.
-        //" GROUP BY programs.croho".
-        " ORDER BY programs.name".
-        " LIMIT ".(string)($programsPerPage * $page).", ".$programsPerPage;
-
+$query = "SELECT programs.id, programs.name, orgs.id, orgs.name\n".
+        " FROM programs\n".
+        " JOIN (orgs) ON (programs.org_id=orgs.id)\n".
+        " WHERE level=".$level."\n";
 $result = mysql_query($query, $dbcon);
 $pcount = mysql_num_rows($result);
 if (!$result)
     die("Invalid query: ".mysql_error());
+    
+$programs = array();
+while($row = mysql_fetch_row($result)){
+    $programs[$row[3]][$row[0]] = $row[1];
+}
 ?>
 
 
-<h2 class="title_grd">Kunstmatige Intelligentie</h2>
+<h2 class="title_grd"><?php echo $levelName; ?>opleidingen</h2>
 <ul class="breadcrumbs">
     <li><a href="index.html">Home</a></li>
     <li><a href="programlist.php?level=<?php echo $level; ?>"><?php echo $levelName; ?>opleidingen</a></li>
 </ul>
-<h4><?php echo $levelName; ?></h4>
-<ul>
 <?php
-    while($row = mysql_fetch_row($result)) {
-        echo "<!--"; print_r($row); echo "-->";
-        echo "<li>".htmlspecialchars($row[1])." (".$row[2].")</li>\n";
+foreach($programs as $org => $plist) {
+    echo "<div class='org'>\n<h4>$org</h4>\n<ul>\n";
+    foreach($plist as $id => $program) {
+        echo "<li><a href='program.php?id=$id'>".getShortString($program, 50)."</a></li>\n";
     }
-?>
-</ul>
-<?php
-if ($page > 0) {
-    echo "<a href='programlist.php?level=$level&page=".(string)(--$page)."'>Vorige</a>";
-}
-if ($pcount >= $programsPerPage) {
-    echo "<a href='programlist.php?level=$level&page=".(string)(++$page)."'>Volgende</a>";
+    echo "</ul>\n</div>";
 }
 ?>
 </div></body></html>

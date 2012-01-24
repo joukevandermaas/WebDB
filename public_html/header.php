@@ -38,7 +38,7 @@ function getPageTitle() {
 
 <ul id="topnav">
 <li><a href="index.php">Home</a></li>
-<li><a href="list.php?type=2">Bachelor</a></li>
-<li><a href="list.php?type=3">Master</a></li>
+<li><a href="programlist.php?level=3">Bachelor</a></li>
+<li><a href="programlist.php?level=4">Master</a></li>
 <li><a href="organizations.php">Instellingen</a></li>
 </ul>
