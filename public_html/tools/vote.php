@@ -16,4 +16,6 @@ $newscore = $score + $up;
 $query = "UPDATE posts SET score=". $newscore ." WHERE id = ".mysql_real_escape_string($pid)." LIMIT 1";
 
 mysql_query($query, $dbcon);
+// INSERT INTO comments (id, post_id, user_id, content, timestamp) VALUES (NULL, 1, 1, 'Hallo!', NULL)
+// INSERT INTO comments SET id=NULL, post_id=1, ...
 ?>
