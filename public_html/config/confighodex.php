@@ -33,8 +33,6 @@ function fillOrgs($index) {
         "artez" => "ArtEZ hogeschool voor de kunsten"
     );
     
-    mysql_query("DELETE FROM orgs", $dbcon);
-
     $query = "INSERT INTO orgs (id, name, horgid)\nVALUES\n";
     foreach($index as $link) {
         $query .= "(NULL, '".$names[$link["orgId"]]."', '".$link["orgId"]."'),\n";
@@ -117,5 +115,5 @@ foreach($index as $org) {
     }
     fillProgs($programs);
 }
-header("Location: configdb.php?done");
+header("Location: configposts.php");
 ?>
