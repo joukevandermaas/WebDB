@@ -38,19 +38,24 @@ function showResponse(req){
 
 <?php
 echo "<div class='title_grd'>";
-include 'hodex.php';
 include 'posts.php';
-$url = htmlspecialchars($_GET["test"]);
+include 'connectdb.php';
 
-$studie = loadHodexProgram($url);
+if(isset($_GET["program_id"])){
+	$program_id = htmlspecialchars($_GET["program_id"]);
+}
+
+$query = "SELECT * FROM programs WHERE id= '$program_id'";
+$result = MySql_query($query);
+$program = mysql_fetch_assoc($result);
 
 "<!-- titel van de pagina, studie naam uit xml bestand -->";
-echo "<h2>".$studie['name']."</h2>";
+echo "<h2>".$program['name']."</h2>";
 echo "</div>";
 echo "<ul class='breadcrumbs'>
     <li><a href='index.html'>Home</a></li>
     <li><a href='keuzepagina.php'bachelor''>Keuzepagina</a></li>
-    <li class='current'><a href='Studiepagina.php'>".$studie['name']."</a></li>
+    <li class='current'><a href='Studiepagina.php'>".$program['name']."</a></li>
 	</ul>";
 
 echo "<div class='opleidingPlaatje'><img src='http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg' class='opleidingPlaatje'></div>";
@@ -60,11 +65,9 @@ echo "<h4>Introductie</h4>";
 // dit is de xml informatie over de studie
 
 echo "<p class='intro'><div class='intro_grd'>"
-.$studie['summary'].
-"<br />"
-.$studie['description'].
-//<!-- straks een link naar de 'Statische studieinformatie' pagina -->
+.$program['summary'].
 "<br />
+<br />
 <a href='http://www.studeren.uva.nl/ki' target='_blank' title='klik hier!'> meer studie informatie </a>
 </div></p>";
 
@@ -74,7 +77,7 @@ echo "<h4>Posts</h4>";
 echo "<ul class='posts'>";
 
 setNumberOfPosts(5);
-$posts = postsProgram(20);
+$posts = postsProgram($program_id);
 $aantal = mysql_numrows($posts);
 
 for($i = 0; $i < $aantal; $i++){
@@ -97,8 +100,8 @@ echo "</ul>";
 echo "<div id='show'>
 	<form id='test' onsubmit='return false;'>
 		<h3>Deel wat leuks door hier te typen</h3>
-		Title: <input type='text' name='title' id='title' ><br />
-		<input type='text' name='text' id='text'  size='130'><br />
+		Title: <input type='text' name='title' id='title' size='40'><br />
+		<input type='text' name='text' id='text'  size='146'><br />
 		<input type='submit' value='submit' onClick='sendRequest()'>
 	</form>
 </div>";

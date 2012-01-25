@@ -1,4 +1,6 @@
 <?php
+require 'connectdb.php';
+
 // aantal posts op een pagina
 $numberOfPosts = 4;
 
@@ -19,9 +21,6 @@ function setNumberOfPosts($number){
 // met deze functie haal je op hoe veel pagina's er gemaakt moeten worden
 function getNumberOfPages($studie){
 	global $numberOfPosts;
-	$database="test";
-	
-	@mysql_select_db($database) or die("unable to select database");
 	
 	$query="SELECT * FROM posts WHERE programs_id= $studie";
 	$posts = mysql_query($query);
@@ -53,7 +52,7 @@ function postsProgram($program){
 	global $numberOfPosts;
 	$start = 0 + $numberOfPosts*($page-1);
 	
-	$query="SELECT * FROM posts WHERE programs_id= $program LIMIT $start,$numberOfPosts";	
+	$query="SELECT * FROM posts WHERE program_id= $program LIMIT $start,$numberOfPosts";	
 	return posts($query);
 }
 
@@ -69,14 +68,9 @@ function postsUser($user){
 
 // met de 2 bovenstaande functies genereerd dit de posts
 function posts($query){
-	$database="test";
-	
-	@mysql_select_db($database) or die("unable to select database");
 	
 	$posts = mysql_query($query);
 	$aantal = mysql_numrows($posts);
-	
-	mysql_close();
 	
 	//for($i = 0; $i < $aantal; $i++){
 	//	printPost($posts, $i);
@@ -87,11 +81,16 @@ function posts($query){
 
 // deze functie print de posts die bij de bovenstaande functie is gegenereerd
 function printPost($posts, $i){
+	$id = mysql_result($posts, $i, 'id');
+
+	$query = "SELECT COUNT(id) FROM comments GROUP BY post_id HAVING post_id= $id";
+	$comment_count = MySql_query($query);
+	
 	$title = mysql_result($posts, $i, 'title');
 	$content = mysql_result($posts, $i, 'content'); 
 	$time = mysql_result($posts, $i, 'timestamp');
 	$score = mysql_result($posts, $i, 'score'); 
-	$comment_count = mysql_result($posts, $i, 'comment_count');
+	//$comment_count = mysql_result($posts, $i, 'comment_count');
 	$user_id = mysql_result($posts, $i, 'users_id');
 		
 	echo "<h3>" .$title. "</h3>" 
