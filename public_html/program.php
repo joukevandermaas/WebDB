@@ -1,8 +1,8 @@
 <?php
-include 'tools/helperfuncs.php';
-include 'tools/posts.php';
-require 'tools/connectdb.php'; 
-include 'tools/loadprogram.php';
+include_once 'tools/helperfuncs.php';
+// include_once 'tools/posts.php';
+require_once 'tools/connectdb.php'; 
+include_once 'tools/loadprogram.php';
 
 ?>
 
@@ -11,21 +11,6 @@ $pageName = $program["name"];
 $path = array ("Home" => "index.php", "Opleidingen" => "programlist.php?level=".$program['level']);
 include("header.php"); 
 ?>
-
-<script>
-function sendRequest() {
-new Ajax.Request("testAjax.php", 
-	{ 
-		method: 'post', 
-		postBody: 'title='+ $F('title') +'&text='+ $F('text'),
-		onComplete: showResponse 
-	});
-}
-
-function showResponse(req){
-	$('show').innerHTML= req.responseText;
-}
-</script>
 
 <?php
 echo "<div class='opleidingPlaatje'><img src='http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg' class='opleidingPlaatje'></div>";
@@ -44,24 +29,17 @@ echo "<p class='intro'>"
 
 echo "<h4>Posts</h4>";
 // de 5 best beoordeelde of meest recente gedeelde dingen
-echo "<ul class='posts'>";
+//echo "<ul class='posts'>";
 
-setNumberOfPosts(5);
-$posts = postsProgram($program['id']);
-$aantal = mysql_numrows($posts);
 
-for($i = 0; $i < $aantal; $i++){
-$arr = getPost($posts, $i);
+?>
 
-echo $i%2 == 0 ? "<li>" : "<li class='inspringR'>";
+<script type="text/javascript">
+loadPosts(<?php echo $program['id']; ?>, 0);
+</script>
+<ul id="posts"></ul>
 
-echo "<ul class='thumbs'><li><img src='img/thumbsup.png'></li> <li><img src='img/thumbsdown.png'></li></ul><h5>".$arr['title']."</h5>
-".$arr['content']."
-<ul class='reacties'><li>comments: ".$arr['comment_count']." </li> <li>user: ".$arr['user_id']." </li> <li>time: ".$arr['time']."</li></ul>
-</li>";
-}
-
-echo "</ul>";
+<?php
 
 echo "<div id='show'>
 	<form id='test' onsubmit='return false;'>

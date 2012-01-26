@@ -16,6 +16,9 @@ $title = $pageName." | ".$websiteName;
 <head>
 <link rel="stylesheet" type="text/css" href="style.css">
 <title><?php echo $title; ?></title>
+
+<script type="text/javascript" src='scripts/posts.js'>
+</script>
 </head>
 
 <body><div class="rand">

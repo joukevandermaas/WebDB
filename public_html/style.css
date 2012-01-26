@@ -119,11 +119,11 @@ h5{
 	margin-left: 1em;
 }
 
-ul.posts, ul#topnav, ul.posts ul{
+ul#posts, ul#topnav, ul#posts ul{
 	list-style-type: none;
 } 
 
-ul.posts li{
+ul#posts li{
 	padding: 0.3em 1em 1em 1em;
 	background-color: #454545;
 	color: #ffffff;
@@ -131,7 +131,7 @@ ul.posts li{
 	margin-left:2em;
 }
 
-ul.posts li h5{
+ul#posts li h5{
 	font-size: 1em;
 	position: relative;
 	margin:0em 0em;
@@ -139,7 +139,7 @@ ul.posts li h5{
 	color:#6cb5ff;
 }
 
-ul.posts li.inspringR{
+ul#posts li.inspringR{
 	background-color: #6cb5ff;
 	background-image: url(img/achtergrondReactie2.jpg);
 	background-repeat: repeat;
@@ -148,11 +148,11 @@ ul.posts li.inspringR{
 	margin-right: 2em;
 }
 
-ul.posts li.inspringR a{
+ul#posts li.inspringR a{
 	color: #454545;
 }
 
-ul.posts li.inspringR h5{
+ul#posts li.inspringR h5{
 	color: #454545
 }
 
