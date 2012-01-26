@@ -1,8 +1,9 @@
 <?php
 require("connectdb.php");
+include("helperfuncs.php");
 
-$pid = $_GET["pid"];
-$up = $_GET["up"];
+$pid = getUsrParam("pid", 0);
+$up = getUsrParam("value", 0);
 
 
 $query = "SELECT score FROM posts WHERE id = ".mysql_real_escape_string($pid)." LIMIT 1";
@@ -17,9 +18,7 @@ $query = "UPDATE posts SET score=". $newscore ." WHERE id = ".mysql_real_escape_
 
 mysql_query($query, $dbcon);
 
+echo 'yay';
 
 ?>
-<script type="text/javascript" src="vote.js"></script>
-<img src="/tools/thumbsup.png" alt="alt-text" onclick="dovote(1);" />
-<img src="/tools/thumbsdown.png" alt="alt-text" onclick="dovote(-1)" />
 

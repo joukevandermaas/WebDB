@@ -18,10 +18,19 @@ function createPostList() {
             if (i % 2 == 0)
                 elem.setAttribute('class', 'inspringR');
             elem.innerHTML =
-                "<ul class='thumbs'><li><img src='img/thumbsup.png'></li>" + 
-                "<li><img src='img/thumbsdown.png'></li></ul><h5>" +
+                "<ul class='thumbs'>" + createVoteButton(1, post.id) + createVoteButton(-1, post.id) + "</ul><h5>" +
                 post.title + "</h5>" + post.content;
             container.appendChild(elem);
         }
     }
+}
+
+function createVoteButton(type, pid) {
+    var t = getName(type);
+    var result = '<li><a class="' + t + '" href="#" onclick="doVote(' 
+        + pid + ', ' + type + ')"></a></li>';
+    return result;
+}
+function getName(type) {
+    return type == 1 ? 'up' : 'down';
 }

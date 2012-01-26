@@ -176,11 +176,31 @@ ul.thumbs{
 	margin: 0em 0em;
 }
 ul.thumbs li{
-	background-color: transparent;
+	background-color: transparent !important;
 	margin: 0em 0em;
 	padding: 0em 0em;
 	height: 29px;
 	float: left;
+}
+ul.thumbs a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 29px;
+    width: 29px;
+    background: transparent top left no-repeat;
+}
+ul.thumbs a.up {
+    background-image: url('img/thumbsupgray.png');
+}
+ul.thumbs a.down {
+    background-image: url('img/thumbsdowngray.png');
+}
+ul.thumbs a.up:hover {
+    background-image: url('img/thumbsup.png');
+}
+ul.thumbs a.down:hover {
+    background-image: url('img/thumbsdown.png');
 }
 
 ul li.inspringL{
