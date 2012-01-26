@@ -417,7 +417,7 @@ div.opleidingPlaatje{
 div.tekstbox
 {
 	font-size: 12px;
-	background-image: url( 'blue.png');
+	background-image: url(img/blue.png);
 	text-align: center;
 	margin-left: auto; margin-right: auto;
    padding: 5px;
