@@ -1,8 +1,8 @@
 <?php
-require 'connectdb.php';
+require '../public_html/tools/connectdb.php';
 
 // aantal posts op een pagina
-$numberOfPosts = 4;
+$numberOfPosts = 5;
 
 // dit bekijkt op welke pagina je op dit moment zit en als dat niet duidelijk is
 // word het pagina 1
@@ -84,14 +84,16 @@ function printPost($posts, $i){
 	$id = mysql_result($posts, $i, 'id');
 
 	$query = "SELECT COUNT(id) FROM comments GROUP BY post_id HAVING post_id= $id";
-	$comment_count = MySql_query($query);
+	$result = MySql_query($query);
+	$comments = MySql_fetch_row($result);
+	$comment_count = $comments[0];
 	
 	$title = mysql_result($posts, $i, 'title');
 	$content = mysql_result($posts, $i, 'content'); 
 	$time = mysql_result($posts, $i, 'timestamp');
 	$score = mysql_result($posts, $i, 'score'); 
 	//$comment_count = mysql_result($posts, $i, 'comment_count');
-	$user_id = mysql_result($posts, $i, 'users_id');
+	$user_id = mysql_result($posts, $i, 'user_id');
 		
 	echo "<h3>" .$title. "</h3>" 
 	.$content. 
@@ -99,12 +101,18 @@ function printPost($posts, $i){
 }
 
 function getPost($posts, $i){
+	$id = mysql_result($posts, $i, 'id');
+
+	$query = "SELECT COUNT(id) FROM comments GROUP BY post_id HAVING post_id= $id";
+	$result = MySql_query($query);
+	$count = MySql_fetch_row($result);
+
 	$arr = array(
 		'title' => mysql_result($posts, $i, 'title'),
 		'content' => mysql_result($posts, $i, 'content'),
 		'time' => mysql_result($posts, $i, 'timestamp'),
-		'comment_count' => mysql_result($posts, $i, 'comment_count'),
-		'user_id' => mysql_result($posts, $i, 'users_id')
+		'comment_count' => $count[0],
+		'user_id' => mysql_result($posts, $i, 'user_id')
 	);
 
 	return $arr;
