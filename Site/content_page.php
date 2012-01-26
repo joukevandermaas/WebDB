@@ -4,31 +4,26 @@ $path = array(
     'Home' => 'index.php'
 );
 
-include('../public_html/header.php');
+include('header.php');
 include('posts.php');
 $query = "SELECT * FROM posts WHERE id= 2 LIMIT 1";
 
 $posts = mysql_query($query);
 $post = getPost($posts, 0);
 
+$txt = $post['content'];
+
 echo "<h4>".$post['title']."</h4>
 <!-- dit is de xml informatie over de studie -->
-<div class='intro_grd'><p class='intro'>"
-
-.$post['content'].
-
-"
+<div class='intro'>".$post['content']."
 <ul class='reacties'><li>commends: ".$post['comment_count']." </li> <li>user: ".$post['user_id']." </li> <li>time: ".$post['time']."</li></ul>
-</li>
+</div>
 
-
-</p></div>
-
-<h4>REACTIES</h4>"
+<h4>REACTIES</h4>";
 //<!-- de 5 best beoordeelde of meest recente gedeelde dingen -->
-.$count = 1 . 
+$count = 1;
 
-"<ul class='posts'>";
+echo "<ul class='posts'>";
 for($i = 0; $i<$count; $i++){
 	if($i %2 == 0){
 		echo "<li class='inspringL'><h5>content1</h5>";
@@ -40,10 +35,7 @@ for($i = 0; $i<$count; $i++){
 
 echo "</li>";
 }
-echo "</ul>
-
-<!-- link naar de 'archief' pagina met meer gedeelde content -->
-<p><a href='archief.html'>klik voor meer</a></p>";
+echo "</ul><br /><br />";
 ?>
 </div></body>
 </html>
