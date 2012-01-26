@@ -6,13 +6,10 @@ $path = array(
 
 include('../public_html/header.php');
 include('posts.php');
-$query="SELECT * FROM posts WHERE id= 1288 LIMIT 1";
+$query = "SELECT * FROM posts WHERE id= 2 LIMIT 1";
 
 $posts = mysql_query($query);
-$post = MySql_fetch_row($posts);
-$iets = $post['id'][0];
-echo $iets;
-//$post = getPost($posts, 0);
+$post = getPost($posts, 0);
 
 echo "<h4>".$post['title']."</h4>
 <!-- dit is de xml informatie over de studie -->
