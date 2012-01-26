@@ -1,3 +1,4 @@
+
 <?php
 $pageName = "Post";
 $path = array(
@@ -6,7 +7,17 @@ $path = array(
 
 include('header.php');
 include('posts.php');
-$query = "SELECT * FROM posts WHERE id= 2 LIMIT 1";
+include('comments.php');
+function currentid (){
+if(isset($_GET["post_id"])){
+	$ci= htmlspecialchars($_GET["post_id"]);
+	return $ci;
+}
+}
+
+$currentpostid = currentid();
+$query = "SELECT * FROM posts WHERE id= $currentpostid LIMIT 1";
+
 
 $posts = mysql_query($query);
 $post = getPost($posts, 0);
@@ -20,22 +31,39 @@ echo "<h4>".$post['title']."</h4>
 </div>
 
 <h4>REACTIES</h4>";
-//<!-- de 5 best beoordeelde of meest recente gedeelde dingen -->
-$count = 1;
+$totalcomments = "SELECT * FROM comments WHERE post_id = $currentpostid";
+$count = mysql_query($totalcomments);
+$kaas = mysql_num_rows($count);
+
+
 
 echo "<ul class='posts'>";
-for($i = 0; $i<$count; $i++){
+for($i = 0; $i<$kaas; $i++){
 	if($i %2 == 0){
-		echo "<li class='inspringL'><h5>content1</h5>";
+		echo "<li class='inspringL'>";
 	} else {
-		echo "<li class='inspringR'><h5>content2</h5>";
+		echo "<li class='inspringR'>";
 	}
 	
 	// plaats hier je functie of je print.
 
+	
+
+$comment = getComments($count, $i);	
+echo 
+"<div class='intro'>".$comment['content']."
+<ul class='reacties''><li>user: ".$comment['user_id']." </li> <li>time: ".$comment['time']."</li></ul>
+</div>";
 echo "</li>";
 }
 echo "</ul><br /><br />";
+
+echo "<div class='tekstbox'>
+	<class = form method='post'>
+<textarea name='comments' cols='60'rows='15'>
+</textarea><br>
+<input type='submit' value='Submit'/>
+</form>"
 ?>
 </div></body>
 </html>
