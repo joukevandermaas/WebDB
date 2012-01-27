@@ -19,7 +19,9 @@ function createPostList() {
                 elem.setAttribute('class', 'inspringR');
             elem.innerHTML =
                 "<ul class='thumbs'>" + createVoteButton(1, post.id) + createVoteButton(-1, post.id) + "</ul><h5>" +
-                post.title + "</h5>" + post.content;
+                "<a href='post.php?id=" + post.id + "'>" + post.title + "</a></h5>" + post.content +
+                "<ul class='reacties'><li>comments: " + post.comment_count + " </li> <li>user: " +
+                post.user_id + " </li> <li>time: " + post.timestamp + "</li></ul>";
             container.appendChild(elem);
         }
     }

@@ -16,9 +16,10 @@ class PostList {
         $start = $page * $this->postsPerPage;
         $count = $this->postsPerPage;
         
-        $query = "SELECT * FROM posts WHERE ".
-            "program_id=".$this->program." ".
-            "ORDER BY `timestamp` DESC, (1- (score/`timestamp`)) ASC ".
+        $query = "SELECT *, COUNT(comments.id) AS comment_count ".
+            "FROM posts JOIN comments ON (comments.post_id=posts.id) ".
+            "WHERE program_id=".$this->program." ".
+            "ORDER BY posts.timestamp DESC, (1- (score/posts.timestamp)) ASC ".
             "LIMIT $start, $count";
         $result = mysql_query($query, $dbcon);
         if (!$result)
