@@ -1,1 +1,38 @@
-.
+** REQUIREMENTS **
+
+1. A webserver (like Apache).
+2. PHP (at least version 5).
+3. MySQL (also at least version 5).
+
+
+** SETUP **
+
+1. Edit the public_html/tools/settings.php file to enter the database login values. 
+2. Copy all files in the public_html directory on a webserver.
+3. Point your browser to <url>/setup/configdb.php. 
+   This may take a while (up to 10 minutes). Just leave your browser running until it's done. 
+4. Make sure to remove the setup directory from your webserver (this is important!).
+5. You're done!
+
+
+** LICENSE **
+
+Copyright (C) 2012 <copyright holders>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

@@ -1,60 +1,46 @@
 <?php
-require 'connectdb.php';
-include 'helperfuncs.php';
+require '../tools/connectdb.php';
+include '../tools/helperfuncs.php';
 
-class PostList {
-    private $program;
-    private $postsPerPage = 5;
-    
-    function __construct($program, $ppp = 5) {
-        $this->program = $program;
-        $this->postsPerPage = $ppp;
-    }
-    
-    function getArray($page) {
-        global $dbcon;
-        $start = $page * $this->postsPerPage;
-        $count = $this->postsPerPage;
-        
-        $query = "SELECT *, COUNT(comments.id) AS comment_count ".
-            "FROM posts JOIN comments ON (comments.post_id=posts.id) ".
-            "WHERE program_id=".$this->program." ".
-            "ORDER BY posts.timestamp DESC, (1- (score/posts.timestamp)) ASC ".
-            "LIMIT $start, $count";
-        $result = mysql_query($query, $dbcon);
-        if (!$result)
-            return false;
-        else 
-            return $this->createArray($result);
-    }
-    private function createArray($mysqlResult) {
-        $result = array();
-        $i = 0;
-        while ($row = mysql_fetch_assoc($mysqlResult)) {
-            $result[$i++] = $row;
-        }
-        return $result;
-    }
+function getQuery($type, $id, $start, $count) {
+    if ($type === 'post')
+        return getPostQuery($id, $start, $count);
+    elseif ($type === 'comment')
+        return getCommentQuery($id, $start, $count);
+
+    $result = mysql_query($query, $dbcon);
+    if (!$result)
+        return false;
+    else 
+        return getMysqlArray($result);
+}
+function getPostQuery($id, $start, $count) {
+    return "SELECT posts.*, COUNT(comments.id) AS comment_count ".
+        "FROM posts JOIN comments ON (comments.post_id=posts.id) ".
+        "WHERE program_id=$id ".
+        "GROUP BY prosts.id ".
+        "ORDER BY posts.timestamp DESC, (1- (score/posts.timestamp)) ASC ".
+        "LIMIT $start, $count";
+}
+function getCommentQuery($id, $start, $count) {
+    return "SELECT * FROM comments ".
+        "WHERE post_id=$id ".
+        "ORDER BY timestamp DESC ".
+        "LIMIT $start, $count";
 }
 
-$postsPerPage = 4;
+$type = getUsrParam('type', 'post');
+$limitLength = getUsrParam('climit', 0);
+
+$itemsPerPage = 4;
 $page = getUsrParam('page', 0);
-$program = getUsrParam('id', 1394);
+$id = getUsrParam('id', 0);
 
-$postList = new PostList($program, $postsPerPage);
-$posts = $postList->getArray($page);
-
-$jsonOutput = "[\n";
-foreach($posts as $post) {
-    $jsonOutput .= "  {\n";
-    foreach($post as $key => $value) {
-        $jsonOutput .= '    "'.$key.'": "'.getShortString($value, 100).'",'."\n";
-    }
-    $jsonOutput = rtrim($jsonOutput, "\n,");
-    $jsonOutput .= "\n  },\n";
-}
-$jsonOutput = rtrim($jsonOutput, "\n,");
-$jsonOutput .= "\n]";
+$start = $page * $itemsPerPage;
+$query = getQuery($type, $id, $start, $itemsPerPage);
+$result = mysql_query($query, $dbcon);
+$items = $result ? getMysqlArray($result) : die('[]');
+$jsonOutput = getJSON($items, $limitLength);
 
 echo $jsonOutput;
 
