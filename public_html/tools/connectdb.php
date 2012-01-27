@@ -11,5 +11,4 @@ if(!$dbcon) {
 }
     
 mysql_select_db($database, $dbcon);
-
 ?>

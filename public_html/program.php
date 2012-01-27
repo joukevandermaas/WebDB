@@ -1,62 +1,56 @@
-<?php include("header.php");
+<?php
+include_once 'tools/helperfuncs.php';
+// include_once 'tools/posts.php';
+require_once 'tools/connectdb.php'; 
+include_once 'tools/loadprogram.php';
 
-function getStaticInfo($pid) {
-    global $connection;
-    $savepid = mysql_real_escape_string($pid);
-    $query = "SELECT programs.name, orgs.name, programs.summary ".
-             "FROM programs JOIN orgs ON programs.org_id = orgs.id ".
-             "WHERE programs.id = $savepid";
-    
-    $result = mysql_query($query, $connection);
-    $info = mysql_fetch_row($result);
-    if ($info)
-        return $info;
-}
-function getPosts($pid) {
-    global $connection;
-    $savepid = mysql_real_escape_string($pid);
-    $query = "SELECT posts.content, users.firstname, users.lastname, posts.timestamp, COUNT(comments.id) ".
-             "FROM posts JOIN (comments, users) ON (posts.id = comments.post_id AND users.id = posts.user_id) ".
-             "WHERE posts.program_id = $savepid";
-    
-    $result = mysql_query($query, $connection);
-    $posts = mysql_fetch_array($result);
-    if ($posts)
-        return $posts;
-}
-
-$info = getStaticInfo($_GET["id"]);
-echo "<div class='title_grd'><h2>".$info[0]." (".$info[1].")</h2></div>";
 ?>
-<ul class="breadcrumbs">
-    <li><a href="index.php">Home</a></li>
-    <li><a href="list.php?type=2">Bacheloropleidingen</a></li>
-    <li class="current"><a href="#">Kunstmatige intelligentie</a></li>
-</ul>
 
-<h4>Introductie</h4>
-<p class="intro">
-    <?php 
-        echo $info[2];
-        echo " <a href='program_info.php?id=".$_GET["id"]."'>Meer info...</a>";
-    ?>
-</p>
+<?php
+$pageName = $program["name"];
+$path = array ("Home" => "index.php", "Opleidingen" => "programlist.php?level=".$program['level']);
+include("header.php"); 
+?>
 
-<h4>Posts</h4>
-<ul class="posts">
-<li><ul class="thumbs"><li><img src="img/thumbsup.png"></li><li><img src="img/thumbsdown.png"></li></ul><h5></h5>
+<?php
+echo "<div class='opleidingPlaatje'><img src='http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg' class='opleidingPlaatje'></div>";
 
-<pre><?php print_r(getPosts($_GET["id"])); ?></pre>
-<ul class="reacties"><li>comments</li><li>Name</li><li>Date</li></ul>
-</li>
+echo "<h4>Introductie</h4>";
 
-</ul>
+// dit is de xml informatie over de studie
 
-<h3>Deel iets!</h3>
-<p class="txtField">
-Txtfield voor een reactie.<br />
-nog meer txtfield.
-</p>
+echo "<p class='intro'>"
+.$program['summary'].
+"<br />
+<br />
+<a href='programinfo.php?id=".$program['id']."'>Meer studieinformatie</a>
+</p>";
+
+
+echo "<h4>Posts</h4>";
+// de 5 best beoordeelde of meest recente gedeelde dingen
+//echo "<ul class='posts'>";
+
+
+?>
+
+<script type="text/javascript">
+loadPosts(<?php echo $program['id']; ?>, 0);
+</script>
+<ul id="posts"></ul>
+
+<?php
+
+echo "<div id='show'>
+	<form id='test' onsubmit='return false;'>
+		<h3>Deel wat leuks door hier te typen</h3>
+		Title: <input type='text' name='title' id='title' size='40'><br />
+		<input type='text' name='text' id='text'  size='146'><br />
+		<input type='submit' value='submit' onClick='sendRequest()'>
+	</form>
+</div>";
+
+?>
 
 <!-- link naar de 'archief' pagina met meer gedeelde content -->
 <p><a href="archief.html">klik voor meer</a></p>

@@ -1,5 +1,5 @@
 <?php
-require("../connectdb.php");
+require("../tools/connectdb.php");
 
 function createTable($name, $columns, $keys = array()) {
     $query = "CREATE TABLE IF NOT EXISTS $name ( \n";

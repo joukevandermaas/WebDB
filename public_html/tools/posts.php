@@ -1,28 +1,69 @@
 <?php
-require '../public_html/tools/connectdb.php';
+require 'connectdb.php';
+include 'helperfuncs.php';
 
-// aantal posts op een pagina
-$numberOfPosts = 5;
-
-// dit bekijkt op welke pagina je op dit moment zit en als dat niet duidelijk is
-// word het pagina 1
-if(isset($_GET["page"])){
-	$page = htmlspecialchars($_GET["page"]);
-} else {
-	$page = 1;
+class PostList {
+    private $program;
+    private $postsPerPage = 5;
+    
+    function __construct($program, $ppp = 5) {
+        $this->program = $program;
+        $this->postsPerPage = $ppp;
+    }
+    
+    function getArray($page) {
+        global $dbcon;
+        $start = $page * $this->postsPerPage;
+        $count = $this->postsPerPage;
+        
+        $query = "SELECT * FROM posts WHERE ".
+            "program_id=".$this->program." ".
+            "ORDER BY `timestamp` DESC, (1- (score/`timestamp`)) ASC ".
+            "LIMIT $start, $count";
+        $result = mysql_query($query, $dbcon);
+        if (!$result)
+            return false;
+        else 
+            return $this->createArray($result);
+    }
+    private function createArray($mysqlResult) {
+        $result = array();
+        $i = 0;
+        while ($row = mysql_fetch_assoc($mysqlResult)) {
+            $result[$i++] = $row;
+        }
+        return $result;
+    }
 }
 
-// met deze functie kan je instellen hoe veel posts er op 1 pagina mogen
-function setNumberOfPosts($number){
-	global $numberOfPosts;
-	$numberOfPosts = $number;
+$postsPerPage = 4;
+$page = getUsrParam('page', 0);
+$program = getUsrParam('id', 1394);
+
+$postList = new PostList($program, $postsPerPage);
+$posts = $postList->getArray($page);
+
+$jsonOutput = "[\n";
+foreach($posts as $post) {
+    $jsonOutput .= "  {\n";
+    foreach($post as $key => $value) {
+        $jsonOutput .= '    "'.$key.'": "'.getShortString($value, 100).'",'."\n";
+    }
+    $jsonOutput = rtrim($jsonOutput, "\n,");
+    $jsonOutput .= "\n  },\n";
 }
+$jsonOutput = rtrim($jsonOutput, "\n,");
+$jsonOutput .= "\n]";
+
+echo $jsonOutput;
+
+/*
 
 // met deze functie haal je op hoe veel pagina's er gemaakt moeten worden
 function getNumberOfPages($studie){
-	global $numberOfPosts;
+	global $postsPerPage;
 	
-	$query="SELECT * FROM posts WHERE programs_id= $studie";
+	$query= "SELECT * FROM posts WHERE programs_id=$studie";
 	$posts = mysql_query($query);
 	$aantal = mysql_numrows($posts);
 	
@@ -85,7 +126,7 @@ function printPost($posts, $i){
 
 	$query = "SELECT COUNT(id) FROM comments GROUP BY post_id HAVING post_id= $id";
 	$result = MySql_query($query);
-	$comments = MySql_fetch_row($result);
+	$comments = (mysql_fetch_row($result));
 	$comment_count = $comments[0];
 	
 	$title = mysql_result($posts, $i, 'title');
@@ -106,7 +147,7 @@ function getPost($posts, $i){
 	$query = "SELECT COUNT(id) FROM comments GROUP BY post_id HAVING post_id= $id";
 	$result = MySql_query($query);
 	$count = MySql_fetch_row($result);
-
+	
 	$arr = array(
 		'title' => mysql_result($posts, $i, 'title'),
 		'content' => mysql_result($posts, $i, 'content'),
@@ -117,5 +158,5 @@ function getPost($posts, $i){
 
 	return $arr;
 }
-
+*/
 ?>

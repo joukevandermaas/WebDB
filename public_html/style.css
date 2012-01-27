@@ -1,0 +1,450 @@
+* { padding: 0; margin: 0; }
+/*
+* { border: 1px solid red;}
+*/
+
+#topnav{
+list-style-type:none;
+margin:0;
+padding:0;
+overflow:hidden;
+background:url(img/navigatie.png);
+text-transform:uppercase;
+font-family: Verdana, arial, sans-serif;
+}
+#topnav li {
+	height: 43px;
+	line-height: 43px;
+    padding: 0 3px 0 0;
+	float: left;
+	background: transparent url(img/seperator.png) top right no-repeat;
+}
+#topnav li.last {
+	padding: 0;
+	background: none;
+}
+
+#topnav a:link, #topnav a:visited{
+display: block;
+padding: 0 4em;
+height: 100%;
+color:#555;              /*kleur Letters */
+text-align: center;
+text-decoration:none;
+}
+
+#topnav a:hover, #topnav a:active{
+color: #ffffff;
+background: url(img/selected_button.png);
+background-repeat: repeat-x;
+}
+
+ul.breadcrumbs {
+    list-style: none;
+    margin-top: .3em;
+    clear: both;
+    height: 1.1em;
+}
+.breadcrumbs li {
+    padding: 0 0 0 16px;
+    float: left;
+    background: transparent url(img/arrow.png) left center no-repeat;
+}
+.breadcrumbs a {
+    display: block;
+    text-decoration: none;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.breadcrumbs li.current a:hover {
+    text-decoration: none;
+}
+
+body{
+	width: 970px;
+	background-color: #FFFFFF;
+	font-family:"Arial", "Helvetica", "sans-serif";
+	margin: 0 auto 0 auto;
+}
+
+h1{
+	height: 220px;
+	font-size: 3em;
+	background-image: url(img/upper_part_site1_small.png);
+	background-repeat: repeat-x;
+	color: #ffffff;
+	padding-right: 0.3em;
+	margin-bottom: 0em;
+	text-align: right;
+}
+
+h2{
+	text-align: left;
+	padding: 0.3em 1em;
+	font-size: 1.8em;
+	background-color: #333333;
+	color: #ffffff;
+	margin-top: 0em;
+}
+
+h3{
+	width: 100%;
+	position: relative;
+	font-size: 2em;
+	text-align: center;
+	padding-top: 1em;
+	margin-bottom: 0em;
+}
+
+h4{
+	text-transform: uppercase;
+	text-align: left;
+	padding-top: 4.2em;
+	padding-bottom: 0em;
+	padding-left: 2.1em;
+	font-size: 1.2em;
+	color: #656565;
+	margin-bottom: 0em;
+}
+
+h4.profiel{
+	padding-top: 1em;
+}
+
+h5{
+	font-size: 1em;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 1em;
+}
+
+ul#posts, ul#topnav, ul#posts ul{
+	list-style-type: none;
+} 
+
+ul#posts li{
+	padding: 0.3em 1em 1em 1em;
+	background-color: #454545;
+	color: #ffffff;
+	position: relative;
+	margin-left:2em;
+}
+
+ul#posts li h5{
+	font-size: 1em;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 1em;
+	color:#6cb5ff;
+}
+
+ul#posts li.inspringR{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	position: relative;
+	margin-left: 0em;
+	margin-right: 2em;
+}
+
+ul#posts li.inspringR a{
+	color: #454545;
+}
+
+ul#posts li.inspringR h5{
+	color: #454545
+}
+
+ul.reacties{
+	padding: 0em 0em 0em 0em;
+	margin: 0em 0em 0em 0em;
+	float: right;
+}
+
+ul.reacties li{
+	padding: 0em 0em 0em 0em;
+	margin: 0em 1em 0em 1em;
+	color: #ffddee;
+	background-color: transparent;
+	float: left;
+}
+
+ul.thumbs{
+	float: right;
+	padding: 0em 0em;
+	margin: 0em 0em;
+}
+ul.thumbs li{
+	background-color: transparent !important;
+	margin: 0em 0em;
+	padding: 0em 0em;
+	height: 29px;
+	float: left;
+}
+ul.thumbs a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 29px;
+    width: 29px;
+    background: transparent top left no-repeat;
+}
+ul.thumbs a.up {
+    background-image: url('img/thumbsupgray.png');
+}
+ul.thumbs a.down {
+    background-image: url('img/thumbsdowngray.png');
+}
+ul.thumbs a.up:hover {
+    background-image: url('img/thumbsup.png');
+}
+ul.thumbs a.down:hover {
+    background-image: url('img/thumbsdown.png');
+}
+
+ul li.inspringL{
+	background-color: #454545;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	padding: 0.3em 1em;
+	margin-left: 2em;
+}
+
+ul li.inspringL h5{
+	color:#6cb5ff;
+}
+
+ul li.inspringR{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	padding: 0.3em 1em;
+	margin:0em 0em;
+	margin-right: 2em;
+}
+
+ul li.inspringR h5{
+	color: #454545
+}
+
+ul.gegevens{
+	width: 115px;
+	padding: 0.4em 0em 0.4em 0em;
+	margin: 0em 0em 0em 0em;
+}
+ul.gegevens li{
+	padding: 0.4em 0em 0.4em 0em;
+	margin: 0em 0em 0em 0em;
+	font-size: 0.9em
+}
+
+ul.uitkomstgegevens{
+	width: 200px;
+	float: right;
+	padding: 0.4em 0em 0.4em 0em;
+	margin: 0em 0em 0em 0em;
+}
+ul.uitkomstgegevens li{
+	background-image: url(img/grijs.png);
+	padding: 0.4em 0.8em 0.4em 0.8em;
+	margin: 0em 0em 0em 0em;
+	font-size: 0.9em;
+}
+
+ul.linkerbox {
+	float: left;
+    padding: 0em;
+	height: auto;
+    width: 340px;
+    border: 1px solid gray;
+	
+	color: #ffffff;
+}
+ul.linkerbox li.class{
+	margin: 1em 0em 1em 0em;
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+}
+
+
+p{
+	padding: 0.3em 1em;
+}
+
+p.intro{
+	background-color: #545454;
+	color: #ffffff;
+	margin-top: 0em;
+    
+    padding: 0.3em 1em;
+}
+
+a:link{
+	color: #6cb5ff;
+    text-decoration: none;
+}
+
+a:visited{
+	color: #aaaaaa;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p.intro a:link{
+	color: #6cb5ff;
+}
+p.intro a:visited{
+	color: #dddddd;
+}
+
+p.txtField {
+	padding: 2em 1em;
+	width: 100%;
+	position: relative;
+	text-align: center;
+	border: 1px solid black;
+	background-color: #ffffff;
+}
+
+p.inspringenL{
+	background-color: #363636;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 2em;
+}
+
+p.inspringenR{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	margin-right: 2em;
+}
+
+p.grijs{
+	background-color: #80bdfc;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+}
+p.grijs a{
+	color: #ffffff;
+}
+
+p.postBlauw{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+}
+p.postBlauw a{
+	color: #ffffff;
+}
+
+img.opleidingPlaatje{
+	width: 240px;
+	height: auto;
+	margin: 1em;
+	background-color: #6cb5ff;
+	padding: 1em;
+	border: 1em solid rgba(187, 187, 187, 0.5);
+	
+}
+
+div.my_right_box{
+    float: right;
+    padding: 10px;
+	height: auto;
+    width: 534px;
+    border: 1px solid gray;
+}
+
+div.rand{
+	margin: 0em 2em;
+	background-color: #ffffff;
+}
+
+div.logo{
+	height: 220px;
+	background-image: url(img/upper_part_site1.png);
+	background-repeat: no-repeat;
+}
+
+div.opleidingPlaatje{
+	float: right;
+}
+
+.title_grd{
+	padding: 0.3em 1em;
+	background: #333333;
+	
+	color: #ffffff;
+}
+
+.org {
+    margin: 1.1em;
+    background-color: #363636;
+    
+    overflow: auto;
+	width: 100%
+}
+.org h4{
+    padding-top: 2em;
+    background: white;
+    clear: both;
+}
+.org ul {
+    list-style: none;
+    margin-top: 1em;
+}
+.org li {
+    width: 30%;
+    color: white;
+    float: left;
+    padding: .3em;
+    border-top: 1px white solid;
+    height: 2.5em;
+}
+.orglink {
+    width: 30%;
+    float: left;
+    height: 9em;
+    
+}
+.orglink p {
+    background-color: #6cb5ff;
+    border-right: 1px solid white;
+}
+.orglink h4 {
+    padding: 3em 0 0 0;
+    background: white;
+}
+
+
+
+
+div.tekstbox
+{
+	font-size: 12px;
+	background-image: url(img/blue.png);
+	text-align: center;
+	margin-left: auto; margin-right: auto;
+   padding: 5px;
+	width: 75%;
+	border: 1em solid rgba(187, 187, 187, 0.5);
+	position: relative;
+	right: 0px;
+	z-index: auto;
+
+}

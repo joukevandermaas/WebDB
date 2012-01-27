@@ -1,5 +1,5 @@
 <?php
-require("../connectdb.php");
+require("../tools/connectdb.php");
 
 $postNo = 200;
 

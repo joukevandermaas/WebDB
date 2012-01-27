@@ -1,8 +1,8 @@
 <?php
 set_time_limit(0);
 ignore_user_abort();
-require("../connectdb.php");
-include("../hodex.php");
+require("../tools/connectdb.php");
+include("../tools/hodex.php");
 
 function fillOrgs($index) {
     global $dbcon;
