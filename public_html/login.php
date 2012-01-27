@@ -11,7 +11,7 @@ function getLoginTicket() {
     global $casService;
     global $serverUrl;
 
-    redirect(getUrl($casService."login"), array( "service" => $serverUrl));
+    redirect(getUrl($casService."login", array( "service" => $serverUrl)));
 }
 function getUserName($ticket) {
     global $casService;
