@@ -1,11 +1,6 @@
 
 <?php
-$pageName = "Post";
-$path = array(
-    'Home' => 'index.php'
-);
-
-include('header.php');
+include_once('tools/helperfuncs.php');
 
 $currentpostid = getUsrParam('id', 0);
 $query = "SELECT posts.*, COUNT(comments.id) AS comment_count ".
@@ -17,6 +12,15 @@ $query = "SELECT posts.*, COUNT(comments.id) AS comment_count ".
 $result = mysql_query($query);
 if (!$result) die('Invalid query '.$query);
 $post = mysql_fetch_assoc($result);
+
+    
+$pageName = "Post";
+$path = array(
+    'Home' => 'index.php',
+    'Opleiding' => 'program.php?id='.$post['program_id']
+);
+
+include('header.php');
 
 $txt = $post['content'];
 

@@ -15,15 +15,23 @@ function getQuery($type, $id, $start, $count) {
         return getMysqlArray($result);
 }
 function getPostQuery($id, $start, $count) {
-    return "SELECT posts.*, COUNT(comments.id) AS comment_count ".
-        "FROM posts JOIN comments ON (comments.post_id=posts.id) ".
+    return 
+        "SELECT posts.*, ".
+            "COUNT(comments.id) AS comment_count, ".
+            "users.firstname, ".
+            "users.lastname ".
+        "FROM posts JOIN (comments, users) ".
+            "ON (comments.post_id=posts.id && posts.user_id=users.id) ".
         "WHERE program_id=$id ".
-        "GROUP BY prosts.id ".
-        "ORDER BY posts.timestamp DESC, (1- (score/posts.timestamp)) ASC ".
+        "GROUP BY posts.id ".
+        "ORDER BY ".
+            "posts.timestamp DESC, ".
+            "(1- (score/posts.timestamp)) ASC ".
         "LIMIT $start, $count";
 }
 function getCommentQuery($id, $start, $count) {
-    return "SELECT * FROM comments ".
+    return "SELECT comments.*, users.firstname, users.lastname ".
+        "FROM comments JOIN users ON (users.id=comments.user_id) ".
         "WHERE post_id=$id ".
         "ORDER BY timestamp DESC ".
         "LIMIT $start, $count";
@@ -38,9 +46,10 @@ $id = getUsrParam('id', 0);
 
 $start = $page * $itemsPerPage;
 $query = getQuery($type, $id, $start, $itemsPerPage);
+//echo $query;
 $result = mysql_query($query, $dbcon);
 $items = $result ? getMysqlArray($result) : die('[]');
-$jsonOutput = getJSON($items, $limitLength);
+$jsonOutput = getJSONArray($items, $limitLength);
 
 echo $jsonOutput;
 

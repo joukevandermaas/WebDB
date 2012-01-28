@@ -5,7 +5,7 @@ function logout($service) {
     global $serverUrl;
     global $casHosts;
 
-    redirect(getUrl($casHosts[$service]."logout", array ("service" => $serverUrl)));
+    redirect($casHosts[$service]."logout");
 }
 function getLoginTicket($service) {
     global $serverUrl;
@@ -38,9 +38,9 @@ function redirect($url) {
 function parseCasXml($loc) {
     $xml = new DOMDocument();
     $xml->load($loc);
-    $succes = $xml->getElementsByTagName("authenticationSuccess") != null;
+    $succes = $xml->getElementsByTagName("authenticationSuccess")->length > 0;
     $user = null;
-    if ($succes != null) {
+    if ($succes) {
         $user = $xml->getElementsByTagName("user")->item(0)->nodeValue;
     }
     return $user;

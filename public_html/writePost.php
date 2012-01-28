@@ -1,7 +1,7 @@
 
 <html><body>
 <?php
-require 'connectdb.php';
+require 'tools/connectdb.php';
 
 $addtodb = true;
 
@@ -42,7 +42,8 @@ if(isset($_POST["text"])){
 
 if($addtodb){
 	$query = "INSERT INTO posts (id, program_id, user_id, title, content, timestamp, score) VALUES (null, $p_id, $u_id, '".$title."', '".$text."', null, 0)";
-	$result = mysql_query($query);
+	mysql_query($query);
+	echo "succes <br />";
 } else {
 	echo "you post has not been added <br />";
 }
