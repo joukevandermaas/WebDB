@@ -82,10 +82,11 @@ h1{
 
 h2{
 	text-align: left;
-	padding: 0.8em 1em;
 	font-size: 1.8em;
 	color: #ffffff;
 	margin-top: 0em;
+	padding: 0.3em 1em;
+	background: #333333;
 }
 
 h3{

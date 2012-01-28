@@ -39,14 +39,14 @@ loadContent(<?php echo $program['id']; ?>, 0, 'post');
 </script>
 <ul id="posts"></ul>
 
+<script type="text/javascript" src="scripts/writePost.js"></script>
 <?php
-
+$user_id = 7;
 echo "<div id='show'>
-	<form id='test' onsubmit='return false;'>
-		<h3>Deel wat leuks door hier te typen</h3>
-		Title: <input type='text' name='title' id='title' size='40'><br />
-		<input type='text' name='text' id='text'  size='146'><br />
-		<input type='submit' value='submit' onClick='sendRequest()'>
+	<form id='ajax' method='POST' action=''>
+	<INPUT type='BUTTON' value='plaats' ONCLICK='submitForm(".$program['id'].", ".$user_id.")'>
+<br />Titel: <input type='text' id='title' size='32' value=''>
+<br />tekst: <input type='text' id='text' size='50' value=''>
 	</form>
 </div>";
 
