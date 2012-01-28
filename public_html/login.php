@@ -1,11 +1,12 @@
 <?php
 require_once('tools/cas.php');
+include_once('tools/helperfuncs.php');
 $service = 0;
 
-if (array_key_exists("logout", $_GET)) {
+if (isset($_GET['logout'])) {
     logout($service);
 }   
-if (array_key_exists("ticket", $_GET)) {
+if (isset($_GET['ticket'])) {
     session_start();
     $ticket = getUsrParam('ticket', '');
     $_SESSION['ticket'] = $ticket;

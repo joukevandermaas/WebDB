@@ -49,7 +49,7 @@ $query = getQuery($type, $id, $start, $itemsPerPage);
 //echo $query;
 $result = mysql_query($query, $dbcon);
 $items = $result ? getMysqlArray($result) : die('[]');
-$jsonOutput = getJSON($items, $limitLength);
+$jsonOutput = getJSONArray($items, $limitLength);
 
 echo $jsonOutput;
 
