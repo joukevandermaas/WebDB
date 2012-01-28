@@ -19,7 +19,7 @@ function createTable($name, $columns, $keys = array()) {
 $tables = array(
     "orgs" => array(
         array(
-            "id"            => "TINYINT NOT NULL AUTO_INCREMENT",
+            "id"            => "TINYINT UNSIGNED NOT NULL AUTO_INCREMENT",
             "name"          => "VARCHAR(128)",
             "horgid"        => "VARCHAR(32)"
         ),
@@ -30,7 +30,7 @@ $tables = array(
     ),
     "users" => array(
         array(
-            "id"                => "INT NOT NULL AUTO_INCREMENT",
+            "id"                => "INT UNSIGNED NOT NULL AUTO_INCREMENT",
             "loginname"         => "VARCHAR(32)",
             "loginservice"      => "TINYINT",
             "firstname"         => "VARCHAR(32)",
@@ -43,8 +43,8 @@ $tables = array(
     ),
     "programs" => array(
         array(
-            "id"            => "SMALLINT NOT NULL AUTO_INCREMENT",
-            "org_id"        => "TINYINT NOT NULL",
+            "id"            => "SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT",
+            "org_id"        => "TINYINT UNSIGNED NOT NULL",
             "hprogramid"    => "VARCHAR(32)",
             "croho"         => "MEDIUMINT UNSIGNED NULL",
             "name"          => "VARCHAR(128)",
@@ -61,9 +61,9 @@ $tables = array(
     ),
     "posts" => array(
         array(
-            "id"            => "INT NOT NULL AUTO_INCREMENT",
-            "program_id"    => "SMALLINT NOT NULL",
-            "user_id"       => "INT NOT NULL",
+            "id"            => "INT UNSIGNED NOT NULL AUTO_INCREMENT",
+            "program_id"    => "SMALLINT UNSIGNED NOT NULL",
+            "user_id"       => "INT UNSIGNED NOT NULL",
             "title"         => "VARCHAR(64)",
             "content"       => "TEXT",
             "timestamp"     => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
@@ -79,9 +79,9 @@ $tables = array(
     ),
     "comments" => array(
         array(
-            "id"            => "INT NOT NULL AUTO_INCREMENT",
-            "post_id"       => "INT NOT NULL",
-            "user_id"       => "INT NOT NULL",
+            "id"            => "INT UNSIGNED NOT NULL AUTO_INCREMENT",
+            "post_id"       => "INT UNSIGNED NOT NULL",
+            "user_id"       => "INT UNSIGNED NOT NULL",
             "content"       => "VARCHAR(256)",
             "timestamp"     => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP"
         ),
@@ -92,20 +92,30 @@ $tables = array(
             "FOREIGN KEY (post_id) REFERENCES posts(id)",
             "FOREIGN KEY (user_id) REFERENCES users(id)"
         )
+    ),
+    "votes" => array(
+        array(
+            "user_id"       => "INT UNSIGNED NOT NULL",
+            "post_id"       => "INT UNSIGNED NOT NULL"
+        ),
+        array(
+            "FOREIGN KEY (user_id) REFERENCES users(id)",
+            "FOREIGN KEY (post_id) REFERENCES posts(id)",
+            "UNIQUE(user_id, post_id)"
+        )
     )
 );
 
 
 if (!isset($_GET["done"])) {
-    mysql_query("DROP TABLE comments, posts, programs, users, orgs", $dbcon);
     foreach($tables as $name => $columns) {
         $query = createTable($name, $columns[0], $columns[1]);
         echo "$query\n\n";
         mysql_query($query, $dbcon);
     }
 
-
     header("Location: confighodex.php");
+
 } else
 {
     echo "All done!";

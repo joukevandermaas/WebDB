@@ -4,13 +4,13 @@
 */
 
 #topnav{
-list-style-type:none;
-margin:0;
-padding:0;
-overflow:hidden;
-background:url(img/navigatie.png);
-text-transform:uppercase;
-font-family: Verdana, arial, sans-serif;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background:url(img/navigatie.png);
+    text-transform:uppercase;
+    font-family: Verdana, arial, sans-serif;
 }
 #topnav li {
 	height: 43px;
@@ -25,18 +25,18 @@ font-family: Verdana, arial, sans-serif;
 }
 
 #topnav a:link, #topnav a:visited{
-display: block;
-padding: 0 4em;
-height: 100%;
-color:#555;              /*kleur Letters */
-text-align: center;
-text-decoration:none;
+    display: block;
+    padding: 0 4em;
+    height: 100%;
+    color:#555;          
+    text-align: center;
+    text-decoration:none;
 }
 
 #topnav a:hover, #topnav a:active{
-color: #ffffff;
-background: url(img/selected_button.png);
-background-repeat: repeat-x;
+    color: #ffffff;
+    background: url(img/selected_button.png);
+    background-repeat: repeat-x;
 }
 
 ul.breadcrumbs {
@@ -176,11 +176,31 @@ ul.thumbs{
 	margin: 0em 0em;
 }
 ul.thumbs li{
-	background-color: transparent;
+	background-color: transparent !important;
 	margin: 0em 0em;
 	padding: 0em 0em;
 	height: 29px;
 	float: left;
+}
+ul.thumbs a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 29px;
+    width: 29px;
+    background: transparent top left no-repeat;
+}
+ul.thumbs a.up {
+    background-image: url('img/thumbsupgray.png');
+}
+ul.thumbs a.down {
+    background-image: url('img/thumbsdowngray.png');
+}
+ul.thumbs a.up:hover, ul.thumbs a.up.fixed {
+    background-image: url('img/thumbsup.png');
+}
+ul.thumbs a.down:hover, ul.thumbs a.down.fixed {
+    background-image: url('img/thumbsdown.png');
 }
 
 ul li.inspringL{
@@ -333,7 +353,8 @@ p.postBlauw a{
 }
 
 img.opleidingPlaatje{
-	width: 240px;
+    display: none;
+    width: 240px;
 	height: auto;
 	margin: 1em;
 	background-color: #6cb5ff;
@@ -411,16 +432,13 @@ div.opleidingPlaatje{
     background: white;
 }
 
-
-
-
 div.tekstbox
 {
 	font-size: 12px;
 	background-image: url(img/blue.png);
 	text-align: center;
 	margin-left: auto; margin-right: auto;
-   padding: 5px;
+    padding: 5px;
 	width: 75%;
 	border: 1em solid rgba(187, 187, 187, 0.5);
 	position: relative;

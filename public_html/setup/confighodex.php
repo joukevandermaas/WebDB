@@ -3,6 +3,7 @@ set_time_limit(0);
 ignore_user_abort();
 require("../tools/connectdb.php");
 include("../tools/hodex.php");
+include("../tools/helperfuncs.php");
 
 function fillOrgs($index) {
     global $dbcon;

@@ -35,7 +35,7 @@ echo "<h4>Posts</h4>";
 ?>
 
 <script type="text/javascript">
-loadPosts(<?php echo $program['id']; ?>, 0);
+loadContent(<?php echo $program['id']; ?>, 0, 'post');
 </script>
 <ul id="posts"></ul>
 

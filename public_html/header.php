@@ -1,4 +1,5 @@
 <?php 
+session_start();
 include_once("tools/helperfuncs.php");
 require_once("tools/connectdb.php");
 
@@ -17,8 +18,8 @@ $title = $pageName." | ".$websiteName;
 <link rel="stylesheet" type="text/css" href="style.css">
 <title><?php echo $title; ?></title>
 
-<script type="text/javascript" src='scripts/posts.js'>
-</script>
+<script type="text/javascript" src='scripts/contentlist.js'></script>
+<script type="text/javascript" src="scripts/vote.js"></script>
 </head>
 
 <body><div class="rand">
