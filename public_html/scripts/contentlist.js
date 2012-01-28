@@ -41,12 +41,13 @@ function generatePostInnerHTML(post) {
         post.title + "</a></h5>" + post.content +
         "<ul class='reacties'><li>comments: " + 
         post.comment_count + " </li> <li>user: " +
-        post.user_id + " </li> <li>time: " + post.timestamp + "</li></ul>";
+        post.firstname + " " + post.lastname + 
+        " </li> <li>time: " + post.timestamp + "</li></ul>";
 }
 function generateCommentInnerHTML(comment) {
     return comment.content + "<ul class='reacties'><li>user: " + 
-        comment.user_id + "</li><li>time: " 
-        + comment.timestamp + "</li></ul>";
+        comment.firstname + " " + comment.lastname + 
+        "</li><li>time: " + comment.timestamp + "</li></ul>";
 }
 
 function createVoteButton(type, pid) {

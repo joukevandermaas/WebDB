@@ -68,7 +68,7 @@ function getUserInfo($ticket, $service) {
 function isLoggedIn($ticket, $service) {
     if (DEBUG) return true;
     $user = getUserName($ticket, $service);
-    return $user != null;
+    return $user != null ? $user : false;
 }
 
 ?>
