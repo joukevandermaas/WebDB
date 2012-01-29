@@ -42,13 +42,13 @@ loadContent(<?php echo $program['id']; ?>, 0, 'post');
 <script type="text/javascript" src="scripts/writePost.js"></script>
 <?php
 $user_id = 7;
-echo "<div id='show'>
+echo "<div class='tekstbox'><div id='show'>
 	<form id='ajax' method='POST' action=''>
 	<INPUT type='BUTTON' value='plaats' ONCLICK='submitForm(".$program['id'].", ".$user_id.")'>
 <br />Titel: <input type='text' id='title' size='32' value=''>
-<br />tekst: <input type='text' id='text' size='50' value=''>
-	</form>
-</div>";
+<br /><textarea id='text' cols='60' rows='15'></textarea>
+</form>
+</div></div>";
 
 ?>
 
