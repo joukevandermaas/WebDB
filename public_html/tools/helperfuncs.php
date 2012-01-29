@@ -45,7 +45,7 @@ function getMysqlArray($response) {
 function getJsonArray($array, $cLimit = 0) { 
     $jsonOutput = "[\n";
     foreach($array as $item) {
-        $jsonOutput .= getJsonObject($item).",\n";
+        $jsonOutput .= getJsonObject($item, $cLimit).",\n";
     }
     $jsonOutput = rtrim($jsonOutput, "\n,");
     $jsonOutput .= "\n]";
@@ -54,7 +54,15 @@ function getJsonArray($array, $cLimit = 0) {
 function getJsonObject($item, $cLimit = 0) {
     $jsonOutput = "{\n";
     foreach($item as $key => $value) {
-        $jsonOutput .= '  "'.$key.'": "'.getShortString($value, $cLimit).'",'."\n";
+        $valueString = '';
+        if (is_string($value)) {
+            $valueString = '"'.getShortString($value,$cLimit).'"';
+        } elseif(is_bool($value)) {
+            $valueString = $value ? 'true' : 'false';
+        } else {
+            $valueString = (string)$value;
+        }
+        $jsonOutput .= '  "'.$key.'": '.$valueString.','."\n";
     }
     $jsonOutput = rtrim($jsonOutput, "\n,");
     $jsonOutput .= "\n}";
@@ -70,7 +78,6 @@ function getUserInfo($ticket, $service) {
     return $user;
 }
 function isLoggedIn($ticket, $service) {
-    echo DEBUG;
     if (DEBUG) return true;
     $user = getUserName($ticket, $service);
     return $user != null ? $user : false;

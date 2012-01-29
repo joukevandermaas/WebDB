@@ -1,5 +1,6 @@
 <?php 
-session_start();
+if (!session_id() !== '') 
+    session_start();
 include_once("tools/helperfuncs.php");
 require_once("tools/connectdb.php");
 
@@ -20,6 +21,8 @@ $title = $pageName." | ".$websiteName;
 
 <script type="text/javascript" src='scripts/contentlist.js'></script>
 <script type="text/javascript" src="scripts/vote.js"></script>
+<script type="text/javascript" src="scripts/writePost.js"></script>
+<script type="text/javascript" src="scripts/submitcomment.js"></script>
 </head>
 
 <body><div class="rand">

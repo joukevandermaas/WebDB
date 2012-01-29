@@ -39,7 +39,7 @@ loadContent(<?php echo $program['id']; ?>, 0, 'post');
 </script>
 <ul id="posts"></ul>
 
-<script type="text/javascript" src="scripts/writePost.js"></script>
+
 <?php
 $user_id = 7;
 echo "<div id='show'>

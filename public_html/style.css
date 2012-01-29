@@ -132,6 +132,11 @@ ul#posts li, ul#comments li{
 	color: #ffffff;
 	position: relative;
 	margin-left:2em;
+    
+    overflow: hidden;
+}
+ul#posts li li, ul#comments li li {
+    background-color: transparent;
 }
 
 ul#posts li h5, ul#comments li h5{
@@ -159,6 +164,30 @@ ul#posts li.inspringR h5, #comments li.inspringR h5{
 	color: #454545
 }
 
+#newcomment input {
+    padding: .3em;
+    vertical-align: top;
+}
+#newcomment textarea{
+    width: 25em;
+    height: 4em;
+}
+#newcomment span {
+    margin: .5em;
+}
+#commentlength {
+    color: white;
+    font-size: 100%;
+}
+#commentlength.low {
+    color: red;
+    font-size: 100%;
+}
+#commentlength.neg {
+    color: red;
+    font-size: 120%;
+}
+
 ul.reacties{
 	padding: 0em 0em 0em 0em;
 	margin: 0em 0em 0em 0em;
@@ -169,7 +198,6 @@ ul.reacties li{
 	padding: 0em 0em 0em 0em;
 	margin: 0em 1em 0em 1em;
 	color: #ffddee;
-	background-color: transparent;
 	float: left;
 }
 
@@ -204,19 +232,6 @@ ul.thumbs a.up:hover, ul.thumbs a.up.fixed {
 }
 ul.thumbs a.down:hover, ul.thumbs a.down.fixed {
     background-image: url('img/thumbsdown.png');
-}
-
-ul li.inspringL{
-	background-color: #454545;
-	color: #ffffff;
-	position: relative;
-	margin:0em 0em;
-	padding: 0.3em 1em;
-	margin-left: 2em;
-}
-
-ul li.inspringL h5{
-	color:#6cb5ff;
 }
 
 ul li.inspringR{

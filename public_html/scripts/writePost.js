@@ -15,6 +15,6 @@ function submitForm(program_id, user_id)
 function createPost() {
 	if (request.readyState == 4)// && request.status == 200)
     {	
-		document.getElementById("show").innerHTML= request.responseText;
+		document.getElementById("show").innerHTML = request.responseText;
 	}
 }
