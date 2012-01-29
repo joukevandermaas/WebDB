@@ -67,7 +67,8 @@ $tables = array(
             "title"         => "VARCHAR(64)",
             "content"       => "TEXT",
             "timestamp"     => "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
-            "score"         => "SMALLINT"
+            "score"         => "SMALLINT DEFAULT 0",
+            "comment_count" => "INT DEFAULT 0"
         ),
         array(
             "PRIMARY KEY(id)",

@@ -42,12 +42,12 @@ function generatePostInnerHTML(post) {
         "<ul class='reacties'><li>comments: " + 
         post.comment_count + " </li> <li>user: " +
         post.firstname + " " + post.lastname + 
-        " </li> <li>time: " + post.timestamp + "</li></ul>";
+        " </li> <li>tijd: " + post.timestamp + "</li></ul>";
 }
 function generateCommentInnerHTML(comment) {
     return comment.content + "<ul class='reacties'><li>user: " + 
         comment.firstname + " " + comment.lastname + 
-        "</li><li>time: " + comment.timestamp + "</li></ul>";
+        "</li><li>tijd: " + comment.timestamp + "</li></ul>";
 }
 
 function createVoteButton(type, pid) {

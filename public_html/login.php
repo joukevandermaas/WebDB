@@ -3,8 +3,11 @@ require_once('tools/cas.php');
 include_once('tools/helperfuncs.php');
 $service = 0;
 
+<<<<<<< HEAD
+=======
 print_r($_GET);
 /*
+>>>>>>> d2e5aaf614d7480ab526a42651352fd412958da6
 if (isset($_GET['logout'])) {
     logout($service);
 }   
@@ -29,6 +32,10 @@ if (isset($_GET['ticket'])) {
     
 } else {
     getLoginTicket($service);
+<<<<<<< HEAD
+}
+=======
 }*/
+>>>>>>> d2e5aaf614d7480ab526a42651352fd412958da6
 
 ?>

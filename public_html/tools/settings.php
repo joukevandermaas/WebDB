@@ -12,6 +12,6 @@ define('DBUser', 'webdb1237');
 define('DBPassword', 'me7habac');
 
 // Always keep this false
-define('DEBUG', false);
+define('DEBUG', true);
 
 ?>
