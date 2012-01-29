@@ -40,10 +40,13 @@ function createComment(text) {
         var container = document.getElementById("newcomment");
         response = JSON.parse(request.responseText);
         if (!response.succes) {
+            var error = container.getElementsByTagName('span')[0]
             if (!response.loggedin) {
-                container.getElementsByTagName('span')[0].innerHTML = 'Je bent niet <a href="login.php">ingelogd</a>.';
+                error.innerHTML = 'Je bent niet <a href="login.php">ingelogd</a>.';
+            } else if (response.error == 'message') {
+                error.innerHTML = 'Vul overal iets in.';
             } else {
-                container.getElementsByTagName('span')[0].innerHTML = 'Er is iets misgegaan, probeer het opnieuw.';
+                error.innerHTML = 'Er is iets misgegaan, probeer het opnieuw.';
             }
         } else {
             container.innerHTML = text + '<ul class="reacties"><li>User: ' + response.user + '</li></ul>';

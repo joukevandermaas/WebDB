@@ -17,11 +17,10 @@ function getQuery($type, $id, $start, $count) {
 function getPostQuery($id, $start, $count) {
     return 
         "SELECT posts.*, ".
-            "COUNT(comments.id) AS comment_count, ".
             "users.firstname, ".
             "users.lastname ".
-        "FROM posts JOIN (comments, users) ".
-            "ON (comments.post_id=posts.id && posts.user_id=users.id) ".
+        "FROM posts JOIN (users) ".
+            "ON (posts.user_id=users.id) ".
         "WHERE program_id=$id ".
         "GROUP BY posts.id ".
         "ORDER BY ".

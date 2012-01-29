@@ -30,6 +30,9 @@ if (!$result)
         'error' => 'database'
     )));
 
+$query = "UPDATE posts SET comment_count=comment_count+1 WHERE id=$pid";
+mysql_query($query, $dbcon);
+
 echo getJsonObject(array(
     'succes' => true,
     'user' => $user['firstname']." ".$user['lastname']

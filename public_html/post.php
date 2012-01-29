@@ -44,14 +44,5 @@ echo "<h4>".$post['title']."</h4>
 <script type="text/javascript">
 loadContent(<?php echo $post['id']; ?>, 0, 'comment');
 </script>
-<?php
-
-echo "<div class='tekstbox'>
-	<class = form method='post'>
-<textarea name='comments' cols='60'rows='15'>
-</textarea><br>
-<input type='submit' value='Submit'/>
-</form>"
-?>
 </div></body>
 </html>

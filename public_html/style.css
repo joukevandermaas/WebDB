@@ -137,6 +137,8 @@ ul#posts li, ul#comments li{
 }
 ul#posts li li, ul#comments li li {
     background-color: transparent;
+    margin: 0;
+    padding: 0;
 }
 
 ul#posts li h5, ul#comments li h5{
@@ -164,7 +166,7 @@ ul#posts li.inspringR h5, #comments li.inspringR h5{
 	color: #454545
 }
 
-#newcomment input {
+#newcomment input, #newpost input {
     padding: .3em;
     vertical-align: top;
 }
@@ -172,6 +174,14 @@ ul#posts li.inspringR h5, #comments li.inspringR h5{
     width: 25em;
     height: 4em;
 }
+#newpost #title, #newpost textarea {
+    width: 100%;
+}
+#newpost td {
+    padding: .5em;
+    vertical-align: top;
+}
+
 #newcomment span {
     margin: .5em;
 }
@@ -450,7 +460,7 @@ div.opleidingPlaatje{
     background: white;
 }
 
-div.tekstbox
+div#newpost
 {
 	font-size: 12px;
 	background-image: url(img/blue.png);
