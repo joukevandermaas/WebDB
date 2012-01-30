@@ -5,7 +5,8 @@ title{
 body {
  
 	width: 970px;
-	height: 747px;
+	height: 200px;
+	
     background-color: #000000;
 	background-image:url('img/homebackground1.png');
 	background-repeat: no-repeat;
@@ -21,9 +22,10 @@ width: 970px;
 float: right;
 color: white;
 text-align: right;
-top: 50px;
+
 margin: 0em 0em;
 margin-right: 1em;
+height: 0;
 
 }
 
@@ -35,13 +37,15 @@ a:hover span{
 	Background-image: url(img/thehover.png);
 }
 
+
+
 ul{
 	list-style-type: none;
 }
 
 li {
 	padding: 0em 2em;
-	padding-top: 580px;
+	padding-top: 490px;
 	float: left;
 }
 
