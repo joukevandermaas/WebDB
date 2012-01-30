@@ -64,12 +64,12 @@ echo "<h4>Introductie</h4>";
 
 // dit is de xml informatie over de studie
 
-echo "<p class='intro'><div class='intro_grd'>"
+echo "<p class='intro'>"
 .$program['summary'].
 "<br />
 <br />
 <a href='http://www.studeren.uva.nl/ki' target='_blank' title='klik hier!'> meer studie informatie </a>
-</div></p>";
+</p>";
 
 
 echo "<h4>Posts</h4>";

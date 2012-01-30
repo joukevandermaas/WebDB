@@ -1,14 +1,9 @@
 <?php
-
-$server = "localhost";
-$database = "webdb1237";
-$user = "webdb1237";
-$password = "me7habac";
-    
-$dbcon = mysql_connect($server, $user, $password);
+require_once('settings.php');   
+$dbcon = mysql_connect(DBServer, DBUser, DBPassword);
 if(!$dbcon) {
     die("Can't connect to database $server");
 }
     
-mysql_select_db($database, $dbcon);
+mysql_select_db(DBName, $dbcon);
 ?>

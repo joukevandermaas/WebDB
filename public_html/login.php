@@ -1,61 +1,41 @@
 <?php
-$serverUrl = "http://websec.science.uva.nl/~jvdm/login.php";
-$casService = "https://bt-lap.ic.uva.nl/cas/";
+require_once('tools/cas.php');
+include_once('tools/helperfuncs.php');
+$service = 0;
 
-function logout() {
-    global $casService;
-
-    redirect(getUrl($casService."logout", array ("service" => $serverUrl));
-}
-function getLoginTicket() {
-    global $casService;
-    global $serverUrl;
-
-    redirect(getUrl($casService."login", array( "service" => $serverUrl)));
-}
-function getUserName($ticket) {
-    global $casService;
-    global $serverUrl;
-    $xmlRequestUrl = getUrl($casService."serviceValidate", 
-        array("ticket" => $ticket,
-              "service" => $serverUrl));
-
-    return parseCasXml($xmlRequestUrl);
-}
-function getUrl($url, $params) {
-    $result = $url."?";
+<<<<<<< HEAD
+=======
+print_r($_GET);
+/*
+>>>>>>> d2e5aaf614d7480ab526a42651352fd412958da6
+if (isset($_GET['logout'])) {
+    logout($service);
+}   
+if (isset($_GET['ticket'])) {
+    session_start();
+    $ticket = getUsrParam('ticket', '');
+    $_SESSION['ticket'] = $ticket;
+    $_SESSION['loginservice'] = $service;
+    $username = getUserName($ticket, $service);
     
-    foreach($params as $key => $value) {
-        $result .= $key."=".urlencode($value)."&";
+    $query = "SELECT * FROM users WHERE loginname='$username' && loginservice=$service";
+    $result = mysql_query($query);
+    if (!$result) {
+        logout($service);
+        die("You could not be logged in.");
+    }
+    $exists = mysql_num_rows($result) > 0;
+    
+    if(!$exists) {
+        redirect('register.php');
     }
     
-    return rtrim($result, "&");
-}
-function redirect($url) {
-    header("Location: $url");
-}
-function parseCasXml($loc) {
-    // $xmlFile = get_file_contents($loc);
-    $xml = new DOMDocument();
-    $xml->load($loc);
-
-        $succes = $xml->getElementsByTagName("authenticationSuccess");
-        $user = null;
-        if ($succes != null) {
-            $user = $succes->getElementsByTagName("user")->nodeValue;
-        }
-        return $user;
-}
-
-if (array_key_exists("logout", $_GET)) {
-    logout();
-}
-if (array_key_exists("ticket", $_GET)) {
-    
 } else {
-    getLoginTicket();
+    getLoginTicket($service);
+<<<<<<< HEAD
 }
+=======
+}*/
+>>>>>>> d2e5aaf614d7480ab526a42651352fd412958da6
 
 ?>
-</body>
-</html>

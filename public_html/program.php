@@ -19,38 +19,33 @@ echo "<h4>Introductie</h4>";
 
 // dit is de xml informatie over de studie
 
-echo "<p class='intro'>"
-.$program['summary'].
-"<br />
-<br />
-<a href='programinfo.php?id=".$program['id']."'>Meer studieinformatie</a>
-</p>";
+echo "<p class='intro'>".$program['summary'];
 
-
-echo "<h4>Posts</h4>";
-// de 5 best beoordeelde of meest recente gedeelde dingen
-//echo "<ul class='posts'>";
-
+echo "<a href='programinfo.php?id=".$program['id']."'>Meer studieinformatie</a></p>";
 
 ?>
 
 <script type="text/javascript">
-loadPosts(<?php echo $program['id']; ?>, 0);
+loadContent(<?php echo $program['id']; ?>, 0, 'post');
 </script>
+<h4>Posts</h4>
 <ul id="posts"></ul>
 
-<?php
+<script type="text/javascript" src="scripts/writePost.js"></script>
 
-echo "<div id='show'>
-	<form id='test' onsubmit='return false;'>
-		<h3>Deel wat leuks door hier te typen</h3>
-		Title: <input type='text' name='title' id='title' size='40'><br />
-		<input type='text' name='text' id='text'  size='146'><br />
-		<input type='submit' value='submit' onClick='sendRequest()'>
-	</form>
-</div>";
 
-?>
+<div id='newpost'>
+	<form method='POST' action='' onsubmit='submitPost(<?php echo $program['id']; ?>)'>
+        <span>Deel een verhaal, afbeelding of video:</span>
+        <table>
+            <tr><td>Titel:</td><td><input type='text' id='title' size='32' value=''></td><td></td></tr>
+            <tr><td></td><td><textarea id='text' cols='60' rows='15'></textarea></td><td><input type='submit' value='Plaats' /></td></tr>
+        </table>
+        
+        
+        
+    </form>
+</div>
 
 <!-- link naar de 'archief' pagina met meer gedeelde content -->
 <p><a href="archief.html">klik voor meer</a></p>
