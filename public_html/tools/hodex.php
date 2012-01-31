@@ -132,7 +132,7 @@ function getElementValue($element, $tagName, $multiLanguage)
     $values = $element->getElementsByTagName($tagName);
     $element = $multiLanguage ? getElementInLang($values) : $values->item(0);
     
-    return $element == null ? "" : utf8_decode($element->nodeValue);
+    return $element == null ? "" : htmlentities(utf8_decode($element->nodeValue));
 }
 function getElementInLang($elements) {
     global $prefLang;
