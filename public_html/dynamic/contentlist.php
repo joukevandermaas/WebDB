@@ -37,7 +37,7 @@ function getCommentQuery($id, $start, $count) {
 }
 
 $type = getUsrParam('type', 'post');
-$limitLength = getUsrParam('climit', 0);
+$limitLength = getUsrParam('climit', true, 0, 0);
 
 $itemsPerPage = 4;
 $page = getUsrParam('page', 0);

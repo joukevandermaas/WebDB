@@ -1,23 +1,20 @@
 <?php
+session_start();
 require_once('tools/cas.php');
 include_once('tools/helperfuncs.php');
 $service = 0;
 
-<<<<<<< HEAD
-=======
-print_r($_GET);
-/*
->>>>>>> d2e5aaf614d7480ab526a42651352fd412958da6
 if (isset($_GET['logout'])) {
+    session_destroy();
     logout($service);
-}   
-if (isset($_GET['ticket'])) {
-    session_start();
-    $ticket = getUsrParam('ticket', '');
-    $_SESSION['ticket'] = $ticket;
+    exit();
+}
+if (!isset($_SESSION['loginservice'])) {
+    if (!isset($_GET['login']))
+        login($service, '../login.php'); 
     $_SESSION['loginservice'] = $service;
-    $username = getUserName($ticket, $service);
-    
+    $username = getUserName($service);
+        
     $query = "SELECT * FROM users WHERE loginname='$username' && loginservice=$service";
     $result = mysql_query($query);
     if (!$result) {
@@ -25,17 +22,19 @@ if (isset($_GET['ticket'])) {
         die("You could not be logged in.");
     }
     $exists = mysql_num_rows($result) > 0;
-    
-    if(!$exists) {
-        redirect('register.php');
-    }
-    
-} else {
-    getLoginTicket($service);
-<<<<<<< HEAD
-}
-=======
-}*/
->>>>>>> d2e5aaf614d7480ab526a42651352fd412958da6
 
+    $path = array('Home' => 'index.php');
+    if(!$exists) {
+        $pageName = 'Registreren';
+        include('header.php');
+
+        echo '<p>Vul de gegevens in om je te registreren.</p>';
+        echo "<form action='register.php' method='get'>\n";
+        echo "Voornaam: <input type='text' id='firstname' name='firstname' /><br />\n";
+        echo "Achternaam: <input type='text' id='lastname' name='lastname' /><br />\n";
+        echo "<input type='submit' value='Registreren' />\n";
+        echo "</div></body></html>";
+        
+    }
+}
 ?>

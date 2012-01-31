@@ -42,30 +42,39 @@ function getMysqlArray($response) {
     }
     return $array;
 }
-function getJsonArray($array, $cLimit = 0) { 
-    $jsonOutput = "[\n";
+function getIndent($count) {
+    $spacesPerLevel = 4;
+    $result = '';
+    for ($i = 0; $i < ($count * $spacesPerLevel); $i++)
+        $result .= ' ';
+    return $result;
+}
+function getJsonArray($array, $quoteStrings = true, $indent = 0, $cLimit = 0) { 
+    $jsonOutput = getIndent($indent)."[\n";
     foreach($array as $item) {
-        $jsonOutput .= getJsonObject($item, $cLimit).",\n";
+        $jsonOutput .= getJsonObject($item, $quoteStrings, $indent + 1, $cLimit).",\n";
     }
     $jsonOutput = rtrim($jsonOutput, "\n,");
-    $jsonOutput .= "\n]";
+    $jsonOutput .= "\n".getIndent($indent)."]";
     return $jsonOutput;
 }
-function getJsonObject($item, $cLimit = 0) {
-    $jsonOutput = "{\n";
+function getJsonObject($item, $quoteStrings = true, $indent = 0, $cLimit = 0) {
+    $jsonOutput = getIndent($indent)."{\n";
     foreach($item as $key => $value) {
         $valueString = '';
         if (is_string($value)) {
-            $valueString = '"'.getShortString($value,$cLimit).'"';
+            $valueString = $quoteStrings 
+                ? '"'.getShortString($value,$cLimit).'"'
+                : getShortString($value, $cLimit);
         } elseif(is_bool($value)) {
             $valueString = $value ? 'true' : 'false';
         } else {
             $valueString = (string)$value;
         }
-        $jsonOutput .= '  "'.$key.'": '.$valueString.','."\n";
+        $jsonOutput .= getIndent($indent + 1).'"'.$key.'": '.$valueString.','."\n";
     }
     $jsonOutput = rtrim($jsonOutput, "\n,");
-    $jsonOutput .= "\n}";
+    $jsonOutput .= "\n".getIndent($indent)."}";
     return $jsonOutput;
 }
 function getUserInfo($ticket, $service) {

@@ -25,7 +25,7 @@
 
 #topnav a:link, #topnav a:visited{
     display: block;
-    padding: 0 4.3118em;
+    padding: 0em 4.2em;
     height: 100%;
     color:#555;          
     text-align: center;
@@ -100,7 +100,7 @@ h3{
 h4{
 	text-transform: uppercase;
 	text-align: left;
-	padding-top: 4.2em;
+	padding-top: 2.3em;
 	padding-bottom: 0em;
 	padding-left: 2.1em;
 	font-size: 1.2em;
@@ -119,9 +119,13 @@ h5{
 	margin-left: 1em;
 }
 
-ul#posts, ul#topnav, ul#posts ul, ul#comments, ul#comments ul{
+ul#topnav, ul#posts ul, ul#comments, ul#comments ul{
 	list-style-type: none;
 } 
+ul#posts{
+	list-style-type: none;
+	margin: 0em 1em;
+}
 #posts, #comments {
     margin-bottom: 2em;
 }
@@ -253,6 +257,7 @@ ul li.inspringL{
 	margin: 0em 0em;
 	padding: 0.3em 1em;
 	margin-left: 2em;
+	list-style-type: none;
 }
 
 ul li.inspringR{
@@ -264,6 +269,7 @@ ul li.inspringR{
 	padding: 0.3em 1em;
 	margin:0em 0em;
 	margin-right: 2em;
+	list-style-type: none;
 }
 
 ul li.inspringR h5{
@@ -274,14 +280,16 @@ ul.gegevens{
 	width: 115px;
 	padding: 0.4em 0em 0.4em 0em;
 	margin: 0em 0em 0em 0em;
+	list-style: none;
 }
 ul.gegevens li{
 	padding: 0.4em 0em 0.4em 0em;
-	margin: 0em 0em 0em 0em;
+	margin: 0em 0em 0em 1em;
 	font-size: 0.9em
 }
 
 ul.uitkomstgegevens{
+	list-style-type: none;
 	width: 200px;
 	float: right;
 	padding: 0.4em 0em 0.4em 0em;
@@ -298,7 +306,7 @@ ul.linkerbox {
 	float: left;
     padding: 0em;
 	height: auto;
-    width: 340px;
+    width: 330px;
     border: 1px solid gray;
 	
 	color: #ffffff;
@@ -318,8 +326,7 @@ p.intro{
 	background-color: #545454;
 	color: #ffffff;
 	margin-top: 0em;
-    
-    padding: 0.3em 1em;
+    	padding: 1.8em 1.8em;
 }
 
 a:link{
@@ -406,7 +413,7 @@ div.my_right_box{
     float: right;
     padding: 10px;
 	height: auto;
-    width: 534px;
+    width: 520px;
     border: 1px solid gray;
 }
 
@@ -414,6 +421,13 @@ div.rand{
 	margin: 0em 2em;
 	background-color: #ffffff;
 	overflow: auto;
+    border-width: 0 1px;
+    border-style: solid;
+    border-color: #333;
+}
+
+div.margin{
+	margin: 0em 1em;
 }
 
 div.logo{
@@ -432,9 +446,10 @@ div.opleidingPlaatje{
 }
 
 .org {
-    	margin: 1em;
+    margin: 1.1em;
    	background-color: #363636;
-    	overflow: auto;
+	background-image: url('img/achtergrondReactie2.jpg');
+    /*overflow: auto;*/
 }
 .org h4{
     padding-top: 2em;
@@ -444,31 +459,46 @@ div.opleidingPlaatje{
 .org ul {
     list-style: none;
     margin-top: 1em;
-	padding: 1em 3em;
 	margin: 0em 0em;
+    overflow: auto;
 }
 .org li {
-    width: 49%;
-    color: white;
+    width: 33.33%;
+    color: #363636;
     float: left;
-    padding: .3em;
     border-top: 1px white solid;
-    height: 1em;
+    margin-top: -1px;
+    /*height: 2.5em;*/
+}
+.org li a {
+    height: 2.7em;
+	padding: .1em .3em .5em .7em;
+    color: #363636;
+    display: block;
+}
+.org li a:hover {
+    background: white;
+    text-decoration: none;
+}
+
+#orglinks {
+    padding-left: .3em;
 }
 .orglink {
-    width: 33%;
+    width: 30%;
     float: left;
     height: 9em;
-	font-size: 0.7em;
-    
 }
 .orglink p {
     background-color: #6cb5ff;
     border-right: 1px solid white;
 }
 .orglink h4 {
-    padding: 3em 0 0 0;
+    display: table-cell;
+    padding: 0;
     background: white;
+    height: 3em;
+    vertical-align: bottom;
 }
 
 div#newpost

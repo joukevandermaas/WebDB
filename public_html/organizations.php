@@ -9,11 +9,13 @@ $query = "SELECT orgs.id, orgs.name, COUNT(programs.id) ".
 $result = mysql_query($query, $dbcon);
 if(!$result) die ("Fout. ".$query);
 
+echo "<div id='orglinks'>";
 while ($row = mysql_fetch_row($result))
 {
     echo "<div class='orglink'><h4><a href='programlist.php?org=".$row[0]."'>".$row[1]."</a></h4>\n";
     echo "<p>".$row[2]." studies.</p></div>\n";
 }
+echo "</div>";
 ?>
 
 </div></body></html>

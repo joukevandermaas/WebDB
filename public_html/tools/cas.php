@@ -1,27 +1,29 @@
 <?php
+include_once('settings.php');
 $casHosts = array (0 => 'https://bt-lap.ic.uva.nl/cas/');
-$serverUrl = "http://websec.science.uva.nl/webdb1237/login.php";
+$serverUrl = 'http://'.$_SERVER['SERVER_NAME'].Dir.'/tools/verifylogin.php';
 function logout($service) {
     global $serverUrl;
     global $casHosts;
-
+    
     redirect($casHosts[$service]."logout");
 }
-function getLoginTicket($service) {
-    global $serverUrl;
+function login($service, $redirect) {
     global $casHosts;
-
-    redirect(getUrl($casHosts[$service]."login", array( "service" => $serverUrl)));
-}
-function getUserName($ticket, $service) {
     global $serverUrl;
-    global $casHosts;
     
-    $xmlRequestUrl = getUrl($casHosts[$service]."serviceValidate", 
-        array("ticket" => $ticket,
-            "service" => $serverUrl));
+    $redirUrl = getUrl($serverUrl, array('r' => $redirect, 's' => $service));
+    $url = getUrl($casHosts[$service]."login", array("service" => $redirUrl));
+    redirect($url);
+}
+function getUserName($service) {
+    global $serverUrl;
+    global $casHosts;
+    //echo $service; 
+    $redirUrl = getUrl($serverUrl, array('s' => $service));
+    $casUrl = getUrl($casHosts[$service]."login", array("service" => $redirUrl));
 
-    return parseCasXml($xmlRequestUrl);
+    return parseCasXml($casUrl);
 }
 function getUrl($url, $params) {
     $result = $url."?";
@@ -38,6 +40,7 @@ function redirect($url) {
 function parseCasXml($loc) {
     $xml = new DOMDocument();
     $xml->load($loc);
+    //echo $xml->saveXML();
     $succes = $xml->getElementsByTagName("authenticationSuccess")->length > 0;
     $user = null;
     if ($succes) {
