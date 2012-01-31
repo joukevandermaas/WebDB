@@ -32,7 +32,7 @@ $title = $pageName." | ".$websiteName;
 <li><a href="index.php">Home</a></li>
 <li><a href="programlist.php?level=3">Bachelor</a></li>
 <li><a href="programlist.php?level=4">Master</a></li>
-<li><a href="organizations.php">Instellingen</a></li>
+<li class="last"><a href="organizations.php">Opleidinginstellingen</a></li>
 </ul>
 
 <h2 class="title_grd"><?php echo $pageName; ?></h2>

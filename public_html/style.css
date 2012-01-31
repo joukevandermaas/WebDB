@@ -9,7 +9,6 @@
     padding:0;
     overflow:hidden;
     background:url(img/navigatie.png);
-    text-transform:uppercase;
     font-family: Verdana, arial, sans-serif;
 }
 #topnav li {
@@ -26,7 +25,7 @@
 
 #topnav a:link, #topnav a:visited{
     display: block;
-    padding: 0 4em;
+    padding: 0 4.3118em;
     height: 100%;
     color:#555;          
     text-align: center;
@@ -445,15 +444,16 @@ div.opleidingPlaatje{
 .org ul {
     list-style: none;
     margin-top: 1em;
-	padding: 0em 3em;
+	padding: 1em 3em;
+	margin: 0em 0em;
 }
 .org li {
-    width: 30%;
+    width: 49%;
     color: white;
     float: left;
     padding: .3em;
     border-top: 1px white solid;
-    height: 2.5em;
+    height: 1em;
 }
 .orglink {
     width: 33%;
