@@ -63,7 +63,8 @@ ul.breadcrumbs {
 
 body{
 	width: 970px;
-	background-color: #FFFFFF;
+	background-color: #dddddd;
+	background-image: url('img/whiteWood.png');
 	font-family:"Arial", "Helvetica", "sans-serif";
 	margin: 0 auto 0 auto;
 }
@@ -413,6 +414,7 @@ div.my_right_box{
 div.rand{
 	margin: 0em 2em;
 	background-color: #ffffff;
+	overflow: auto;
 }
 
 div.logo{
@@ -431,11 +433,9 @@ div.opleidingPlaatje{
 }
 
 .org {
-    margin: 1.1em;
-    background-color: #363636;
-    
-    overflow: auto;
-	width: 100%
+    	margin: 1em;
+   	background-color: #363636;
+    	overflow: auto;
 }
 .org h4{
     padding-top: 2em;
@@ -445,6 +445,7 @@ div.opleidingPlaatje{
 .org ul {
     list-style: none;
     margin-top: 1em;
+	padding: 0em 3em;
 }
 .org li {
     width: 30%;
@@ -455,9 +456,10 @@ div.opleidingPlaatje{
     height: 2.5em;
 }
 .orglink {
-    width: 30%;
+    width: 33%;
     float: left;
     height: 9em;
+	font-size: 0.7em;
     
 }
 .orglink p {
