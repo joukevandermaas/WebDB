@@ -1,5 +1,6 @@
 <?php
 require("../tools/connectdb.php");
+include('../tools/helperfuncs.php');
 
 function createTable($name, $columns, $keys = array()) {
     $query = "CREATE TABLE IF NOT EXISTS $name ( \n";
@@ -108,17 +109,13 @@ $tables = array(
 );
 
 
-if (!isset($_GET["done"])) {
-    foreach($tables as $name => $columns) {
-        $query = createTable($name, $columns[0], $columns[1]);
-        echo "$query\n\n";
-        mysql_query($query, $dbcon);
+foreach($tables as $name => $columns) {
+    $query = createTable($name, $columns[0], $columns[1]);
+    $result = mysql_query($query, $dbcon);
+    if (!$result) {
+        die(getJsonObject(array('succes' => false)));
     }
-
-    header("Location: confighodex.php");
-
-} else
-{
-    echo "All done!";
 }
+echo getJsonObject(array('succes' => true));
+
 ?>

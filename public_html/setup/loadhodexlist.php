@@ -1,6 +1,4 @@
 <?php
-set_time_limit(0);
-ignore_user_abort();
 require("../tools/connectdb.php");
 include("../tools/hodex.php");
 include("../tools/helperfuncs.php");
@@ -39,22 +37,8 @@ function fillOrgs($index) {
         $query .= "(NULL, '".$names[$link["orgId"]]."', '".$link["orgId"]."'),\n";
     }
     $query = rtrim($query, ",\n");
-    mysql_query($query, $dbcon);
-}
-function fillProgs($programs) {
-    global $dbcon;
-    $query = "INSERT INTO programs ".
-        "(id, org_id, hprogramid, croho, name, summary, level, hodexurl)".
-        "\nVALUES\n";
-    foreach($programs as $prog) {
-        $query .= "(NULL, ".$prog["org_id"].", '".$prog["hprogramid"].
-            "', ".$prog["croho"].", '".$prog["name"]."', '".$prog["summary"].
-            "', '".$prog["level"]."', '".$prog["hodexurl"]."'),\n";
-    }
-    $query = rtrim($query, ",\n");
     $result = mysql_query($query, $dbcon);
-    if (!$result)
-        die("invalid query: ".mysql_error()."\n$query");
+    if (!$result) die (getJsonObject(array('succes' => false, 'error' => 'database')));
 }
 
 function getIdMap() {
@@ -70,51 +54,25 @@ function getIdMap() {
     return $ids;
 }
 
-function getLevel($levelString) {
-    switch($levelString) {
-        case "bachelor":
-            return '1';
-        case "master":
-            return '2';
-        case "academic bachelor":
-            return '3';
-        case "academic master":
-            return '4';
-    }
-}
-function getCroho($crohoString) {
-    if (empty($crohoString))
-        return "NULL";
-    return $crohoString;
-}
-
-
 $hodexLoc = "http://hodex.nl/hodexDirectory.xml";
 $index = loadHodexIndex($hodexLoc);
 fillOrgs($index);
 
-
 $ids = getIdMap();
 
+$orgObjects = array();
+$i = 0;
 foreach($index as $org) {
-    $orgIndex = loadHodexSchool($org["url"]);
-    
-    $programs = array();
-    $i = 0;
-    foreach($orgIndex as $program) {
-        $progIndex = loadHodexProgram($program["url"]);
-        $progInfo = array(
-            "org_id" => $ids[$org["orgId"]],
-            "hprogramid" => $program["programId"],
-            "croho" => getCroho($progIndex["croho"]),
-            "name" => htmlspecialchars($progIndex["name"], ENT_QUOTES),
-            "summary" => htmlspecialchars($progIndex["summary"], ENT_QUOTES),
-            "level" => getLevel($progIndex["level"]),
-            "hodexurl" => $program["url"]
-        );
-        $programs[$i++] = $progInfo;
-    }
-    fillProgs($programs);
+    $orgObjects[$i++] = array(
+        'id' => $ids[$org['orgId']],
+        'url' => $org['url']
+    );
 }
-header("Location: configposts.php");
+echo getJsonObject(
+    array(
+        'succes' => true,
+        'orgs' => "\n".getJsonArray($orgObjects, true, 1)
+    ), false
+);
+
 ?>
