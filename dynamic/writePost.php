@@ -37,6 +37,10 @@ if ($postId === 0) {
     )));
 }
 
+
+// replace newlines with html
+$text = str_replace("\n", '<br />', $text);
+
 // check for regular, image or video links
 $link = ''; 
 $type = 'text';

@@ -66,13 +66,13 @@ function getJsonArray($array, $quoteStrings = true, $indent = 0, $cLimit = 0) {
     return $jsonOutput;
 }
 function javascriptEscape($string) {
-    str_replace('\', '\\', $string);
-    str_replace('"', '\"', $string);
-    str_replace("\n", '\n', $string);
-    str_replace("\r", '\r', $string);
-    str_replace("\t", '\t', $string);
-    str_replace("\b", '\b', $string);
-    str_replace("\f", '\f', $string);
+    $string = str_replace('\\', '\\\\', $string);
+    $string = str_replace('"', '\"', $string);
+    $string = str_replace("\n", '\\n', $string);
+    $string = str_replace("\r", '\\r', $string);
+    $string = str_replace("\t", '\\t', $string);
+    $string = str_replace("\b", '\\b', $string);
+    $string = str_replace("\f", '\\f', $string);
     
     return $string;
 
