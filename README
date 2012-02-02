@@ -7,9 +7,9 @@
 
 ** SETUP **
 
-1. Edit the public_html/tools/settings.php file to enter the database login values. 
-2. Copy all files in the public_html directory on a webserver.
-3. Point your browser to <url>/setup/configdb.php. 
+1. Edit the tools/settings.php file to enter the database login values. 
+2. Copy all files in the directory to a webserver.
+3. Point your browser to <url>/setup and click Start. 
    This may take a while (up to 10 minutes). Just leave your browser running until it's done. 
 4. Make sure to remove the setup directory from your webserver (this is important!).
 5. You're done!

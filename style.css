@@ -1,0 +1,572 @@
+* { padding: 0; margin: 0; }
+/*
+* { border: 1px solid red;}
+*/
+
+#topnav{
+    list-style-type:none;
+    margin:0;
+    margin-top: -30px;
+    padding:0;
+    overflow:hidden;
+    background:url(img/navigatie.png);
+    font-family: Verdana, arial, sans-serif;
+}
+#topnav li {
+	height: 43px;
+	line-height: 43px;
+   	padding: 0 3px 0 0;
+	float: left;
+	background: transparent url(img/seperator.png) top right no-repeat;
+}
+#topnav li.last {
+	padding: 0;
+	background: none;
+}
+
+#topnav a:link, #topnav a:visited{
+    display: block;
+    padding: 0em 4.2em;
+    height: 100%;
+    color:#555;          
+    text-align: center;
+    text-decoration:none;
+}
+
+#topnav a:hover, #topnav a:active{
+    color: #ffffff;
+    background: url(img/selected_button.png);
+    background-repeat: repeat-x;
+}
+
+ul.breadcrumbs {
+    list-style: none;
+    margin-top: .3em;
+    clear: both;
+    height: 1.1em;
+}
+.breadcrumbs li {
+    padding: 0 0 0 16px;
+    float: left;
+    background: transparent url(img/arrow.png) left center no-repeat;
+}
+.breadcrumbs a {
+    display: block;
+    text-decoration: none;
+}
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+.breadcrumbs li.current a:hover {
+    text-decoration: none;
+}
+
+body{
+	width: 970px;
+	background-color: #dddddd;
+	background-image: url('img/newimage.jpg');
+	font-family:"Arial", "Helvetica", "sans-serif";
+	margin: 0 auto 0 auto;
+}
+
+h1{
+	height: 220px;
+	font-size: 3em;
+	background-image: url(img/upper_part_site1_small.png);
+	background-repeat: repeat-x;
+	color: #ffffff;
+	padding-right: 0.3em;
+	margin-bottom: 0em;
+	text-align: right;
+}
+
+h2{
+	text-align: left;
+	padding: 2.3em 1em 0em;
+	font-size: 1.3em;
+	background-color: #333333;
+	color: #ffffff;
+	margin: 0em;
+}
+
+h3{
+	width: 100%;
+	position: relative;
+	font-size: 2em;
+	text-align: center;
+	padding-top: 1em;
+	margin-bottom: 0em;
+}
+
+h4{
+	text-transform: uppercase;
+	text-align: left;
+	padding-top: 2.3em;
+	padding-bottom: 0em;
+	padding-left: 2.1em;
+	font-size: 1.2em;
+	color: #656565;
+	margin-bottom: 0em;
+}
+
+h4.profiel{
+	padding-top: 1em;
+}
+
+h5{
+	font-size: 1em;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 1em;
+}
+
+ul#topnav, ul#posts ul, ul#comments, ul#comments ul{
+	list-style-type: none;
+} 
+ul#posts{
+	list-style-type: none;
+	margin: 0em 1em;
+}
+#posts img {
+    width: 60%;
+    height: auto;
+}
+#posts, #comments {
+    margin-bottom: 2em;
+}
+
+ul#posts li, ul#comments li{
+	padding: 0.3em 1em 1em 1em;
+	background-color: #454545;
+	color: #ffffff;
+	position: relative;
+	margin-left:2em;
+    
+    overflow: hidden;
+}
+ul#posts li li, ul#comments li li {
+    background-color: transparent;
+    margin: 0em 0.3em;
+    padding: 0;
+}
+
+ul#posts li h5, ul#comments li h5{
+	font-size: 1em;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 1em;
+	color:#6cb5ff;
+}
+
+ul#posts li.inspringR, #comments li.inspringR{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	position: relative;
+	margin-left: 0em;
+	margin-right: 2em;
+}
+
+
+
+ul#posts li.inspringR a, #comments li.inspringR a{
+	color: #454545;
+}
+
+ul#posts li.inspringR h5, #comments li.inspringR h5{
+	color: #454545
+}
+
+#newcomment input, #newpost input {
+    padding: .3em;
+    vertical-align: top;
+}
+#newcomment textarea{
+    width: 25em;
+    height: 4em;
+}
+#newpost #title, #newpost textarea {
+    width: 100%;
+}
+#newpost td {
+    padding: .5em;
+    vertical-align: top;
+}
+
+#newcomment span {
+    margin: .5em;
+}
+#commentlength {
+    color: white;
+    font-size: 100%;
+}
+#commentlength.low {
+    color: red;
+    font-size: 100%;
+}
+#commentlength.neg {
+    color: red;
+    font-size: 120%;
+}
+
+ul.reacties{
+	padding: 0em 0em 0em 0em;
+	margin: 0em 0em 0em 0em;
+	float: right;
+	list-style-type: none;
+	color: #454545;
+}
+
+ul.reacties li{
+	padding: 0em 1em 0em 1em;
+	margin: 0em 0.2em 0em 0.2em;
+	color: #454545;
+	float: left;
+}
+
+ul.thumbs{
+	float: right;
+	padding: 0em 0em;
+	margin: 0em 0em;
+}
+ul.thumbs li{
+	background-color: transparent !important;
+	margin: 0em 0em;
+	padding: 0em 0em;
+	height: 29px;
+	float: left;
+}
+ul.thumbs a {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 29px;
+    width: 29px;
+    background: transparent top left no-repeat;
+}
+ul.thumbs a.up {
+    background-image: url('img/thumbsupgray.png');
+}
+ul.thumbs a.down {
+    background-image: url('img/thumbsdowngray.png');
+}
+ul.thumbs a.up:hover, ul.thumbs a.up.fixed {
+    background-image: url('img/thumbsup.png');
+}
+ul.thumbs a.down:hover, ul.thumbs a.down.fixed {
+    background-image: url('img/thumbsdown.png');
+}
+
+ul li.inspringL{
+	background-color: #454545;
+	color: #ffffff;
+	position: relative;
+	margin: 0em 0em;
+	padding: 0.3em 1em;
+	margin-left: 2em;
+	list-style-type: none;
+}
+
+ul li.inspringR{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	padding: 0.3em 1em;
+	margin:0em 0em;
+	margin-right: 2em;
+	list-style-type: none;
+}
+
+ul.vak li{
+	background-color: #454545;
+	color: #ffffff;
+	margin: 0em 0em;
+	padding: 0.3em 1em;
+	list-style-type: none;
+}
+ul.vak li h5{
+	background-image: url('img/blauw.png');
+	background-repeat: no-repeat;
+	color: #454545;
+	padding: 0.3em 1em;
+	margin: 0em 0em;
+}
+
+ul.vak li.odd{
+	background-image: url('img/achtergrondReactie2.jpg');
+	color: #454545;
+}
+ul.vak li.odd h5{
+	background-image: url('img/grijs.png');
+	padding: 0.3em 1em;
+	margin: 0em 0em;
+	background-repeat: no-repeat;
+	color: #ffffff;
+} 
+ul.vak li.odd ul li{
+	background-image: url('img/achtergrondReactie2.jpg');
+	color: #454545;
+}
+
+ul li.inspringR h5{
+	color: #454545
+}
+
+ul.gegevens{
+	width: 115px;
+	padding: 0.4em 0em 0.4em 0em;
+	margin: 0em 0em 0em 0em;
+	list-style: none;
+}
+ul.gegevens li{
+	padding: 0.4em 0em 0.4em 0em;
+	margin: 0em 0em 0em 1em;
+	font-size: 0.9em
+}
+
+ul.uitkomstgegevens{
+	list-style-type: none;
+	width: 200px;
+	float: right;
+	padding: 0.4em 0em 0.4em 0em;
+	margin: 0em 0em 0em 0em;
+}
+ul.uitkomstgegevens li{
+	background-image: url(img/grijs.png);
+	padding: 0.4em 0.8em 0.4em 0.8em;
+	margin: 0em 0em 0em 0em;
+	font-size: 0.9em;
+}
+
+ul.linkerbox {
+   	padding: 0em;
+	height: auto;
+    	width: 330px;
+	color: #ffffff;
+	list-style-type: none;
+}
+
+ul.linkerbox li.class{
+	margin: 1em 0em 1em 0em;
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+}
+
+
+p{
+	padding: 0.3em 1em;
+}
+
+p.intro{
+	background-color: #545454;
+	color: #ffffff;
+	margin-top: 0em;
+    	padding: 1.8em 1.8em;
+}
+
+a:link{
+	color: #6cb5ff;
+    text-decoration: none;
+}
+
+a:visited{
+	color: #aaaaaa;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p.intro a:link{
+	color: #6cb5ff;
+}
+p.intro a:visited{
+	color: #dddddd;
+}
+
+p.txtField {
+	padding: 2em 1em;
+	width: 100%;
+	position: relative;
+	text-align: center;
+	border: 1px solid black;
+	background-color: #ffffff;
+}
+
+p.inspringenL{
+	background-color: #363636;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	margin-left: 2em;
+}
+
+p.inspringenR{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+	margin-right: 2em;
+}
+
+p.grijs{
+	background-color: #80bdfc;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+}
+p.grijs a{
+	color: #ffffff;
+}
+
+p.postBlauw{
+	background-color: #6cb5ff;
+	background-image: url(img/achtergrondReactie2.jpg);
+	background-repeat: repeat;
+	color: #ffffff;
+	position: relative;
+	margin:0em 0em;
+}
+p.postBlauw a{
+	color: #ffffff;
+}
+
+img.opleidingPlaatje{
+    display: none;
+    width: 240px;
+	height: auto;
+	margin: 1em;
+	background-color: #6cb5ff;
+	padding: 1em;
+	border: 1em solid rgba(187, 187, 187, 0.5);
+	
+}
+
+div.my_right_box{
+    	float: right;
+    	padding: 10px;
+	height: auto;
+   	width: 520px; 
+}
+div.my_right_box ul.vak li{
+	list-style-type: none;
+}
+div.rand{
+	margin: 0em 2em;
+	background-color: #ffffff;
+	overflow: auto;
+}
+
+div.margin{
+    margin-top: 1em;
+    clear: both;
+	margin: 0em .5em;
+}
+
+div.logo{
+        font-size: 150%;
+	height: 220px;
+	background-image: url(img/upper_part_site1.png);
+	background-repeat: no-repeat;
+        color: #363636;
+        line-height: 330px;
+        height: 220px;
+}
+.login {
+    height: 30px;
+    position: relative;
+    text-align: right;
+    top: -210px;
+    right: 5px;
+}
+.login a {
+    color: white;
+    padding: 5px 20px;
+    background: #333;
+}
+.login a:hover {
+    text-decoration: none;
+    background: #777;
+}
+
+div.opleidingPlaatje{
+	float: right;
+}
+
+.title_grd{
+	background: #333333;
+	color: #ffffff;
+}
+
+.org {
+    margin: 1.1em;
+   	background-color: #363636;
+	background-image: url('img/achtergrondReactie2.jpg');
+    /*overflow: auto;*/
+}
+.org h4{
+    padding-top: 2em;
+    background: white;
+    clear: both;
+}
+.org ul {
+    list-style: none;
+    margin-top: 1em;
+	margin: 0em 0em;
+    overflow: auto;
+}
+.org li {
+    width: 33.33%;
+    color: #363636;
+    float: left;
+    border-top: 1px white solid;
+    margin-top: -1px;
+    /*height: 2.5em;*/
+}
+.org li a {
+    height: 2.7em;
+	padding: .1em .3em .5em .7em;
+    color: #363636;
+    display: block;
+}
+.org li a:hover {
+    background-color: #363636;
+	color: #FFFFFF;
+    text-decoration: none;
+}
+
+.orglink {
+    width: 33%;
+    float: left;
+    height: 9em;
+}
+.orglink p {
+    background-color: #6cb5ff;
+    border-right: 1px solid white;
+}
+.orglink h4 {
+    display: table-cell;
+    padding: 0;
+    background: white;
+    height: 3em;
+    vertical-align: bottom;
+}
+
+div#newpost
+{
+	color: #FFFFFF;
+	font-size: 12px;
+	background-color: #363636;
+	text-align: center;
+	margin: 1em auto;
+    padding: 5px;
+	width: 75%;
+	position: relative;
+	right: 0px;
+	z-index: auto;
+
+}
