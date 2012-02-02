@@ -1,5 +1,5 @@
 <?php
-
+// test the connection to the database
 include('../tools/settings.php');
 include('../tools/helperfuncs.php');
   

@@ -5,7 +5,7 @@ include("../tools/helperfuncs.php");
 
 function fillOrgs($index) {
     global $dbcon;
-    
+    // these names are not defined within the hodex index
     $names = array(
         "ut" => "Universiteit Twente",
         "uu" => "Universiteit Utrecht",
@@ -32,6 +32,7 @@ function fillOrgs($index) {
         "artez" => "ArtEZ hogeschool voor de kunsten"
     );
     
+    // insert ignore, so when new organizations are added it still works
     $query = "INSERT IGNORE INTO orgs (id, name, horgid)\nVALUES\n";
     foreach($index as $link) {
         $query .= "(NULL, '".$names[$link["orgId"]]."', '".$link["orgId"]."'),\n";
@@ -41,6 +42,7 @@ function fillOrgs($index) {
     if (!$result) { die (getJsonObject(array('succes' => false, 'error' => 'database')));}
 }
 
+// get the ids mapped to the hodex ids
 function getIdMap() {
     global $dbcon;
     $query = "SELECT horgid, id FROM orgs";
@@ -54,15 +56,16 @@ function getIdMap() {
     return $ids;
 }
 
+// load the index
 $hodexLoc = "http://hodex.nl/hodexDirectory.xml";
 $index = loadHodexIndex($hodexLoc);
-print_r($index);
 fillOrgs($index);
 
 $ids = getIdMap();
 
 $orgObjects = array();
 $i = 0;
+// return a list of all organizations to the browser
 foreach($index as $org) {
     $orgObjects[$i++] = array(
         'id' => $ids[$org['orgId']],

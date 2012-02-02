@@ -2,6 +2,7 @@
 require("../tools/connectdb.php");
 include('../tools/helperfuncs.php');
 
+// create a table from some arrays
 function createTable($name, $columns, $keys = array()) {
     $query = "CREATE TABLE IF NOT EXISTS $name ( \n";
     
@@ -13,10 +14,11 @@ function createTable($name, $columns, $keys = array()) {
     foreach ($keys as $keydef) {
         $query .= "$keydef,\n";
     }
-    $query = rtrim($query, ",\n");
-    return $query.")\nENGINE=INNODB";
+    $query = rtrim($query, ",\n"); // remove the last comma
+    return $query.")\nENGINE=INNODB"; // innodb, because we use foreign keys
 }
 
+// define the tables to create
 $tables = array(
     "orgs" => array(
         array(
@@ -111,9 +113,9 @@ $tables = array(
     )
 );
 
-
+// create the tables
 foreach($tables as $name => $columns) {
-    $query = createTable($name, $columns[0], $columns[1]);
+    $query = createTable($name, $columns[0] /* columns */, $columns[1] /* keys */));
     $result = mysql_query($query, $dbcon);
     if (!$result) {
         die(getJsonObject(array('succes' => false)));

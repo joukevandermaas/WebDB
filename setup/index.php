@@ -8,7 +8,7 @@
 <script type="text/javascript" src='scripts/setup.js'></script>
 </head>
 <body>
-
+<!-- this is really very primitive -->
 <div id='wrapper'>
     <h1 id='title'>Setup</h1>
     <p id='message'><input type='button' onclick='startSetup()' value="Start!" /></p>
