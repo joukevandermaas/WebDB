@@ -39,7 +39,7 @@ function createPost(title, text) {
                 error.innerHTML = 'Er is iets misgegaan, probeer het opnieuw.';
         } else { // remove the form and add the new post to the list
             formContainer.parentNode.removeChild(formContainer)
-            addPost(response, postContainer);
+            addPost(response, postContainer, text, title);
         }
         
     }
