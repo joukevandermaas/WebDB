@@ -21,22 +21,18 @@ $path = array(
 );
 
 include('header.php');
-
 $txt;
-switch ($post['type']) {
-    case 'image':
-        $txt = "<img src='".$post['content_link']."' alt='afbeelding' />";
-        break;
-    case 'video':
-        $txt = "<iframe width='560' height='315' ".
-                "src='http://www.youtube.com/embed/".$post['content_link']."' ".
-                "frameborder='0' allowfullscreen></iframe>";
-        break;
+if($post['type'] == 'image') {
+    $txt = "<img src='".$post['content_link']."' alt='afbeelding' />";
+} elseif ($post['type'] == 'video') {
+    $txt = "<iframe width='560' height='315' ".
+            "src='http://www.youtube.com/embed/".$post['content_link']."' ".
+            "frameborder='0' allowfullscreen></iframe>";
 }
 $txt .= $post['content'];
 
 echo "<div class='margin'><h4>".$post['title']."</h4>
-<div class='intro'>".$post['content']."
+<div class='intro'>".$txt."
 <ul class='reacties'><li>comments: ".$post['comment_count']." </li> <li>user: ".$post['user_id']." </li> <li>time: ".$post['timestamp']."</li></ul>
 </div>";
 ?>
