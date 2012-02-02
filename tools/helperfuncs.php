@@ -65,6 +65,19 @@ function getJsonArray($array, $quoteStrings = true, $indent = 0, $cLimit = 0) {
     $jsonOutput .= "\n".getIndent($indent)."]";
     return $jsonOutput;
 }
+function javascriptEscape($string) {
+    str_replace('\', '\\', $string);
+    str_replace('"', '\"', $string);
+    str_replace("\n", '\n', $string);
+    str_replace("\r", '\r', $string);
+    str_replace("\t", '\t', $string);
+    str_replace("\b", '\b', $string);
+    str_replace("\f", '\f', $string);
+    
+    return $string;
+
+}
+
 // generates a json object from an array
 function getJsonObject($item, $quoteStrings = true, $indent = 0, $cLimit = 0) {
     $jsonOutput = getIndent($indent)."{\n";
@@ -72,7 +85,7 @@ function getJsonObject($item, $quoteStrings = true, $indent = 0, $cLimit = 0) {
         $valueString = '';
         if (is_string($value)) { // strings are enclosed in double quotes
             $valueString = $quoteStrings 
-                ? '"'.str_replace('"', '\"', getShortString($value,$cLimit)).'"'
+                ? '"'.javascriptEscape(getShortString($value,$cLimit)).'"'
                 : getShortString($value, $cLimit);
         } elseif(is_bool($value)) { 
             // php converts false to an empty string by default,
