@@ -9,11 +9,13 @@ function getOrgName($id) {
     return $row[0];
 }
 
+// getUsr param gets its info from $_GET, but escapes any dangerous stuff
 $level = getUsrParam("level", -1);
 $org = getUsrParam("org", -1);
 
 $filters = new ProgramFilterList();
 
+// filter on organization or level, or both
 $pageName = "";
 $groupColumn = 0;
 if($level < 1 && $org < 1)
@@ -33,6 +35,7 @@ if (!$programs)
 ?>
 
 <?php
+// level is more important than organization
 $pageName = "";
 if ($org > 0) {
     $pageName = getOrgName($org);

@@ -128,6 +128,7 @@ function loadHodexProgram($loc) {
 
 function getElementValue($element, $tagName, $multiLanguage)
 {
+    // takes language, optional tags and encoding into consideration
     $values = $element->getElementsByTagName($tagName);
     $element = $multiLanguage ? getElementInLang($values) : $values->item(0);
     
@@ -245,7 +246,7 @@ function loadSubHodexIndex($loc, $container, $info) {
 }
 function loadXml($loc) {
     $doc = new DOMDocument(1.0, "UTF-8");
-    if(@$doc->load($loc) === false)
+    if(@$doc->load($loc) === false) // hodex urls might be faulty
         return false;
     return $doc;
 }

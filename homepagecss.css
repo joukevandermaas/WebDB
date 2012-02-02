@@ -1,12 +1,8 @@
-
-title{
-
-	}
 body {
  
 	width: 970px;
 	height: 200px;
-    	background-color: #000000;
+    background-color: #000000;
 	background-image:url('img/homebackground1.png');
 	background-repeat: no-repeat;
 	background-position:center;
@@ -16,13 +12,13 @@ body {
  
 
 h2{
-font-family:"Arial", "Helvetica", "sans-serif";
-width: 970px;
-float: right;
-color: white;
-text-align: right;
-margin: 0em 0em;
-margin-right: 1em;
+    font-family:"Arial", "Helvetica", "sans-serif";
+    width: 970px;
+    float: right;
+    color: white;
+    text-align: right;
+    margin: 0em 0em;
+    margin-right: 1em;
 
 }
 

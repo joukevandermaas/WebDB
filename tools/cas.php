@@ -1,7 +1,10 @@
 <?php
 include_once('settings.php');
-$casHosts = array (0 => 'https://bt-lap.ic.uva.nl/cas/');
+// currently, only one cas host is supported
+$casHosts = array (0 => DefaultCasHost);
+// the redir url for when login was succesfull
 $serverUrl = 'https://'.$_SERVER['SERVER_NAME'].Dir.'/tools/finalizelogin.php';
+
 function logout($service) {
     global $serverUrl;
     global $casHosts;
@@ -20,19 +23,23 @@ function getUserName($ticket, $service) {
     global $serverUrl;
     global $casHosts;
     
+    // get the ticket from the cas host
     $redirUrl = getUrl($serverUrl, array('s' => $service));
     $casUrl = getUrl($casHosts[$service]."serviceValidate", array("ticket" => $ticket, "service" => $redirUrl));
 
+    // parse it's xml
     return parseCasXml($casUrl);
 }
 function getUrl($url, $params) {
+    //returns a url with all the parameters escaped
+    
     $result = $url."?";
     
     foreach($params as $key => $value) {
         $result .= $key."=".urlencode($value)."&";
     }
     
-    return rtrim($result, "&");
+    return rtrim($result, "&"); // remove the last &
 }
 function redirect($url) {
     header("Location: $url");
@@ -40,8 +47,9 @@ function redirect($url) {
 function parseCasXml($loc) {
     $xml = new DOMDocument();
     $xml->load($loc);
-    //echo $xml->saveXML();
+    // if <authenticationSuccess> doesn't exist, the login failed
     $succes = $xml->getElementsByTagName("authenticationSuccess")->length > 0;
+    
     $user = null;
     if ($succes) {
         $user = $xml->getElementsByTagName("user")->item(0)->nodeValue;

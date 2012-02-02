@@ -1,6 +1,7 @@
 <?php 
 require('connectdb.php');
 
+// used to filter programs on organization or level
 class ProgramFilterList {
     private $filters = array();
     
@@ -18,11 +19,11 @@ class ProgramFilterList {
         $values = array();
         while ($row = mysql_fetch_row($result)) {
             $values[$row[$groupIndex]][$row[$idIndex]] = $row;
-            //echo "<!--"; print_r($row); echo "-->";
         }
         return $values;
     }
     
+    // returns the query that matches the filters
     private function getQuery() {
         $query = "SELECT programs.id, programs.name, orgs.id, orgs.name, programs.level\n".
             "FROM programs JOIN orgs ON (programs.org_id=orgs.id)\nWHERE ";

@@ -3,6 +3,7 @@ session_start();
 require("../tools/connectdb.php");
 include("../tools/helperfuncs.php");
 
+// getUsrParam (in helperfuncs.php) escapes the strings
 $text = getUsrParam('text', '', $_POST);
 $pid = getUsrParam('pid', 0, $_POST);
 
@@ -10,6 +11,7 @@ $ticket = getUsrParam("ticket", '', $_SESSION);
 $service = getUsrParam("loginservice", 0, $_SESSION);
 $userId = getUsrParam('user', 0, $_SESSION); 
 
+// check if the user is logged in
 if ($userId === 0)
     die(getJsonObject(array(
         'succes' => false,
@@ -18,6 +20,7 @@ if ($userId === 0)
 
 $user = getUserInfo($userId);
 
+// check if the user entered a message at all
 if ($text === '') 
     die(getJsonObject(array(
         'succes' => false, 
@@ -36,6 +39,9 @@ if (!$result)
         'error' => 'database'
     )));
 
+// Since this is the only file that adds comments,
+// we can add a column comment_count on the table posts to make
+// things easier within select statements and keep it up to date here
 $query = "UPDATE posts SET comment_count=comment_count+1 WHERE id=$pid";
 mysql_query($query, $dbcon);
 

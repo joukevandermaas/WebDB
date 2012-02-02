@@ -1,25 +1,23 @@
 <?php
-// een aantal standaard functies staan in deze php file dus altijd nodig
+// loads a program from the database
 include_once('tools/loadprogram.php');
 $pageName = "Meer info";
-// dit is het spoor wat je hebt gevold om op deze pagina te komen
+
 $path = array(
     'Home' => 'index.php',
     'Opleidingen' => 'programlist.php?level='.$program['level'],
     $program['org_name'] => 'programlist.php?id='.$program['org_id'],
     $program['name'] => 'program.php?id='.$program['id']
 );
-// Boven iedere pagina staat de zelfde boven kant met knoppen dus daar een apparte file van.
+
 include('header.php');
 
-// deze pagina heeft meer informatie nodig dan in de database staat dus daarom hodex er bij
-$hodexurl = $program['hodexurl']; 
-
-// toevoegen van speciaal geschreven functies voor hodex uit lezen
+// this file uses the xml from hodex directly, so we need to parse it
 include('tools/hodex.php');
-
+$hodexurl = $program['hodexurl']; 
 $info = loadHodexProgram($hodexurl);
 
+// croho is the same for the same program within different organizations
 $query = "SELECT programs.name, orgs.name ".
          "FROM programs JOIN orgs ON orgs.id=programs.org_id".
          "WHERE croho=".$program['croho'];
@@ -33,7 +31,7 @@ if($result){
     }
 }
 
-// de beschrijving van de opleiding die word bekeken
+// echo all the info
 echo "<div class='margin'><h4>".$program['name']."</h4>\n";
 echo "<p class='intro'>".htmlentities($info['summary'])."<br />".htmlentities($info['description'])."</p>";
 if (!empty($others)) {
@@ -44,7 +42,7 @@ if (!empty($others)) {
 }
 
 echo "<div class='my_right_box'>";
-// in de rechter kolom word wat overige informatie gegeven die nog in de hodex stond.
+
 $content = $info['contentLinks'];
 $length2 = count($content);
 if($length2 != null){
@@ -68,7 +66,6 @@ echo "</ul>";
 
 echo "</div>";
 
-// hier word wat korte info weergegeven, als land en aantal punten
 echo "<ul class='linkerbox'><li class='class'>
 <h5>Algemene informatie:</h5>
 <ul class='uitkomstgegevens'>
@@ -94,14 +91,14 @@ echo "<ul class='linkerbox'><li class='class'>
 
 <li>";
 
-// de verschillende vakken met korte beschrijving en punten die binnen deze studie worden gegeven.
+// print the courses within the program
 $courses =$info['courses'];
 $length = count($courses);
 if($length != null){
 echo "<ul class='vak'>";
-// lus om voor iedervak op nieuw uit te printen
+
 for($i = 0; $i<$length; $i++){
-	// keuze of het aan links of rechts inspringt met bijbehorende kleur
+	// the odd programs have a different color
 	if($i % 2 == 0){
 		echo "<li class='odd'>";
 	} else {

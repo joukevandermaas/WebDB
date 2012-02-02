@@ -1,9 +1,9 @@
-* { padding: 0; margin: 0; }
-/*
-* { border: 1px solid red;}
-*/
+* { 
+    padding: 0; 
+    margin: 0; 
+}
 
-#topnav{
+#topnav {
     list-style-type:none;
     margin:0;
     margin-top: -30px;
@@ -343,7 +343,7 @@ ul.uitkomstgegevens li{
 ul.linkerbox {
    	padding: 0em;
 	height: auto;
-    	width: 330px;
+    width: 330px;
 	color: #ffffff;
 	list-style-type: none;
 }
@@ -468,13 +468,13 @@ div.margin{
 }
 
 div.logo{
-        font-size: 150%;
+    font-size: 150%;
 	height: 220px;
 	background-image: url(img/upper_part_site1.png);
 	background-repeat: no-repeat;
-        color: #363636;
-        line-height: 330px;
-        height: 220px;
+    color: #363636;
+    line-height: 330px;
+    height: 220px;
 }
 .login {
     height: 30px;
@@ -506,7 +506,6 @@ div.opleidingPlaatje{
     margin: 1.1em;
    	background-color: #363636;
 	background-image: url('img/achtergrondReactie2.jpg');
-    /*overflow: auto;*/
 }
 .org h4{
     padding-top: 2em;
@@ -525,7 +524,6 @@ div.opleidingPlaatje{
     float: left;
     border-top: 1px white solid;
     margin-top: -1px;
-    /*height: 2.5em;*/
 }
 .org li a {
     height: 2.7em;
@@ -556,8 +554,7 @@ div.opleidingPlaatje{
     vertical-align: bottom;
 }
 
-div#newpost
-{
+div#newpost {
 	color: #FFFFFF;
 	font-size: 12px;
 	background-color: #363636;

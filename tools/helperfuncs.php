@@ -1,16 +1,19 @@
 <?php
+include_once('settings.php');
 require('cas.php');
 require('connectdb.php');
 
-$websiteName = "Studie.nl";
+$websiteName = WebsiteName;
+
+// escape sql and html code from anything users could've touched
 function getUsrParam($name, $default, $array = 0) {
-    if (!$array)
+    if (!$array) // use $_GET by default
         $array = $_GET;
     if (isset($array[$name]))
         return mysql_real_escape_string(htmlspecialchars($array[$name]));
     return $default;
 }
-function getShortString($string, $maxLength) {
+function getShortString($string, $maxLength) { // shortens long strings
     if ($maxLength < 1) return $string;
     if (strlen($string) > $maxLength) {
         return substr($string, 0, $maxLength - 3)."...";
@@ -32,6 +35,7 @@ function getFriendlyLevel($level) {
 }
 
 function getMysqlArray($response) {
+    //fetches all results from a query in one go
     if (!$response) {
         return false;
     }
@@ -42,6 +46,8 @@ function getMysqlArray($response) {
     }
     return $array;
 }
+
+// indents lines (used for generating Json)
 function getIndent($count) {
     $spacesPerLevel = 4;
     $result = '';
@@ -49,26 +55,30 @@ function getIndent($count) {
         $result .= ' ';
     return $result;
 }
+// creates an array of json objects from a set of php arrays
 function getJsonArray($array, $quoteStrings = true, $indent = 0, $cLimit = 0) { 
     $jsonOutput = getIndent($indent)."[\n";
     foreach($array as $item) {
         $jsonOutput .= getJsonObject($item, $quoteStrings, $indent + 1, $cLimit).",\n";
     }
-    $jsonOutput = rtrim($jsonOutput, "\n,");
+    $jsonOutput = rtrim($jsonOutput, "\n,"); // remove last comma
     $jsonOutput .= "\n".getIndent($indent)."]";
     return $jsonOutput;
 }
+// generates a json object from an array
 function getJsonObject($item, $quoteStrings = true, $indent = 0, $cLimit = 0) {
     $jsonOutput = getIndent($indent)."{\n";
     foreach($item as $key => $value) {
         $valueString = '';
-        if (is_string($value)) {
+        if (is_string($value)) { // strings are enclosed in double quotes
             $valueString = $quoteStrings 
                 ? '"'.str_replace('"', '\"', getShortString($value,$cLimit)).'"'
                 : getShortString($value, $cLimit);
-        } elseif(is_bool($value)) {
+        } elseif(is_bool($value)) { 
+            // php converts false to an empty string by default,
+            // but javascript expects true or false
             $valueString = $value ? 'true' : 'false';
-        } else {
+        } else { // for anything else, php conversion will do
             $valueString = (string)$value;
         }
         $jsonOutput .= getIndent($indent + 1).'"'.$key.'": '.$valueString.','."\n";
@@ -77,9 +87,9 @@ function getJsonObject($item, $quoteStrings = true, $indent = 0, $cLimit = 0) {
     $jsonOutput .= "\n".getIndent($indent)."}";
     return $jsonOutput;
 }
+
 function getUserInfo($id) {
     global $dbcon;
-    $user = DEBUG ? 1 : $id;
     $query = "SELECT * FROM users WHERE id=$id LIMIT 1";
 
     $result = mysql_query($query, $dbcon);
@@ -87,32 +97,19 @@ function getUserInfo($id) {
     return $user;
 }
 
-// functions found on http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
-function startsWith($haystack, $needle) {
-    $length = strlen($needle);
-    return (substr($haystack, 0, $length) === $needle);
-}
-
-function endsWith($haystack, $needle) {
-    $length = strlen($needle);
-    $start  = $length * -1; //negative
-    return (substr($haystack, $start) === $needle);
-}
-
 function getPostType($url, &$link) {
-    $type = 'text';
+    $type = 'text'; // assume it's text
     $link = '';
     $urlParts = parse_url($url);
-    //print_r($urlParts);
-    if (strpos($urlParts['host'], 'youtu')) {
+    if (strpos($urlParts['host'], 'youtu')) { // catches youtube.com and youtu.be
         $type = 'video';
-        $vid = explode('&', $urlParts['query']);
-        $link = substr($vid[0], 2); 
+        $vid = explode('&', $urlParts['query']); // we only want the video ID, not anything else
+        $link = substr($vid[0], 2); // remove v=
     } elseif(isset($urlParts['path'])) {
         $file = pathinfo($urlParts['path']);
-        if ($file['extension'] == 'png' ||
-            $file['extension'] == 'jpg' ||
-            $file['extension'] == 'gif') {
+        if ($file['extension'] == 'png' || // check for image extensions,
+            $file['extension'] == 'jpg' || // because loading the image and checking the
+            $file['extension'] == 'gif') { // content-type is too slow
             
             $type = 'image';
             $link = $url;

@@ -35,12 +35,11 @@ function submitComment(post_id)
     }
 }
 function createComment(text) {
-	if (request.readyState == 4)// && request.status == 200)
+	if (request.readyState == 4 && request.status == 200)
     {	
         var container = document.getElementById("newcomment");
-        //alert(request.responseText);
         response = JSON.parse(request.responseText);
-        if (!response.succes) {
+        if (!response.succes) { // there's multiple possible errors
             var error = container.getElementsByTagName('span')[0]
             if (!response.loggedin) {
                 error.innerHTML = 'Je bent niet <a href="login.php">ingelogd</a>.';
@@ -49,7 +48,7 @@ function createComment(text) {
             } else {
                 error.innerHTML = 'Er is iets misgegaan, probeer het opnieuw.';
             }
-        } else {
+        } else { // if there's no errors, replace the form by the new comment
             container.innerHTML = text + '<ul class="reacties"><li>User: ' + response.user + '</li></ul>';
         }
 	}

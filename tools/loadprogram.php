@@ -2,6 +2,9 @@
 include_once("helperfuncs.php");
 require_once("connectdb.php");
 
+// load the program from the database (very simple)
+
+// getUsrParam uses $_GET, but makes it safe
 $id = getUsrParam("id", 0);
 
 if (!$id){
@@ -16,5 +19,4 @@ $result = mysql_query($query, $dbcon);
 if(!$result) die("Invalid: ".mysql_error());
 
 $program = mysql_fetch_assoc($result);
-//print_r($program);
 ?>

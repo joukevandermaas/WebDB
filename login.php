@@ -4,15 +4,17 @@ require_once('tools/cas.php');
 include_once('tools/helperfuncs.php');
 $defaultService = 0;
 
+// ticket from a cas server, it will be stored in the session temporarily by tools/finalizelogin.php
+// the service corresponds to a cas server from any university (0 = UvA)
 $ticket = getUsrParam('ticket', '', $_SESSION);
 $service = getUsrParam('service', 0, $_SESSION);
 
 if (isset($_GET['logout'])) {
-    session_destroy();
-    logout($service);
+    session_destroy(); // make sure the system doesn't think you're still logged in
+    logout($service); // log out at the Cas server to allow them to do cleanup
     exit();
 }
-if ($ticket === '')
+if ($ticket === '') // if ticket wasn't set, we have yet to login
     login($defaultService); 
 
 $username = getUserName($ticket, $service);
@@ -20,7 +22,7 @@ $username = getUserName($ticket, $service);
 $query = "SELECT * FROM users WHERE loginname='$username' && loginservice=$service";
 $result = mysql_query($query, $dbcon);
 if (!$result) {
-    logout($service);
+    logout($service); // make sure we're logged out at the cas server
     die("You could not be logged in.");
 }
 $exists = mysql_num_rows($result) > 0;
@@ -28,6 +30,7 @@ session_unset();
 
 $path = array('Home' => 'index.php');
 if ($exists) {
+    // we know this user
     $loggedInUser = mysql_fetch_assoc($result);
     $_SESSION['user'] = $loggedInUser['id'];
 
@@ -36,6 +39,7 @@ if ($exists) {
     echo '<p>Je bent nu ingelogd.</p>';
     echo '</div></body></html>';
 } else {
+    // we don't know this user
     $pageName = 'Registreren';
     include('header.php');
 

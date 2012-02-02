@@ -38,7 +38,7 @@ function fillOrgs($index) {
     }
     $query = rtrim($query, ",\n");
     $result = mysql_query($query, $dbcon);
-    if (!$result) { echo mysql_error(); die (getJsonObject(array('succes' => false, 'error' => 'database')));}
+    if (!$result) { die (getJsonObject(array('succes' => false, 'error' => 'database')));}
 }
 
 function getIdMap() {
@@ -56,6 +56,7 @@ function getIdMap() {
 
 $hodexLoc = "http://hodex.nl/hodexDirectory.xml";
 $index = loadHodexIndex($hodexLoc);
+print_r($index);
 fillOrgs($index);
 
 $ids = getIdMap();

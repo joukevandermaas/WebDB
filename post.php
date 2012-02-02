@@ -2,6 +2,7 @@
 <?php
 include_once('tools/helperfuncs.php');
 
+// get the comments
 $currentpostid = getUsrParam('id', 0);
 $query = "SELECT posts.*, COUNT(comments.id) AS comment_count ".
     "FROM posts JOIN (comments, users) ".
@@ -12,7 +13,6 @@ $query = "SELECT posts.*, COUNT(comments.id) AS comment_count ".
 $result = mysql_query($query);
 if (!$result) die('Invalid query '.$query);
 $post = mysql_fetch_assoc($result);
-
     
 $pageName = "Post";
 $path = array(
@@ -22,7 +22,18 @@ $path = array(
 
 include('header.php');
 
-$txt = $post['content'];
+$txt;
+switch ($post['type']) {
+    case 'image':
+        $txt = "<img src='".$post['content_link']."' alt='afbeelding' />";
+        break;
+    case 'video':
+        $txt = "<iframe width='560' height='315' ".
+                "src='http://www.youtube.com/embed/".$post['content_link']."' ".
+                "frameborder='0' allowfullscreen></iframe>";
+        break;
+}
+$txt .= $post['content'];
 
 echo "<div class='margin'><h4>".$post['title']."</h4>
 <div class='intro'>".$post['content']."

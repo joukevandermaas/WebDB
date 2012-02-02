@@ -1,13 +1,11 @@
 <?php
 include_once 'tools/helperfuncs.php';
-// include_once 'tools/posts.php';
 require_once 'tools/connectdb.php'; 
 include_once 'tools/loadprogram.php';
 
 ?>
 
 <?php
-// insellen van waardes en aanmaken van de bovenkant van de pagina
 $pageName = $program["name"];
 $path = array (
     "Home" => "index.php", 
@@ -20,24 +18,23 @@ include("header.php");
 <?php
 echo "<div class='opleidingPlaatje'><img src='http://www.historyking.com/images/Future-Of-Nanotechnology-Artificial-Intelligence.jpg' class='opleidingPlaatje'></div>";
 
-// begin van de informatie
 echo "<h4>Introductie</h4>";
 
-// dit is de xml informatie over de studie opgeslagen in onze database
+// the basics about a program are stored in the database for performance reasons
 
 echo "<p class='intro'>".$program['summary']." ";
 
 echo "<a href='programinfo.php?id=".$program['id']."'>Meer studieinformatie</a></p>";
 
 ?>
-<!-- script voor het laten zien van de posts -->
+<!-- show the user posts using javascript -->
 <script type="text/javascript">
 loadContent(<?php echo $program['id']; ?>, 'post');
 </script>
 <h4>Posts</h4>
 <ul id="posts"></ul>
 
-<!-- script en table voor het maken en toevoegen van een eige bericht -->
+<!-- Users can add their own posts. The form will be interpreted using javascript -->
 <script type="text/javascript" src="scripts/writePost.js"></script>
 <div id='newpost'>
 	<form method='POST' action='' onsubmit='submitPost(<?php echo $program['id'].", 3"; ?>)'>
@@ -52,7 +49,7 @@ loadContent(<?php echo $program['id']; ?>, 'post');
     </form>
 </div>
 
-<!-- link naar de 'archief' pagina met meer gedeelde content -->
+<!-- Loads more posts in place -->
 <p><a id='moar' href='#' onclick="loadContent(<?php echo $program['id']; ?>, 'post')">klik voor meer</a></p>
 </div>
 </div></body>

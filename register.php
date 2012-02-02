@@ -1,8 +1,11 @@
 <?php
+// this page is here to make login.php less complicated
+
 session_start();
 require_once('tools/connectdb.php');
 include('tools/helperfuncs.php');
 
+// getUsrParam calls mysql_real_escape_string and htmlentities
 $firstname = getUsrParam('firstname', '', $_GET);
 $lastname = getUsrParam('lastname', '', $_GET);
 $username = getUsrParam('username', '', $_GET);
